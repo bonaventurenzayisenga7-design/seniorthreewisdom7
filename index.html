@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SENIOR THREE (A)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    html, body { height: 100%; }
+    body { 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #2d3748;
+      min-height: 100vh;
+    }
+    .app { display: flex; flex-direction: column; min-height: 100vh; }
+    nav { background: rgba(25, 35, 71, 0.95); padding: 16px 20px; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    nav h1 { color: white; font-size: 22px; }
+    nav a { color: #f0f4f8; text-decoration: none; cursor: pointer; font-size: 14px; transition: color 0.3s; }
+    nav a:hover { color: #667eea; }
+    main { flex: 1; padding: 32px 20px; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .hero { background: rgba(255, 255, 255, 0.98); padding: 48px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); text-align: center; }
+    .hero h1 { font-size: 36px; color: #192347; margin-bottom: 16px; }
+    .hero p { font-size: 18px; color: #4a5568; margin-bottom: 24px; line-height: 1.8; }
+    .music-section { background: rgba(255, 255, 255, 0.98); padding: 32px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); margin-top: 24px; }
+    .music-section h2 { color: #192347; margin-bottom: 20px; font-size: 24px; }
+    .music-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .music-controls select, .music-controls input { padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; }
+    .music-controls select:focus, .music-controls input:focus { outline: none; border-color: #667eea; }
+    .music-controls input { flex: 1; min-width: 220px; }
+    .music-controls button { padding: 12px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: transform 0.2s; }
+    .music-controls button:hover { transform: translateY(-2px); }
+    .music-info { margin-top: 16px; padding: 12px; background: #f7fafc; border-left: 4px solid #667eea; border-radius: 6px; color: #192347; font-weight: 500; }
+    .features { background: rgba(255, 255, 255, 0.98); padding: 32px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); margin-top: 24px; }
+    .features h2 { color: #192347; margin-bottom: 20px; font-size: 24px; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .feature-card { background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); padding: 20px; border-radius: 12px; border-left: 4px solid #667eea; }
+    .feature-card h3 { color: #667eea; margin-bottom: 8px; font-size: 16px; }
+    .feature-card p { color: #4a5568; font-size: 14px; line-height: 1.6; }
+    footer { text-align: center; padding: 20px; color: rgba(255, 255, 255, 0.8); font-size: 13px; background: rgba(25, 35, 71, 0.5); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav>
+      <div class="container">
+        <h1>S3(A)</h1>
+        <a onclick="scrollToMusic()">Music</a>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <!-- HERO -->
+        <div class="hero">
+          <h1>🎓 SENIOR THREE (A)</h1>
+          <p>Welcome to our class community! Connect, collaborate, and enjoy music together.</p>
+          <p style="font-size: 16px; color: #667eea;">Your space for learning, growth, and fun.</p>
+        </div>
+
+        <!-- MUSIC PLAYER -->
+        <div class="music-section" id="musicSection">
+          <h2>🎵 Class Music Player</h2>
+          <div class="music-controls">
+            <select id="songSelect" onchange="changeSong()">
+              <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Song 1</option>
+              <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Song 2</option>
+              <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Song 3</option>
+            </select>
+            <input id="customUrl" type="text" placeholder="Paste any MP3 URL..." />
+            <button onclick="loadCustomSong()">Load</button>
+            <button id="playBtn" onclick="toggleMusic()">▶ Play</button>
+          </div>
+          <div class="music-info">
+            Now playing: <strong id="nowPlaying">Song 1</strong>
+          </div>
+          <audio id="audio" loop></audio>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="features">
+          <h2>Why We're Amazing</h2>
+          <div class="features-grid">
+            <div class="feature-card">
+              <h3>🤝 Community</h3>
+              <p>A safe space for S3A students to connect, share ideas, and support each other.</p>
+            </div>
+            <div class="feature-card">
+              <h3>🎵 Music Vibes</h3>
+              <p>Play your favorite songs while studying, chatting, or hanging out together.</p>
+            </div>
+            <div class="feature-card">
+              <h3>📚 Learning</h3>
+              <p>Collaborate on projects, share resources, and grow together as a class.</p>
+            </div>
+            <div class="feature-card">
+              <h3>🌟 Fun</h3>
+              <p>Create memories and enjoy moments of joy and laughter with classmates.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 SENIOR THREE (A) - Class Hub. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const SONGS = [
+      { id: 's1', title: 'Song 1', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+      { id: 's2', title: 'Song 2', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+      { id: 's3', title: 'Song 3', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' }
+    ];
+
+    let currentSong = SONGS[0];
+    let isPlaying = false;
+
+    function changeSong() {
+      const url = document.getElementById('songSelect').value;
+      const song = SONGS.find(s => s.url === url);
+      if (song) {
+        currentSong = song;
+        document.getElementById('audio').src = url;
+        document.getElementById('nowPlaying').textContent = song.title;
+        if (isPlaying) document.getElementById('audio').play().catch(() => {});
+      }
+    }
+
+    function loadCustomSong() {
+      const url = document.getElementById('customUrl').value.trim();
+      if (!url) {
+        alert('Please paste a valid MP3 URL.');
+        return;
+      }
+      currentSong = { id: 'custom', title: 'Custom Song', url };
+      document.getElementById('audio').src = url;
+      document.getElementById('nowPlaying').textContent = 'Custom Song';
+      document.getElementById('customUrl').value = '';
+      isPlaying = false;
+      toggleMusic();
+    }
+
+    function toggleMusic() {
+      const audio = document.getElementById('audio');
+      const btn = document.getElementById('playBtn');
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        btn.textContent = '▶ Play';
+      } else {
+        audio.play().then(() => {
+          isPlaying = true;
+          btn.textContent = '⏸ Pause';
+        }).catch(err => alert('Unable to play: ' + err.message));
+      }
+    }
+
+    function scrollToMusic() {
+      document.getElementById('musicSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Initialize
+    document.getElementById('audio').src = SONGS[0].url;
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to S3A - Wisdom High School</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 🌈 General Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+      background: linear-gradient(rgba(0,0,0,0.36), rgba(0,0,0,0.36)), url('./wisdom.jpg') center/cover no-repeat fixed;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      text-align: center;
+      padding: 80px 20px;
+      animation: fadeInDown 2s ease;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    }
+
+    header p {
+      font-size: 1.3rem;
+      margin-top: 10px;
+      opacity: 0.9;
+    }
+
+    nav {
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 10px 20px;
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffeb3b;
+    }
+
+    /* 🌟 Sections */
+    section {
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .about p, .gallery p {
+      max-width: 900px;
+      margin: 0 auto 30px;
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    /* 🎨 Names Grid */
+    .names {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .name {
+      background: rgba(255,255,255,0.2);
+      padding: 10px 20px;
+      border-radius: 25px;
+      backdrop-filter: blur(5px);
+      transition: transform 0.3s ease, background 0.3s;
+    }
+
+    .name:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.4);
+    }
+
+    /* Instagram links */
+    .insta-links { margin-top: 18px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center; }
+    .insta-link { background: rgba(255,255,255,0.08); padding:8px 12px; border-radius:20px; color:#fff; text-decoration:none; font-weight:700; transition:transform .15s, background .15s; }
+    .insta-link:hover { transform:translateY(-4px); background: rgba(255,255,255,0.18); }
+
+    /* 🎞️ Gallery */
+    .gallery-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 20px;
+      transition: transform 0.3s ease, background 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Animated floating images */
+    .float-wrap { display:flex; gap:14px; justify-content:center; align-items:center; }
+    .float-img { width:220px; height:140px; object-fit:cover; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.25); }
+    .float-1 { animation: floatA 6s ease-in-out infinite; }
+    .float-2 { animation: floatB 8s ease-in-out infinite; }
+    @keyframes floatA {
+      0% { transform: translateY(0) rotate(-2deg) scale(1); }
+      50% { transform: translateY(-14px) rotate(2deg) scale(1.03); }
+      100% { transform: translateY(0) rotate(-2deg) scale(1); }
+    }
+    @keyframes floatB {
+      0% { transform: translateY(0) rotate(2deg) scale(1); }
+      50% { transform: translateY(12px) rotate(-3deg) scale(0.98); }
+      100% { transform: translateY(0) rotate(2deg) scale(1); }
+    }
+
+    /* Developer card */
+    .dev-card { margin: 40px auto 20px; max-width: 420px; background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)); border-radius: 18px; padding: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.28); display:flex; gap:16px; align-items:center; backdrop-filter: blur(6px); }
+    .dev-photo { width:100px; height:100px; border-radius:14px; object-fit:cover; border:3px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.35); transform-origin:center; }
+    .dev-meta { color:#fff; flex:1; }
+    .dev-meta h3 { margin-bottom:6px; font-size:18px; }
+    .dev-meta p { margin-bottom:8px; opacity:0.95; }
+    .socials { display:flex; gap:8px; flex-wrap:wrap; }
+    .social { background: rgba(255,255,255,0.06); padding:8px 10px; border-radius:10px; color:#fff; text-decoration:none; font-weight:700; transition:transform .18s, background .18s; }
+    .social:hover { transform:translateY(-6px); background: rgba(255,255,255,0.14); }
+    .dev-card:hover .dev-photo { transform: scale(1.06) rotate(-2deg); }
+
+    /* Emoji strip and video highlights */
+    .emoji-strip { display:flex; gap:12px; justify-content:center; align-items:center; margin:28px 0; font-size:26px; }
+    .emoji-strip span { background: rgba(255,255,255,0.06); padding:8px 12px; border-radius:999px; box-shadow:0 6px 18px rgba(0,0,0,0.25); }
+    .video-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:18px; margin-top:18px; }
+    .video-card { background: rgba(0,0,0,0.15); border-radius:12px; padding:8px; text-align:center; }
+    .video-card video { width:100%; height:160px; object-fit:cover; border-radius:8px; display:block; }
+    .video-card h4 { color:#fff; margin-top:8px; font-size:15px; }
+
+    footer {
+      background: rgba(0,0,0,0.4);
+      padding: 20px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    /* 🎵 Music Button */
+    #music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffeb3b;
+      color: #222;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 30px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    #music-btn:hover {
+      background: #fff;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+      .name { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WELCOME TO S3A</h1>
+    <p>Wisdom High School — Class S3A Website Project</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About Us</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="home">
+    <h2>Home</h2>
+    <p>Welcome to the official S3A page of Wisdom High School! Here we celebrate teamwork, knowledge, creativity, and friendship. Explore our class, our leaders, and our journey of success.</p>
+  </section>
+
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>We are S3A — a vibrant class full of ideas, dreams, and inspiration. Our class leaders are the guiding stars who help us move together as one family at Wisdom High School.</p>
+    
+    <div class="names">
+      <div class="name">IRAFASHA Jean (Leader)</div>
+      <div class="name">Kiara IRIZA Simone (Leader)</div>
+      <div class="name">NZAYISENGA Bonaventure</div>
+      <div class="name">NYIRINKWAYA Kibamba Irene</div>
+      <div class="name">IRAKOZE GAKURU Joseline</div>
+      <div class="name">NIWE Blessing</div>
+      <div class="name">UMWIZERWA Frank</div>
+      <div class="name">Belyse</div>
+      <div class="name">UMURERWA Clenia</div>
+      <div class="name">Sumaya</div>
+      <div class="name">Keza Ornella</div>
+      <div class="name">MUHIMPUNDU</div>
+      <div class="name">MANZI Davin</div>
+      <div class="name">MUGISHA Kenny</div>
+      <div class="name">KABATESI BUTERA Kethia</div>
+      <div class="name">MUGABEKAZI Cynthia</div>
+      <div class="name">NSANGA IRUMVA Alonzo</div>
+    </div>
+    
+    <div class="insta-links" aria-label="Special students instagram">
+      <strong style="width:100%;text-align:center;margin-bottom:6px;display:block;color:#fff;">Follow our special students</strong>
+      <a class="insta-link" href="https://instagram.com/bona_playz" target="_blank" rel="noopener noreferrer">📸 @bona_playz</a>
+      <a class="insta-link" href="https://instagram.com/kibambairene" target="_blank" rel="noopener noreferrer">📸 @kibambairene</a>
+      <a class="insta-link" href="https://instagram.com/niwe.blessing" target="_blank" rel="noopener noreferrer">📸 @niwe.blessing</a>
+      <a class="insta-link" href="https://instagram.com/fran.kbizzy" target="_blank" rel="noopener noreferrer">📸 @fran.kbizzy</a>
+      <a class="insta-link" href="https://instagram.com/irr-damour" target="_blank" rel="noopener noreferrer">📸 @irr-damour</a>
+    </div>
+  </section>
+
+  <!-- Emoji strip -->
+  <div class="emoji-strip" aria-hidden="false" style="margin-top:12px;">
+    <span>🎉</span>
+    <span>📸</span>
+    <span>🎵</span>
+    <span>🤝</span>
+    <span>🏆</span>
+    <span>✨</span>
+  </div>
+
+  <!-- Highlights: short looping videos -->
+  <section id="highlights" style="padding:0 20px 30px;">
+    <div class="container">
+      <h2 style="color:#fff;margin-bottom:12px;text-align:center;">Highlights</h2>
+      <p style="color:rgba(255,255,255,0.9);text-align:center;max-width:900px;margin:0 auto 12px;">Watch quick moments from S3A — autoplay, muted, looped for a lively preview.</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <video muted autoplay loop playsinline poster="school1.jpg">
+            <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <h4>Campus Life 🌿</h4>
+        </div>
+        <div class="video-card">
+          <video muted autoplay loop playsinline poster="school2.jpg">
+            <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <h4>Events & Fun 🎈</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="gallery">
+    <h2>Our Gallery</h2>
+    <p>A glimpse of our memories, smiles, and teamwork. Each photo tells a story of how strong and united S3A truly is.</p>
+
+    <div class="gallery-wrap">
+      <div class="card">
+        <img src="school1.jpg" alt="S3A class photo" style="width:100%;height:220px;object-fit:cover;border-radius:12px;display:block;margin-bottom:10px;" />
+        <div style="font-weight:700;color:#fff;">Our Class Photo</div>
+      </div>
+      <div class="card">
+        <img src="school2.jpg" alt="S3A class photo 2" style="width:100%;height:220px;object-fit:cover;border-radius:12px;display:block;margin-bottom:10px;" />
+        <div style="font-weight:700;color:#fff;">Our Class</div>
+      </div>
+      <div class="card">
+        <img src="school3.jpg" alt="Class leader" style="width:100%;height:220px;object-fit:cover;border-radius:12px;display:block;margin-bottom:10px;" />
+        <div style="font-weight:700;color:#fff;">Class Leader</div>
+      </div>
+      <div class="card">
+        <img src="school4.jpg" alt="Dormitories" style="width:100%;height:220px;object-fit:cover;border-radius:12px;display:block;margin-bottom:10px;" />
+        <div style="font-weight:700;color:#fff;">Dormitories (Boys & Girls)</div>
+      </div>
+      <div class="card">
+        <img src="school6.jpg" alt="Mandazi shop" style="width:100%;height:220px;object-fit:cover;border-radius:12px;display:block;margin-bottom:10px;" />
+        <div style="font-weight:700;color:#fff;">Mandazi Shop</div>
+      </div>
+    </div>
+
+    <!-- Animated interesting pictures -->
+    <div style="margin-top:18px; text-align:center;">
+      <h3 style="color:#fff;margin-bottom:12px;">Interesting Moments</h3>
+      <div class="float-wrap">
+        <img src="schoola.jpg" alt="Interesting 1" class="float-img float-1" />
+        <img src="schoolb.jpg" alt="Interesting 2" class="float-img float-2" />
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Have a message for S3A? Let your voice be heard! Visit our school or contact us through our teachers or class leaders. Wisdom High School — shaping bright minds for a better future.</p>
+  </section>
+
+  <footer>
+    <p>© 2025 S3A - Wisdom High School | Built by S3A (NZAYISENGA Bonaventure)</p>
+  </footer>
+
+  <!-- Developer Card -->
+  <div style="padding:20px;">
+    <div class="dev-card" aria-label="Web developer">
+      <img class="dev-photo" src="bona01.jpg" alt="Bonaventure - web developer" />
+      <div class="dev-meta">
+        <h3>Bonaventure Nzayisenga</h3>
+        <p style="margin-bottom:6px;">Web Developer — S3A</p>
+        <div class="socials">
+          <a class="social" href="https://facebook.com/search/top?q=Gfgd%20Bonaventure" target="_blank" rel="noopener noreferrer">📘 Gfgd Bonaventure</a>
+          <a class="social" href="https://instagram.com/bona_playz" target="_blank" rel="noopener noreferrer">📸 @bona_playz</a>
+          <a class="social" href="mailto:bonaventurenzayisenga7@gmail.com">✉️ Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🎵 Background Music -->
+  <audio id="bg-music" loop>
+    <source src="10,000 Reasons (Bless the Lord) - Matt Redman (Best Worship Song Ever) (with Lyrics) - Copy.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="music-btn">🎵 Play Music</button>
+
+  <script>
+    const music = document.getElementById('bg-music');
+    const btn = document.getElementById('music-btn');
+    let playing = false;
+
+    btn.addEventListener('click', () => {
+      if (!playing) {
+        music.play();
+        btn.textContent = '⏸️ Pause Music';
+      } else {
+        music.pause();
+        btn.textContent = '🎵 Play Music';
+      }
+      playing = !playing;
+    });
+  </script>
+</body>
+</html>
+<!-- 🌈 Contact Section with Animation and Developer Email -->
+<section id="contact" style="position: relative; overflow: hidden;">
+
+  <style>
+    /* 🌊 Background animation behind contact section */
+    @keyframes floatWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .contact-area {
+      background: linear-gradient(270deg, #ff00cc, #3333ff, #00c6ff);
+      background-size: 600% 600%;
+      animation: floatWave 15s ease infinite;
+      color: #fff;
+      padding: 80px 20px;
+      border-top-left-radius: 60px;
+      border-top-right-radius: 60px;
+      text-align: center;
+      box-shadow: 0 -5px 25px rgba(0,0,0,0.2);
+    }
+
+    .contact-area h2 {
+      font-size: 2.4rem;
+      margin-bottom: 18px;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    }
+
+    .contact-area p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      color: #fff;
+      background: #00c6ff;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .contact-btn:hover {
+      background: #ff00cc;
+      transform: scale(1.1);
+    }
+
+    .dev-info {
+      margin-top: 30px;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .dev-info span {
+      color: #ffeb3b;
+      font-weight: 700;
+    }
+  </style>
+
+  <div class="contact-area">
+    <h2>Contact Us</h2>
+    <p>Got ideas, questions, or feedback? We'd love to hear from you!  
+       Reach out to the S3A web developer through email for updates, collaborations, or school website improvements.</p>
+
+    <a href="mailto:bonaventurenzayisenga7@gmail.com" class="contact-btn">📧 Email the Developer</a>
+
+    <div class="dev-info">
+      <p>Developed & Designed by <span>NZAYISENGA Bonaventure bonaventurenzayisenga7@gmail.com</span> — Wisdom High School S3A</p>
+    </div>
+  </div>
+
+</section>
