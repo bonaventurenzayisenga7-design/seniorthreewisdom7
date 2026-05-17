@@ -3,269 +3,266 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S3A Graduation PRO MAX</title>
+<title>S3A Graduation Website 2026</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
-body{background:#0b1020;color:white;overflow:hidden;}
-
-/* LOADER */
-#loader{
-position:fixed;width:100%;height:100%;
-background:#050814;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:9999;
-}
-.spinner{
-width:70px;height:70px;
-border:6px solid #333;
-border-top:6px solid #00e5ff;
-border-radius:50%;
-animation:spin 1s linear infinite;
-}
-@keyframes spin{100%{transform:rotate(360deg);}}
-
-/* APP */
-#app{
-display:none;
-height:100vh;
-flex-direction:row;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+scroll-behavior:smooth;
 }
 
-/* SIDEBAR */
-.sidebar{
-width:250px;
-background:#050814;
-padding:15px;
-overflow:auto;
-}
-.file{
-background:rgba(255,255,255,.05);
-padding:8px;
-margin:5px 0;
-border-radius:8px;
-font-size:13px;
-color:#ccc;
+body{
+background:#0b1020;
+color:white;
 }
 
-/* MAIN */
-.main{
-flex:1;
-display:flex;
-flex-direction:column;
-}
-
-header{
-background:#050814;
-padding:15px;
-text-align:center;
-}
-
-.container{
-padding:15px;
-overflow:auto;
-flex:1;
-}
-
-/* CARDS */
-.card{
-background:rgba(255,255,255,.06);
-padding:15px;
-margin:10px 0;
-border-radius:12px;
-text-align:center;
-cursor:pointer;
-}
-
-/* STUDENTS LIST (NEW) */
-.students{
-background:rgba(0,229,255,0.08);
-padding:15px;
-margin:10px 0;
-border-radius:12px;
-}
-.students h3{
-color:#00e5ff;
-margin-bottom:10px;
-}
-.students p{
-margin:3px 0;
-font-size:14px;
-}
-
-/* POPUP */
-#popup{
+/* NAVBAR */
+nav{
 position:fixed;
+top:0;
 width:100%;
-height:100%;
-background:rgba(0,0,0,.8);
-display:none;
+background:rgba(0,0,0,0.85);
+padding:15px;
+display:flex;
+justify-content:center;
+gap:30px;
+z-index:1000;
+backdrop-filter:blur(10px);
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-weight:600;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#00e5ff;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-z-index:9999;
-}
-.popup-box{
-background:white;
-color:black;
-padding:20px;
-border-radius:12px;
-width:280px;
 text-align:center;
+padding:20px;
+background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+url('school.jpg') center/cover;
+}
+
+.hero h1{
+font-size:3.5rem;
+color:#00e5ff;
+}
+
+.hero p{
+font-size:1.3rem;
+margin-top:10px;
+}
+
+/* SECTIONS */
+section{
+padding:100px 20px;
+max-width:1100px;
+margin:auto;
+}
+
+h2{
+font-size:2.5rem;
+margin-bottom:20px;
+color:#00e5ff;
+text-align:center;
+}
+
+/* CARD */
+.card{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:15px;
+margin:10px 0;
+text-align:center;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.03);
+background:rgba(0,229,255,0.1);
+}
+
+/* STUDENTS GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+}
+
+/* COUNTDOWN */
+.countdown{
+font-size:2rem;
+text-align:center;
+margin-top:20px;
+color:#00e5ff;
+}
+
+/* BUTTON */
+.btn{
+display:inline-block;
+padding:12px 25px;
+background:#00e5ff;
+color:black;
+border-radius:30px;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px;
 }
 
 /* CHAT */
-#chat{
+#chatBox{
 position:fixed;
-bottom:70px;
-right:15px;
-width:250px;
-height:300px;
+bottom:20px;
+right:20px;
+width:300px;
+height:350px;
 background:#111827;
+border-radius:10px;
 display:none;
 flex-direction:column;
-border-radius:10px;
 overflow:hidden;
 }
-#msgs{flex:1;overflow:auto;padding:10px;font-size:12px;}
-#chatInput{display:flex;}
-#chatInput input{flex:1;border:none;padding:8px;}
-#chatInput button{border:none;background:#00e5ff;}
 
-/* MUSIC */
-.music-btn{
-position:fixed;
-bottom:15px;
-right:15px;
+#msgs{
+flex:1;
+padding:10px;
+overflow:auto;
+font-size:13px;
+}
+
+#inputBox{
+display:flex;
+}
+
+#inputBox input{
+flex:1;
+padding:8px;
+border:none;
+}
+
+#inputBox button{
 background:#00e5ff;
 border:none;
-padding:12px;
-border-radius:50px;
-cursor:pointer;
+padding:8px;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:30px;
+background:#050814;
+margin-top:50px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-<div class="spinner"></div>
-<p>Loading S3A App...</p>
+<!-- NAV -->
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#students">Students</a>
+<a href="#gallery">Gallery</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="home">
+<h1>S3A GRADUATION 2026</h1>
+<p>Wisdom High School Official Graduation Website</p>
+<div class="btn" onclick="openInvite()">Open Invitation</div>
 </div>
 
-<!-- APP -->
-<div id="app">
-
-<div class="sidebar">
-<h3>📁 Repo Files</h3>
-<div class="file">index.html</div>
-<div class="file">manifest.json</div>
-<div class="file">service-worker.js</div>
-<div class="file">bona01.jpg</div>
-<div class="file">music.mp3</div>
-<div class="file">video1.mp4</div>
-<div class="file">video2.mp4</div>
+<!-- ABOUT -->
+<section id="about">
+<h2>About Graduation</h2>
+<div class="card">
+We are S3A students of Wisdom High School preparing for our graduation ceremony 2026.
+This website celebrates our journey, teamwork, and success.
 </div>
 
-<div class="main">
+<div class="countdown" id="countdown"></div>
+</section>
 
-<header>
-<h2>S3A Graduation App 🎓</h2>
-<h4 id="countdown"></h4>
-</header>
+<!-- STUDENTS -->
+<section id="students">
+<h2>Classmates</h2>
 
-<div class="container">
+<div class="grid">
 
-<!-- BUTTONS -->
-<div class="card" onclick="invite()">🎉 Open Invitation</div>
-<div class="card" onclick="toggleChat()">💬 AI Assistant</div>
-
-<!-- ⭐ CLASSMATES ADDED HERE -->
-<div class="students">
-<h3>📚 S3A Classmates</h3>
-<p>IRAFASHA Jean</p>
-<p>Kiara IRIZA Simone</p>
-<p>NZAYISENGA Bonaventure</p>
-<p>NYIRINKWAYA Kibamba Irene</p>
-<p>IRAKOZE GAKURU Joseline</p>
-<p>NIWE Blessing</p>
-<p>UMWIZERWA Frank</p>
-<p>Belyse Umutoniwase</p>
-<p>UMURERWA Clenia</p>
-<p>Furaha Sumaya</p>
-<p>AGASARO Keza Ornella</p>
-<p>MUHIMPUNDU Honneur</p>
-<p>NDATSIKIRA MANZI Davin</p>
-<p>Ineza MUGISHA Kenny</p>
-<p>KABATESI BUTERA Kethia</p>
-<p>MUGABEKAZI Cynthia</p>
-<p>NSANGA IRUMVA Alonzo</p>
-</div>
-
-<div class="card">📸 Gallery</div>
+<div class="card">IRAFASHA Jean</div>
+<div class="card">Kiara IRIZA Simone</div>
+<div class="card">NZAYISENGA Bonaventure</div>
+<div class="card">NYIRINKWAYA Kibamba Irene</div>
+<div class="card">IRAKOZE GAKURU Joseline</div>
+<div class="card">NIWE Blessing</div>
+<div class="card">UMWIZERWA Frank</div>
+<div class="card">Belyse Umutoniwase</div>
+<div class="card">UMURERWA Clenia</div>
+<div class="card">Furaha Sumaya</div>
+<div class="card">AGASARO Keza Ornella</div>
+<div class="card">MUHIMPUNDU Honneur</div>
+<div class="card">NDATSIKIRA MANZI Davin</div>
+<div class="card">Ineza MUGISHA Kenny</div>
+<div class="card">KABATESI BUTERA Kethia</div>
+<div class="card">MUGABEKAZI Cynthia</div>
+<div class="card">NSANGA IRUMVA Alonzo</div>
 
 </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+<h2>Gallery</h2>
+<div class="card">📸 School Memories (Add images here)</div>
+<div class="card">🎓 Graduation Moments</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>Contact</h2>
+<div class="card">
+Developer: NZAYISENGA Bonaventure<br>
+Email: bonaventurenzayisenga7@gmail.com
 </div>
 
-</div>
-
-<!-- POPUP -->
-<div id="popup">
-<div class="popup-box">
-<h2>🎓 Graduation 2026</h2>
-<p>You are invited to S3A Graduation Ceremony</p>
-<button onclick="closeInvite()">Close</button>
-</div>
-</div>
+<div class="btn" onclick="toggleChat()">AI Assistant</div>
+</section>
 
 <!-- CHAT -->
-<div id="chat">
+<div id="chatBox">
 <div id="msgs"></div>
-<div id="chatInput">
+<div id="inputBox">
 <input id="msg" placeholder="Ask AI...">
-<button onclick="sendMsg()">></button>
+<button onclick="send()">></button>
 </div>
 </div>
 
-<!-- MUSIC -->
-<audio id="music" loop>
-<source src="music.mp3">
-</audio>
-<button class="music-btn" onclick="musicToggle()">🎵</button>
+<!-- FOOTER -->
+<footer>
+© 2026 S3A Graduation Website
+</footer>
 
 <script>
 
-/* LOADER ONLY */
-setTimeout(()=>{
-document.getElementById("loader").style.display="none";
-document.getElementById("app").style.display="flex";
-startCountdown();
-},2000);
-
-/* INVITE */
-function invite(){
-document.getElementById("popup").style.display="flex";
-}
-function closeInvite(){
-document.getElementById("popup").style.display="none";
-}
-
-/* MUSIC */
-let play=false;
-const music=document.getElementById("music");
-
-function musicToggle(){
-play=!play;
-play ? music.play() : music.pause();
-}
-
 /* COUNTDOWN */
-function startCountdown(){
 let target=new Date("2026-12-01").getTime();
 
 setInterval(()=>{
@@ -274,28 +271,34 @@ let d=Math.floor((target-now)/(1000*60*60*24));
 document.getElementById("countdown").innerText =
 d+" days to Graduation 🎓";
 },1000);
+
+/* INVITE */
+function openInvite(){
+alert("🎓 You are invited to S3A Graduation 2026!");
 }
 
 /* CHAT */
 function toggleChat(){
-document.getElementById("chat").style.display="flex";
+let c=document.getElementById("chatBox");
+c.style.display = (c.style.display==="flex")?"none":"flex";
+c.style.display="flex";
 }
 
-function sendMsg(){
-let msg=document.getElementById("msg");
-if(!msg.value) return;
+function send(){
+let m=document.getElementById("msg");
+if(!m.value)return;
 
 let box=document.getElementById("msgs");
 
-box.innerHTML += "<div>🧑 "+msg.value+"</div>";
-box.innerHTML += "<div>🤖 "+ai(msg.value)+"</div>";
+box.innerHTML+="<div>🧑 "+m.value+"</div>";
+box.innerHTML+="<div>🤖 "+ai(m.value)+"</div>";
 
-msg.value="";
+m.value="";
 }
 
 function ai(t){
 t=t.toLowerCase();
-if(t.includes("hello")) return "Hi student 👋";
+if(t.includes("hello")) return "Hello student 👋";
 if(t.includes("graduation")) return "Graduation is coming 🎓";
 if(t.includes("help")) return "I am here to help you";
 return "S3A AI assistant 🤖";
