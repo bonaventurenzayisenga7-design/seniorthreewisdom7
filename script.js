@@ -15,7 +15,7 @@ document.querySelectorAll("a[href^='#']").forEach(link => {
 
 
 // ===============================
-// 🎵 MUSIC PLAYER CONTROL FIX
+// 🎵 MUSIC PLAYER CONTROL FIx
 // ===============================
 let musicPlaying = false;
 const music = document.getElementById("music");
