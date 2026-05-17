@@ -3,189 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S3A Graduation App</title>
+<title>S3A Graduation PRO MAX</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
+body{background:#0b1020;color:white;overflow:hidden;}
 
-body{
-background:#0b1020;
-color:white;
-overflow:hidden;
-}
-
-/* LOADING SCREEN */
+/* LOADER */
 #loader{
-position:fixed;
-width:100%;
-height:100%;
-background:#050814;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
+position:fixed;width:100%;height:100%;
+background:#050814;display:flex;
+justify-content:center;align-items:center;flex-direction:column;
 z-index:9999;
 }
-
 .spinner{
-width:60px;
-height:60px;
+width:70px;height:70px;
 border:6px solid #333;
 border-top:6px solid #00e5ff;
 border-radius:50%;
 animation:spin 1s linear infinite;
 }
+@keyframes spin{100%{transform:rotate(360deg);}}
 
-@keyframes spin{
-100%{transform:rotate(360deg);}
-}
-
-/* LOGIN SCREEN */
-#loginPage{
-position:fixed;
-width:100%;
-height:100%;
+/* LOGIN */
+#login{
+position:fixed;width:100%;height:100%;
 background:#0b1020;
 display:none;
 justify-content:center;
 align-items:center;
 z-index:9998;
 }
-
-.login-box{
-background:rgba(255,255,255,.05);
-padding:30px;
-border-radius:20px;
+.box{
+background:rgba(255,255,255,.06);
+padding:25px;
+border-radius:15px;
 width:300px;
 text-align:center;
 }
-
 input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:none;
-border-radius:10px;
-outline:none;
+width:100%;padding:12px;margin:8px 0;
+border:none;border-radius:10px;
 }
 
-button{
-padding:12px;
-width:100%;
-background:#00e5ff;
-border:none;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
+/* APP */
+#app{display:none;height:100vh;flex-direction:row;}
+
+/* SIDEBAR */
+.sidebar{
+width:250px;background:#050814;
+padding:15px;overflow:auto;
+}
+.file{
+background:rgba(255,255,255,.05);
+padding:8px;margin:5px 0;
+border-radius:8px;font-size:13px;
+color:#ccc;
 }
 
-/* APP UI */
-#app{
-display:none;
-height:100vh;
-flex-direction:column;
-}
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;}
 
+/* HEADER */
 header{
-padding:20px;
 background:#050814;
+padding:15px;text-align:center;
+}
+
+/* CONTENT */
+.container{padding:15px;overflow:auto;flex:1;}
+
+.card{
+background:rgba(255,255,255,.06);
+padding:15px;margin:10px 0;
+border-radius:12px;
 text-align:center;
-}
-
-.container{
-flex:1;
-overflow:auto;
-padding:20px;
-}
-
-/* BUTTONS */
-.card-btn{
-background:rgba(255,255,255,.08);
-padding:15px;
-margin:10px 0;
-border-radius:15px;
 cursor:pointer;
-transition:.3s;
-text-align:center;
 }
 
-.card-btn:hover{
-background:#00e5ff;
-color:black;
-}
-
-/* INVITATION POPUP */
+/* POPUP */
 #popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
+position:fixed;width:100%;height:100%;
 background:rgba(0,0,0,.8);
 display:none;
-justify-content:center;
-align-items:center;
+justify-content:center;align-items:center;
 z-index:9999;
 }
-
 .popup-box{
-background:white;
-color:black;
-padding:25px;
-border-radius:15px;
-width:280px;
-text-align:center;
+background:white;color:black;
+padding:20px;border-radius:12px;
+width:280px;text-align:center;
 }
+
+/* MUSIC */
+.music-btn{
+position:fixed;bottom:15px;right:15px;
+background:#00e5ff;border:none;
+padding:12px;border-radius:50px;
+}
+
+/* CHAT BOX */
+#chatBox{
+position:fixed;bottom:70px;right:15px;
+width:250px;height:300px;
+background:#111827;
+border-radius:10px;
+display:none;
+flex-direction:column;
+overflow:hidden;
+}
+#msgs{flex:1;overflow:auto;padding:10px;font-size:12px;}
+#chatInput{display:flex;}
+#chatInput input{flex:1;border:none;padding:8px;}
+#chatInput button{border:none;background:#00e5ff;padding:8px;}
 </style>
 
 </head>
 
 <body>
 
-<!-- LOADING -->
+<!-- LOADER -->
 <div id="loader">
 <div class="spinner"></div>
-<p style="margin-top:20px;">Loading S3A App...</p>
+<p>Loading S3A App...</p>
 </div>
 
 <!-- LOGIN -->
-<div id="loginPage">
-<div class="login-box">
-<h2>Student Login</h2>
-<input type="text" id="user" placeholder="Enter name">
-<input type="password" id="pass" placeholder="Enter ID">
-<button onclick="login()">Login</button>
+<div id="login">
+<div class="box">
+<h2>Login</h2>
+<input id="u" placeholder="Name">
+<input id="p" placeholder="ID">
+<button onclick="login()">Enter</button>
 </div>
 </div>
 
 <!-- APP -->
 <div id="app">
 
+<div class="sidebar">
+<h3>📁 Repo Files</h3>
+<div class="file">index.html</div>
+<div class="file">manifest.json</div>
+<div class="file">service-worker.js</div>
+<div class="file">bona01.jpg</div>
+<div class="file">music.mp3</div>
+<div class="file">video1.mp4</div>
+<div class="file">video2.mp4</div>
+</div>
+
+<div class="main">
+
 <header>
 <h2>S3A Graduation App 🎓</h2>
+<h4 id="countdown"></h4>
 </header>
 
 <div class="container">
 
-<div class="card-btn" onclick="showInvite()">
-🎉 Open Graduation Invitation
-</div>
+<div class="card" onclick="invite()">🎉 Open Invitation</div>
+<div class="card" onclick="toggleChat()">💬 AI Assistant</div>
+<div class="card">📸 Gallery</div>
 
-<div class="card-btn">
-📸 View Class Gallery
 </div>
-
-<div class="card-btn">
-🎵 Play Graduation Music
-</div>
-
 </div>
 
 </div>
@@ -194,40 +176,91 @@ text-align:center;
 <div id="popup">
 <div class="popup-box">
 <h2>🎓 Graduation 2026</h2>
-<p>You are invited to S3A Wisdom High School Graduation Ceremony.</p>
-<br>
+<p>You are invited to S3A Graduation Ceremony</p>
 <button onclick="closeInvite()">Close</button>
 </div>
 </div>
+
+<!-- CHAT -->
+<div id="chatBox">
+<div id="msgs"></div>
+<div id="chatInput">
+<input id="msg" placeholder="Ask AI...">
+<button onclick="sendMsg()">></button>
+</div>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="music.mp3">
+</audio>
+<button class="music-btn" onclick="musicToggle()">🎵</button>
 
 <script>
 /* LOADER */
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
-document.getElementById("loginPage").style.display="flex";
-document.body.style.overflow="auto";
-},2500);
+document.getElementById("login").style.display="flex";
+},2000);
 
 /* LOGIN */
 function login(){
-let u=document.getElementById("user").value;
-let p=document.getElementById("pass").value;
-
-if(u && p){
-document.getElementById("loginPage").style.display="none";
-document.getElementById("app").style.display="flex";
-}else{
-alert("Please enter details");
-}
+if(u.value && p.value){
+login.style.display="none";
+app.style.display="flex";
+startCountdown();
+}else alert("Enter details");
 }
 
-/* INVITATION */
-function showInvite(){
-document.getElementById("popup").style.display="flex";
+/* INVITE */
+function invite(){
+popup.style.display="flex";
 }
-
 function closeInvite(){
-document.getElementById("popup").style.display="none";
+popup.style.display="none";
+}
+
+/* MUSIC */
+let play=false;
+const music=document.getElementById("music");
+function musicToggle(){
+play=!play;
+play?music.play():music.pause();
+}
+
+/* COUNTDOWN */
+function startCountdown(){
+let target=new Date("2026-12-01").getTime();
+setInterval(()=>{
+let now=new Date().getTime();
+let d=Math.floor((target-now)/(1000*60*60*24));
+document.getElementById("countdown").innerText=
+d+" days to Graduation 🎓";
+},1000);
+}
+
+/* CHAT AI */
+function toggleChat(){
+chatBox.style.display=
+chatBox.style.display==="flex"?"none":"flex";
+chatBox.style.display="flex";
+}
+
+function sendMsg(){
+let text=msg.value;
+if(!text)return;
+
+msgs.innerHTML+=`<div>🧑 ${text}</div>`;
+msgs.innerHTML+=`<div>🤖 ${ai(text)}</div>`;
+msg.value="";
+}
+
+function ai(t){
+t=t.toLowerCase();
+if(t.includes("hello"))return "Hi student 👋";
+if(t.includes("graduation"))return "Graduation coming soon 🎓";
+if(t.includes("help"))return "I am here to help you";
+return "S3A AI assistant 🤖";
 }
 </script>
 
