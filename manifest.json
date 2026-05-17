@@ -1,1 +1,24 @@
+{
+  "name": "S3A Wisdom High School - MovieBox Hub",
+  "short_name": "S3A Hub",
+  "description": "S3A Class Website with Movies, Music, Videos and School Content",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1020",
+  "theme_color": "#00e5ff",
 
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
