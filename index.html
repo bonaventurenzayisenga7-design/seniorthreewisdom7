@@ -30,30 +30,6 @@ animation:spin 1s linear infinite;
 }
 @keyframes spin{100%{transform:rotate(360deg);}}
 
-/* LOGIN */
-#login{
-position:fixed;width:100%;height:100%;
-background:#0b1020;
-display:none;
-justify-content:center;
-align-items:center;
-z-index:9998;
-}
-.box{
-background:rgba(255,255,255,.06);
-padding:25px;
-border-radius:15px;
-width:300px;
-text-align:center;
-}
-input{
-width:100%;
-padding:12px;
-margin:8px 0;
-border:none;
-border-radius:10px;
-}
-
 /* APP */
 #app{
 display:none;
@@ -96,6 +72,7 @@ overflow:auto;
 flex:1;
 }
 
+/* CARDS */
 .card{
 background:rgba(255,255,255,.06);
 padding:15px;
@@ -103,6 +80,22 @@ margin:10px 0;
 border-radius:12px;
 text-align:center;
 cursor:pointer;
+}
+
+/* STUDENTS LIST (NEW) */
+.students{
+background:rgba(0,229,255,0.08);
+padding:15px;
+margin:10px 0;
+border-radius:12px;
+}
+.students h3{
+color:#00e5ff;
+margin-bottom:10px;
+}
+.students p{
+margin:3px 0;
+font-size:14px;
 }
 
 /* POPUP */
@@ -165,16 +158,6 @@ cursor:pointer;
 <p>Loading S3A App...</p>
 </div>
 
-<!-- LOGIN -->
-<div id="login">
-<div class="box">
-<h2>Login</h2>
-<input id="u" placeholder="Name">
-<input id="p" placeholder="ID">
-<button onclick="login()">Enter</button>
-</div>
-</div>
-
 <!-- APP -->
 <div id="app">
 
@@ -198,8 +181,32 @@ cursor:pointer;
 
 <div class="container">
 
+<!-- BUTTONS -->
 <div class="card" onclick="invite()">🎉 Open Invitation</div>
 <div class="card" onclick="toggleChat()">💬 AI Assistant</div>
+
+<!-- ⭐ CLASSMATES ADDED HERE -->
+<div class="students">
+<h3>📚 S3A Classmates</h3>
+<p>IRAFASHA Jean</p>
+<p>Kiara IRIZA Simone</p>
+<p>NZAYISENGA Bonaventure</p>
+<p>NYIRINKWAYA Kibamba Irene</p>
+<p>IRAKOZE GAKURU Joseline</p>
+<p>NIWE Blessing</p>
+<p>UMWIZERWA Frank</p>
+<p>Belyse Umutoniwase</p>
+<p>UMURERWA Clenia</p>
+<p>Furaha Sumaya</p>
+<p>AGASARO Keza Ornella</p>
+<p>MUHIMPUNDU Honneur</p>
+<p>NDATSIKIRA MANZI Davin</p>
+<p>Ineza MUGISHA Kenny</p>
+<p>KABATESI BUTERA Kethia</p>
+<p>MUGABEKAZI Cynthia</p>
+<p>NSANGA IRUMVA Alonzo</p>
+</div>
+
 <div class="card">📸 Gallery</div>
 
 </div>
@@ -233,25 +240,12 @@ cursor:pointer;
 
 <script>
 
-/* LOADER */
+/* LOADER ONLY */
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
-document.getElementById("login").style.display="flex";
-},2000);
-
-/* LOGIN FIXED */
-function login(){
-const u = document.getElementById("u").value.trim();
-const p = document.getElementById("p").value.trim();
-
-if(u !== "" && p !== ""){
-document.getElementById("login").style.display="none";
 document.getElementById("app").style.display="flex";
 startCountdown();
-}else{
-alert("Enter Name and ID");
-}
-}
+},2000);
 
 /* INVITE */
 function invite(){
