@@ -14,8 +14,8 @@ body{background:#0b1020;color:white;overflow:hidden;}
 /* LOADER */
 #loader{
 position:fixed;width:100%;height:100%;
-background:#050814;display:flex;
-justify-content:center;align-items:center;flex-direction:column;
+background:#050814;
+display:flex;justify-content:center;align-items:center;flex-direction:column;
 z-index:9999;
 }
 .spinner{
@@ -49,35 +49,47 @@ border:none;border-radius:10px;
 }
 
 /* APP */
-#app{display:none;height:100vh;flex-direction:row;}
+#app{
+display:none;
+height:100vh;
+flex-direction:row;
+}
 
 /* SIDEBAR */
 .sidebar{
-width:250px;background:#050814;
-padding:15px;overflow:auto;
+width:250px;
+background:#050814;
+padding:15px;
+overflow:auto;
 }
 .file{
 background:rgba(255,255,255,.05);
-padding:8px;margin:5px 0;
-border-radius:8px;font-size:13px;
+padding:8px;
+margin:5px 0;
+border-radius:8px;
+font-size:13px;
 color:#ccc;
 }
 
 /* MAIN */
 .main{flex:1;display:flex;flex-direction:column;}
 
-/* HEADER */
 header{
 background:#050814;
-padding:15px;text-align:center;
+padding:15px;
+text-align:center;
 }
 
-/* CONTENT */
-.container{padding:15px;overflow:auto;flex:1;}
+.container{
+padding:15px;
+overflow:auto;
+flex:1;
+}
 
 .card{
 background:rgba(255,255,255,.06);
-padding:15px;margin:10px 0;
+padding:15px;
+margin:10px 0;
 border-radius:12px;
 text-align:center;
 cursor:pointer;
@@ -85,41 +97,54 @@ cursor:pointer;
 
 /* POPUP */
 #popup{
-position:fixed;width:100%;height:100%;
+position:fixed;
+width:100%;
+height:100%;
 background:rgba(0,0,0,.8);
 display:none;
-justify-content:center;align-items:center;
+justify-content:center;
+align-items:center;
 z-index:9999;
 }
 .popup-box{
-background:white;color:black;
-padding:20px;border-radius:12px;
-width:280px;text-align:center;
+background:white;
+color:black;
+padding:20px;
+border-radius:12px;
+width:280px;
+text-align:center;
 }
 
-/* MUSIC */
-.music-btn{
-position:fixed;bottom:15px;right:15px;
-background:#00e5ff;border:none;
-padding:12px;border-radius:50px;
-}
-
-/* CHAT BOX */
-#chatBox{
-position:fixed;bottom:70px;right:15px;
-width:250px;height:300px;
+/* CHAT */
+#chat{
+position:fixed;
+bottom:70px;
+right:15px;
+width:250px;
+height:300px;
 background:#111827;
-border-radius:10px;
 display:none;
 flex-direction:column;
+border-radius:10px;
 overflow:hidden;
 }
 #msgs{flex:1;overflow:auto;padding:10px;font-size:12px;}
 #chatInput{display:flex;}
 #chatInput input{flex:1;border:none;padding:8px;}
-#chatInput button{border:none;background:#00e5ff;padding:8px;}
-</style>
+#chatInput button{border:none;background:#00e5ff;}
 
+/* MUSIC */
+.music-btn{
+position:fixed;
+bottom:15px;
+right:15px;
+background:#00e5ff;
+border:none;
+padding:12px;
+border-radius:50px;
+cursor:pointer;
+}
+</style>
 </head>
 
 <body>
@@ -182,7 +207,7 @@ overflow:hidden;
 </div>
 
 <!-- CHAT -->
-<div id="chatBox">
+<div id="chat">
 <div id="msgs"></div>
 <div id="chatInput">
 <input id="msg" placeholder="Ask AI...">
@@ -197,71 +222,83 @@ overflow:hidden;
 <button class="music-btn" onclick="musicToggle()">🎵</button>
 
 <script>
+
 /* LOADER */
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
 document.getElementById("login").style.display="flex";
 },2000);
 
-/* LOGIN */
+/* LOGIN FIXED */
 function login(){
-if(u.value && p.value){
-login.style.display="none";
-app.style.display="flex";
+const u = document.getElementById("u").value.trim();
+const p = document.getElementById("p").value.trim();
+
+if(u !== "" && p !== ""){
+document.getElementById("login").style.display="none";
+document.getElementById("app").style.display="flex";
 startCountdown();
-}else alert("Enter details");
+}else{
+alert("Enter Name and ID");
+}
 }
 
 /* INVITE */
 function invite(){
-popup.style.display="flex";
+document.getElementById("popup").style.display="flex";
 }
 function closeInvite(){
-popup.style.display="none";
+document.getElementById("popup").style.display="none";
 }
 
 /* MUSIC */
 let play=false;
 const music=document.getElementById("music");
+
 function musicToggle(){
 play=!play;
-play?music.play():music.pause();
+play ? music.play() : music.pause();
 }
 
 /* COUNTDOWN */
 function startCountdown(){
 let target=new Date("2026-12-01").getTime();
+
 setInterval(()=>{
 let now=new Date().getTime();
 let d=Math.floor((target-now)/(1000*60*60*24));
-document.getElementById("countdown").innerText=
+document.getElementById("countdown").innerText =
 d+" days to Graduation 🎓";
 },1000);
 }
 
 /* CHAT AI */
 function toggleChat(){
-chatBox.style.display=
-chatBox.style.display==="flex"?"none":"flex";
-chatBox.style.display="flex";
+const chat=document.getElementById("chat");
+chat.style.display = (chat.style.display==="flex")?"none":"flex";
+chat.style.display="flex";
 }
 
 function sendMsg(){
-let text=msg.value;
-if(!text)return;
+let msg=document.getElementById("msg");
+if(!msg.value) return;
 
-msgs.innerHTML+=`<div>🧑 ${text}</div>`;
-msgs.innerHTML+=`<div>🤖 ${ai(text)}</div>`;
+let box=document.getElementById("msgs");
+
+box.innerHTML += "<div>🧑 "+msg.value+"</div>";
+box.innerHTML += "<div>🤖 "+ai(msg.value)+"</div>";
+
 msg.value="";
 }
 
 function ai(t){
 t=t.toLowerCase();
-if(t.includes("hello"))return "Hi student 👋";
-if(t.includes("graduation"))return "Graduation coming soon 🎓";
-if(t.includes("help"))return "I am here to help you";
+if(t.includes("hello")) return "Hi student 👋";
+if(t.includes("graduation")) return "Graduation is coming 🎓";
+if(t.includes("help")) return "I am here to help you";
 return "S3A AI assistant 🤖";
 }
+
 </script>
 
 </body>
