@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#00e5ff">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>S3A Wisdom High School</title>
@@ -182,6 +183,12 @@ max-width:600px;
 margin:auto;
 }
 
+.dev img{
+width:200px;
+border-radius:15px;
+margin-top:10px;
+}
+
 /* MUSIC BUTTON */
 .music-btn{
 position:fixed;
@@ -296,6 +303,9 @@ text-align:center;
 <p>Web Developer — S3A</p>
 <p>Email: bonaventurenzayisenga7@gmail.com</p>
 <p>Instagram: @bona_playz</p>
+
+<!-- YOUR IMAGE ADDED -->
+<img src="bona01.jpg" alt="Bona Photo">
 </div>
 </section>
 
@@ -309,21 +319,23 @@ text-align:center;
 
 <button class="music-btn" onclick="toggleMusic()">🎵 Play</button>
 
+<!-- JS IS NOW FIXED INSIDE FILE -->
 <script>
-let playing=false;
-const music=document.getElementById("music");
+let playing = false;
+const music = document.getElementById("music");
 
-function toggleMusic(){
-const btn=document.querySelector(".music-btn");
+function toggleMusic() {
+const btn = document.querySelector(".music-btn");
 
-if(!playing){
+if (!playing) {
 music.play();
-btn.innerHTML="⏸ Pause";
-}else{
+btn.innerHTML = "⏸ Pause";
+} else {
 music.pause();
-btn.innerHTML="🎵 Play";
+btn.innerHTML = "🎵 Play";
 }
-playing=!playing;
+
+playing = !playing;
 }
 </script>
 
