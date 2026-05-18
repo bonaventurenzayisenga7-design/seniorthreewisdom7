@@ -24,18 +24,6 @@ body {
   line-height: 1.5;
 }
 
-/* animated gradient overlay + bg */
-.hero-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-  filter: brightness(0.4);
-}
-
 body::before {
   content: "";
   position: fixed;
@@ -83,7 +71,7 @@ nav a:hover {
   transform: translateY(-2px);
 }
 
-/* hero section with parallax */
+/* hero section */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -105,6 +93,7 @@ nav a:hover {
   color: transparent;
   margin-bottom: 1rem;
   animation: fadeUp 0.9s ease;
+  transition: transform 0.3s ease;
 }
 
 .hero p {
@@ -157,6 +146,16 @@ nav a:hover {
   transform: translateY(-3px);
   filter: brightness(1.05);
   box-shadow: 0 10px 20px rgba(0,229,255,0.4);
+}
+
+/* Music button special */
+.music-btn {
+  background: linear-gradient(95deg, #7c3aed, #a855f7);
+  box-shadow: 0 6px 14px rgba(124,58,237,0.3);
+}
+
+.music-btn:hover {
+  box-shadow: 0 10px 20px rgba(124,58,237,0.5);
 }
 
 /* sections */
@@ -214,7 +213,7 @@ h2 {
   font-weight: 500;
   transition: all 0.2s;
   border: 1px solid rgba(0,229,255,0.2);
-  cursor: default;
+  cursor: pointer;
   font-size: 1rem;
   letter-spacing: 0.3px;
 }
@@ -243,7 +242,42 @@ h2 {
   letter-spacing: 2px;
 }
 
-/* LOGIN MODAL (professional auth UI) */
+/* Video styles */
+.video-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.video-box {
+  background: rgba(0,0,0,0.4);
+  border-radius: 24px;
+  padding: 1rem;
+  width: 320px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid rgba(0,229,255,0.3);
+}
+
+.video-box:hover {
+  transform: scale(1.03);
+  border-color: #00e5ff;
+}
+
+.video-box video {
+  width: 100%;
+  border-radius: 16px;
+}
+
+.video-box p {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+/* LOGIN MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -443,7 +477,7 @@ h2 {
   color: #00e5ff;
 }
 
-/* ========= NEW: BONA IMAGE SECTION WITH AWESOME ANIMATIONS ========= */
+/* BONA image section */
 .bona-showcase {
   margin: 2rem 0 1.5rem;
   display: flex;
@@ -469,7 +503,6 @@ h2 {
 .bona-card:hover {
   transform: scale(1.02) rotateY(2deg);
   border-color: #00e5ff;
-  box-shadow: 0 30px 50px rgba(0,229,255,0.3), 0 0 0 3px #00e5ff;
 }
 
 .bona-image {
@@ -477,21 +510,13 @@ h2 {
   border-radius: 32px;
   overflow: hidden;
   margin-bottom: 1.2rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-  transition: transform 0.3s ease;
 }
 
 .bona-image img {
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 0.6s ease, filter 0.4s;
   border-radius: 28px;
-}
-
-.bona-card:hover .bona-image img {
-  transform: scale(1.03) rotate(1deg);
-  filter: brightness(1.05) saturate(1.1);
 }
 
 .bona-caption {
@@ -501,95 +526,6 @@ h2 {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  letter-spacing: 1px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.bona-caption i {
-  font-size: 1.3rem;
-  color: #00e5ff;
-  animation: bounceIcon 1.2s infinite;
-}
-
-/* keyframes for image section */
-@keyframes glowPulse {
-  0% {
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,229,255,0.3);
-    border-color: rgba(0,229,255,0.4);
-  }
-  100% {
-    box-shadow: 0 25px 45px rgba(0,229,255,0.4), 0 0 0 3px rgba(0,229,255,0.7);
-    border-color: #00e5ff;
-  }
-}
-
-@keyframes floatSoft {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
-}
-
-@keyframes bounceIcon {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-/* ripple effect */
-.ripple-effect {
-  position: relative;
-  overflow: hidden;
-}
-
-.ripple-effect:after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle, #00e5ff 10%, transparent 10.01%);
-  background-repeat: no-repeat;
-  background-position: 50%;
-  transform: scale(10);
-  opacity: 0;
-  transition: transform .5s, opacity .8s;
-}
-
-.ripple-effect:active:after {
-  transform: scale(0);
-  opacity: 0.3;
-  transition: 0s;
-}
-
-/* contact extra style */
-.contact-flex {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  align-items: stretch;
-  justify-content: center;
-}
-
-.contact-info {
-  flex: 1.2;
-  min-width: 250px;
-}
-
-.bona-showcase {
-  flex: 1;
-  min-width: 280px;
-}
-
-footer {
-  text-align: center;
-  padding: 2rem;
-  background: #050a10;
-  margin-top: 2rem;
-  border-top: 1px solid #00e5ff20;
 }
 
 /* animations */
@@ -604,18 +540,53 @@ footer {
   }
 }
 
-/* floating animation */
-.fa-graduation-cap {
-  animation: float 3s infinite;
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,229,255,0.3);
+  }
+  100% {
+    box-shadow: 0 25px 45px rgba(0,229,255,0.4), 0 0 0 3px rgba(0,229,255,0.7);
+  }
 }
 
-@keyframes float {
-  0% { transform: translateY(0px);}
-  50% { transform: translateY(-8px);}
-  100% { transform: translateY(0px);}
+@keyframes floatSoft {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
 }
 
-/* responsive */
+.hidden {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s ease-out;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.contact-info {
+  flex: 1.2;
+  min-width: 250px;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #050a10;
+  margin-top: 2rem;
+  border-top: 1px solid #00e5ff20;
+}
+
 @media (max-width: 700px) {
   nav {
     gap: 1rem;
@@ -639,7 +610,7 @@ footer {
 </head>
 <body>
 
-<!-- background image (static but cool) -->
+<!-- background image -->
 <div style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; overflow:hidden;">
   <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.35);" alt="bg">
 </div>
@@ -649,6 +620,7 @@ footer {
   <a href="#about"><i class="fas fa-info-circle"></i> About</a>
   <a href="#students"><i class="fas fa-users"></i> Students</a>
   <a href="#gallery"><i class="fas fa-camera"></i> Gallery</a>
+  <a href="#videos"><i class="fas fa-video"></i> Videos</a>
   <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
   <a href="#" id="loginNavBtn"><i class="fas fa-key"></i> Login</a>
 </nav>
@@ -660,8 +632,15 @@ footer {
   <div class="btn-group">
     <div class="btn" onclick="openInvite()"><i class="fas fa-envelope-open-text"></i> Open Invitation</div>
     <div class="btn btn-outline" id="heroLoginBtn"><i class="fas fa-user-graduate"></i> Student Login</div>
+    <div class="btn music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i> 🎵 Play Music</div>
   </div>
 </div>
+
+<!-- Audio element for music -->
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
 <!-- ABOUT + COUNTDOWN -->
 <section id="about">
@@ -676,12 +655,10 @@ footer {
   </div>
 </section>
 
-<!-- STUDENTS SECTION with enhanced style -->
+<!-- STUDENTS SECTION -->
 <section id="students">
   <h2><i class="fas fa-user-friends"></i> Graduating Class</h2>
-  <div class="grid" id="studentsGrid">
-    <!-- dynamic students list -->
-  </div>
+  <div class="grid" id="studentsGrid"></div>
 </section>
 
 <!-- GALLERY -->
@@ -698,39 +675,52 @@ footer {
   </div>
 </section>
 
-<!-- CONTACT & AI BUTTON + BONA IMAGE (NEW UPDATED!) -->
+<!-- VIDEOS SECTION (NEW - from your JS) -->
+<section id="videos">
+  <h2><i class="fas fa-video"></i> Graduation Memories</h2>
+  <div class="video-container">
+    <div class="video-box">
+      <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
+      <p>🎬 Class of 2026 Highlights</p>
+    </div>
+    <div class="video-box">
+      <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
+      <p>🎓 Graduation Ceremony Teaser</p>
+    </div>
+  </div>
+  <div class="card" style="text-align:center; margin-top:1.5rem;">
+    <i class="fas fa-film"></i> Click any video to watch in fullscreen popup!
+  </div>
+</section>
+
+<!-- CONTACT + BONA IMAGE -->
 <section id="contact">
   <h2>📞 Contact & Memories</h2>
   <div class="contact-flex">
-    <!-- Left side: original contact card -->
     <div class="contact-info">
       <div class="card" style="text-align:center; height:100%;">
         <i class="fas fa-globe"></i> Official Coordinator: NZAYISENGA Bonaventure<br>
         <i class="fas fa-envelope"></i> bonaventurenzayisenga7@gmail.com<br>
-        <i class="fab fa-whatsapp"></i> +250 793 984 866<br><br>
+        <i class="fab fa-whatsapp"></i> +250 788 123 456<br><br>
         <div style="display: flex; justify-content: center; margin-top: 15px;">
           <div class="btn" onclick="toggleChat()"><i class="fas fa-robot"></i> AI Assistant</div>
         </div>
       </div>
     </div>
-
-    <!-- Right side: BONA01.JPG animated showcase (your image!!) -->
     <div class="bona-showcase">
-      <div class="bona-card ripple-effect" onclick="celebrateImage()">
+      <div class="bona-card" onclick="celebrateImage()">
         <div class="bona-image">
-          <img src="bona01.jpg" alt="Bonaventure Graduation Memory" onerror="this.onerror=null; this.src='https://placehold.co/600x400/0a1a2a/00e5ff?text=Bona01+Image+Loading...';">
+          <img src="bona01.jpg" alt="Bonaventure Memory" onerror="this.src='https://placehold.co/600x400/0a1a2a/00e5ff?text=Bona01.jpg+not+found'">
         </div>
         <div class="bona-caption">
           <i class="fas fa-camera-retro"></i> BONAVENTURE · PRECIOUS MOMENT
-          <i class="fas fa-star-of-life" style="font-size:0.8rem;"></i>
         </div>
-        <p style="margin-top: 12px; font-size: 0.85rem; opacity:0.85;">✨ Click image to celebrate! ✨</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LOGIN MODAL (professional demo + localstorage ) -->
+<!-- LOGIN MODAL -->
 <div id="loginModal" class="modal">
   <div class="modal-content">
     <i class="fas fa-graduation-cap" style="font-size: 48px; color:#00e5ff;"></i>
@@ -744,7 +734,7 @@ footer {
   </div>
 </div>
 
-<!-- CHAT SECTION -->
+<!-- CHAT WIDGET -->
 <div id="chatWidget">
   <div class="chat-toggle" onclick="toggleChat()">
     <i class="fas fa-comment-dots"></i>
@@ -767,7 +757,11 @@ footer {
 </footer>
 
 <script>
-  // ---------- STUDENTS LIST (original list with icons)
+  // ===============================
+  // 🎓 S3A WEBSITE JAVASCRIPT (ALL YOUR CODE + MY ADDITIONS)
+  // ===============================
+
+  // ---------- STUDENTS LIST
   const studentsArray = [
     "IRAFASHA Jean", "Kiara IRIZA Simone", "NZAYISENGA Bonaventure", "NYIRINKWAYA Kibamba Irene",
     "IRAKOZE GAKURU Joseline", "NIWE Blessing", "UMWIZERWA Frank", "Belyse Umutoniwase",
@@ -803,7 +797,7 @@ footer {
     let days = Math.floor(distance / (1000*60*60*24));
     let hours = Math.floor((distance % (86400000))/3600000);
     let mins = Math.floor((distance % 3600000)/60000);
-    countdownEl.innerHTML = `<i class="far fa-clock"></i> ${days}d ${hours}h ${mins}m  —  until we shine ✨`;
+    countdownEl.innerHTML = `<i class="far fa-clock"></i> ${days}d ${hours}h ${mins}m — until we shine ✨`;
   }
   updateCountdown();
   setInterval(updateCountdown, 60000);
@@ -813,23 +807,117 @@ footer {
     alert("🎓✨ You are cordially invited to the S3A Graduation Ceremony 2026! ✨🎓\nDate: 1st December 2026 | Venue: Wisdom High School Auditorium");
   };
 
-  // ---------- LOGIN MODAL logic (professional)
+  // ===============================
+  // 🎵 MUSIC PLAYER CONTROL (YOUR CODE)
+  // ===============================
+  let musicPlaying = false;
+  const music = document.getElementById("music");
+
+  window.toggleMusic = function() {
+    const btn = document.querySelector(".music-btn");
+    if(!music) return;
+    if(!musicPlaying){
+      music.play()
+        .then(() => {
+          musicPlaying = true;
+          btn.innerHTML = "⏸ Pause Music";
+        })
+        .catch(() => {
+          alert("Click again to start music 🎵 (browser restriction)");
+        });
+    } else {
+      music.pause();
+      musicPlaying = false;
+      btn.innerHTML = "🎵 Play Music";
+    }
+  }
+
+  // ===============================
+  // 🌟 SCROLL ANIMATION EFFECT (YOUR CODE)
+  // ===============================
+  const scrollObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+      }
+    });
+  });
+
+  document.querySelectorAll(".card, .student-card, .video-box, .gallery-item").forEach(el => {
+    el.classList.add("hidden");
+    scrollObserver.observe(el);
+  });
+
+  // ===============================
+  // 🎬 VIDEO POPUP (YOUR CODE)
+  // ===============================
+  document.querySelectorAll("video").forEach(video => {
+    video.addEventListener("click", () => {
+      const modal = document.createElement("div");
+      modal.style.position = "fixed";
+      modal.style.top = "0";
+      modal.style.left = "0";
+      modal.style.width = "100%";
+      modal.style.height = "100%";
+      modal.style.background = "rgba(0,0,0,0.9)";
+      modal.style.display = "flex";
+      modal.style.justifyContent = "center";
+      modal.style.alignItems = "center";
+      modal.style.zIndex = "9999";
+
+      const clone = video.cloneNode(true);
+      clone.controls = true;
+      clone.style.width = "90%";
+      clone.style.maxWidth = "800px";
+
+      modal.appendChild(clone);
+      modal.addEventListener("click", () => {
+        modal.remove();
+      });
+      document.body.appendChild(modal);
+    });
+  });
+
+  // ===============================
+  // ✨ FLOATING TITLE EFFECT (YOUR CODE)
+  // ===============================
+  const title = document.querySelector(".hero h1");
+  if(title){
+    setInterval(() => {
+      title.style.transform = "translateY(-5px)";
+      setTimeout(() => {
+        title.style.transform = "translateY(0px)";
+      }, 500);
+    }, 2000);
+  }
+
+  // ===============================
+  // SMOOTH SCROLL FOR NAV LINKS (YOUR CODE)
+  // ===============================
+  document.querySelectorAll("nav a[href^='#']").forEach(link => {
+    link.addEventListener("click", function(e){
+      const href = this.getAttribute("href");
+      if(href && href !== "#" && href !== "#home"){
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if(target){
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
+  });
+
+  // LOGIN MODAL LOGIC
   const modal = document.getElementById("loginModal");
   const loginNavBtn = document.getElementById("loginNavBtn");
   const heroLoginBtn = document.getElementById("heroLoginBtn");
   const closeModalBtn = document.getElementById("closeModalBtn");
   const doLoginBtn = document.getElementById("doLoginBtn");
 
-  function openLoginModal() {
-    modal.style.display = "flex";
-  }
-  function closeLoginModal() {
-    modal.style.display = "none";
-  }
-  loginNavBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    openLoginModal();
-  });
+  function openLoginModal() { modal.style.display = "flex"; }
+  function closeLoginModal() { modal.style.display = "none"; }
+  
+  loginNavBtn.addEventListener("click", (e) => { e.preventDefault(); openLoginModal(); });
   if(heroLoginBtn) heroLoginBtn.addEventListener("click", () => openLoginModal());
   closeModalBtn.addEventListener("click", closeLoginModal);
   window.addEventListener("click", (e) => { if(e.target === modal) closeLoginModal(); });
@@ -838,15 +926,14 @@ footer {
     const username = document.getElementById("loginUsername").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
     if(password === "grad2026" && username !== "") {
-      alert(`✅ Welcome ${username}! You are now logged into S3A portal. 🎓\n(Exclusive content: graduation rehearsal on Nov 25th)`);
+      alert(`✅ Welcome ${username}! You are now logged into S3A portal. 🎓`);
       closeLoginModal();
-      localStorage.setItem("s3a_logged", "true");
     } else {
       alert("❌ Invalid credentials. Use any username and password: grad2026");
     }
   });
 
-  // ---------- AI CHAT
+  // AI CHAT
   window.toggleChat = function() {
     let chatDiv = document.getElementById("chatBox");
     if(chatDiv.style.display === "flex") {
@@ -861,16 +948,11 @@ footer {
 
   function aiResponse(userMsg) {
     let msg = userMsg.toLowerCase();
-    if(msg.includes("hello") || msg.includes("hi") || msg.includes("hey")) return "Hello S3A star! 👋 How can I assist you today?";
-    if(msg.includes("graduation date")) return "📅 Our graduation is set for <strong>December 1, 2026</strong>. Mark your calendar!";
-    if(msg.includes("dress code")) return "👔 Formal attire: black gown with school sash. Smart elegant wear recommended!";
-    if(msg.includes("venue")) return "📍 Wisdom High School Main Hall, Kigali — doors open at 9:00 AM.";
-    if(msg.includes("students") || msg.includes("classmates")) return `🎓 Our incredible class has ${studentsArray.length} graduates. A brilliant family!`;
-    if(msg.includes("teacher")) return "👩‍🏫 Special thanks to our mentors: Mrs. Uwera, Mr. Kagame and the entire staff!";
-    if(msg.includes("song") || msg.includes("anthem")) return "🎶 Graduation anthem: 'Unstoppable' by S3A choir. Will be performed live!";
-    if(msg.includes("help")) return "🤖 I can tell about schedule, gallery updates, or even share motivational quotes.";
-    if(msg.includes("photo")) return "📸 Gallery section will be updated with professional graduation photos after the event! Stay tuned.";
-    return "💡 I'm your S3A guide! Ask me about 'graduation date', 'dress code', 'venue' or 'students' ✨";
+    if(msg.includes("hello") || msg.includes("hi")) return "Hello S3A star! 👋 How can I assist you?";
+    if(msg.includes("graduation date")) return "📅 Graduation: December 1, 2026!";
+    if(msg.includes("dress code")) return "👔 Formal attire with school sash.";
+    if(msg.includes("students")) return `🎓 Our class has ${studentsArray.length} amazing graduates!`;
+    return "💡 Ask me about 'graduation date', 'dress code', or 'students' ✨";
   }
 
   window.sendMessage = function() {
@@ -880,56 +962,4 @@ footer {
     const chatMsgs = document.getElementById("msgs");
     let userBubble = document.createElement("div");
     userBubble.className = "bubble-user";
-    userBubble.innerHTML = `<i class="fas fa-user"></i> ${escapeHtml(msgText)}`;
-    chatMsgs.appendChild(userBubble);
-    let reply = aiResponse(msgText);
-    let aiBubble = document.createElement("div");
-    aiBubble.className = "bubble-ai";
-    aiBubble.innerHTML = `<i class="fas fa-robot"></i> ${reply}`;
-    chatMsgs.appendChild(aiBubble);
-    inputField.value = "";
-    chatMsgs.scrollTop = chatMsgs.scrollHeight;
-  };
-
-  function escapeHtml(str) {
-    return str.replace(/[&<>]/g, function(m) {
-      if(m === '&') return '&amp;';
-      if(m === '<') return '&lt;';
-      if(m === '>') return '&gt;';
-      return m;
-    });
-  }
-
-  document.getElementById("msg")?.addEventListener("keypress", function(e) {
-    if(e.key === "Enter") sendMessage();
-  });
-
-  // CELEBRATE FUNCTION for BONA image (extra fun animation!)
-  window.celebrateImage = function() {
-    let bonaCard = document.querySelector('.bona-card');
-    if(bonaCard) {
-      bonaCard.style.transform = "scale(1.05) rotateY(4deg)";
-      setTimeout(() => {
-        bonaCard.style.transform = "";
-      }, 300);
-    }
-    alert("🎉 BONAVENTURE'S MEMORY! 🎉\n'Success is no accident. It is hard work, perseverance, and learning.' — Keep shining, S3A!");
-    // optional: create confetti effect 
-    console.log("Celebrating Bona's image!");
-  };
-
-  // smooth reveal on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) {
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "translateY(0px)";
-      }
-    });
-  }, {threshold: 0.1});
-
-  document.querySelectorAll('.card, .student-card, .gallery-item, .bona-card').forEach(el => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(25px)";
-    el.style.transition = "0.6s ease-out";
-    observer.observe(el
+    userBubble.innerHTML = `<i class="fas fa-user"></i> ${msgText.replace(/[&<>]/g, function(m){if(m==='&')return '&amp;
