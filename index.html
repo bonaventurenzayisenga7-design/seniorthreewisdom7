@@ -22,6 +22,61 @@ body {
   color: #f0f3fa;
   scroll-behavior: smooth;
   line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* =============== PRELOADER LOGO (S3A LOGO BEFORE PAGE LOADS) =============== */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #0a0f1a, #030507);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.preloader-logo {
+  text-align: center;
+  animation: logoPop 1.2s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+}
+
+.preloader-logo .logo-icon {
+  font-size: 5rem;
+  color: #00e5ff;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 20px rgba(0,229,255,0.6));
+  animation: iconGlow 1.5s infinite alternate;
+}
+
+.preloader-logo h2 {
+  font-size: 3rem;
+  background: linear-gradient(135deg, #fff, #00e5ff, #4d9eff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 4px;
+}
+
+.preloader-logo p {
+  color: #88ccff;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+@keyframes logoPop {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes iconGlow {
+  0% { filter: drop-shadow(0 0 5px rgba(0,229,255,0.3)); }
+  100% { filter: drop-shadow(0 0 25px rgba(0,229,255,0.9)); }
 }
 
 body::before {
@@ -148,7 +203,6 @@ nav a:hover {
   box-shadow: 0 10px 20px rgba(0,229,255,0.4);
 }
 
-/* Music button special */
 .music-btn {
   background: linear-gradient(95deg, #7c3aed, #a855f7);
   box-shadow: 0 6px 14px rgba(124,58,237,0.3);
@@ -158,7 +212,6 @@ nav a:hover {
   box-shadow: 0 10px 20px rgba(124,58,237,0.5);
 }
 
-/* sections */
 section {
   padding: 90px 24px;
   max-width: 1280px;
@@ -177,7 +230,6 @@ h2 {
   letter-spacing: -0.5px;
 }
 
-/* cards + glassmorphism */
 .card {
   background: rgba(20, 30, 45, 0.6);
   backdrop-filter: blur(10px);
@@ -196,7 +248,6 @@ h2 {
   box-shadow: 0 20px 30px -8px rgba(0,229,255,0.2);
 }
 
-/* students grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -229,7 +280,6 @@ h2 {
   border-color: #00e5ff;
 }
 
-/* countdown */
 .countdown {
   font-size: 2rem;
   text-align: center;
@@ -242,7 +292,6 @@ h2 {
   letter-spacing: 2px;
 }
 
-/* Video styles */
 .video-container {
   display: flex;
   flex-wrap: wrap;
@@ -271,13 +320,6 @@ h2 {
   border-radius: 16px;
 }
 
-.video-box p {
-  text-align: center;
-  margin-top: 8px;
-  font-size: 0.9rem;
-}
-
-/* LOGIN MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -300,14 +342,7 @@ h2 {
   padding: 2rem;
   text-align: center;
   border: 1px solid #00e5ff55;
-  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
   animation: fadeUp 0.3s ease;
-}
-
-.modal-content h3 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #00e5ff;
 }
 
 .modal-content input {
@@ -320,17 +355,10 @@ h2 {
   color: white;
   font-size: 1rem;
   outline: none;
-  transition: 0.2s;
 }
 
 .modal-content input:focus {
   border-color: #00e5ff;
-  background: rgba(0,229,255,0.1);
-}
-
-.modal-content button {
-  margin-top: 12px;
-  width: 100%;
 }
 
 .close-modal {
@@ -339,10 +367,8 @@ h2 {
   border: none;
   color: #aaa;
   cursor: pointer;
-  text-decoration: underline;
 }
 
-/* chatbox modern */
 #chatWidget {
   position: fixed;
   bottom: 25px;
@@ -360,7 +386,6 @@ h2 {
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,229,255,0.4);
-  transition: 0.2s;
 }
 
 .chat-toggle i {
@@ -381,7 +406,6 @@ h2 {
   overflow: hidden;
   border: 1px solid #00e5ff66;
   box-shadow: 0 20px 35px rgba(0,0,0,0.5);
-  backdrop-filter: blur(20px);
 }
 
 .chat-header {
@@ -410,8 +434,6 @@ h2 {
   padding: 8px 14px;
   border-radius: 20px;
   max-width: 85%;
-  color: white;
-  border-radius: 20px 4px 20px 20px;
 }
 
 .bubble-ai {
@@ -419,8 +441,6 @@ h2 {
   align-self: flex-start;
   padding: 8px 14px;
   border-radius: 20px;
-  max-width: 85%;
-  color: #e0f2fe;
   border-left: 3px solid #00e5ff;
 }
 
@@ -447,11 +467,9 @@ h2 {
   border: none;
   width: 42px;
   border-radius: 30px;
-  font-weight: bold;
   cursor: pointer;
 }
 
-/* gallery cards row */
 .gallery-grid {
   display: flex;
   flex-wrap: wrap;
@@ -477,7 +495,7 @@ h2 {
   color: #00e5ff;
 }
 
-/* BONA image section */
+/* BONA IMAGE SECTION */
 .bona-showcase {
   margin: 2rem 0 1.5rem;
   display: flex;
@@ -486,22 +504,22 @@ h2 {
 }
 
 .bona-card {
-  background: rgba(0, 20, 30, 0.65);
+  background: rgba(0, 20, 30, 0.75);
   backdrop-filter: blur(12px);
   border-radius: 42px;
   padding: 1.8rem;
   text-align: center;
   border: 1px solid rgba(0, 229, 255, 0.5);
-  box-shadow: 0 25px 40px rgba(0,0,0,0.4), 0 0 0 2px rgba(0,229,255,0.2);
-  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+  box-shadow: 0 25px 40px rgba(0,0,0,0.4);
   width: 100%;
   max-width: 450px;
   animation: glowPulse 3s infinite alternate, floatSoft 5s infinite ease-in-out;
   cursor: pointer;
+  transition: all 0.3s;
 }
 
 .bona-card:hover {
-  transform: scale(1.02) rotateY(2deg);
+  transform: scale(1.02);
   border-color: #00e5ff;
 }
 
@@ -528,42 +546,14 @@ h2 {
   color: transparent;
 }
 
-/* animations */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes glowPulse {
-  0% {
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,229,255,0.3);
-  }
-  100% {
-    box-shadow: 0 25px 45px rgba(0,229,255,0.4), 0 0 0 3px rgba(0,229,255,0.7);
-  }
+  0% { box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,229,255,0.3); }
+  100% { box-shadow: 0 25px 45px rgba(0,229,255,0.4), 0 0 0 3px rgba(0,229,255,0.7); }
 }
 
 @keyframes floatSoft {
-  0% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
-}
-
-.hidden {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.6s ease-out;
-}
-
-.show {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .contact-flex {
@@ -587,28 +577,41 @@ footer {
   border-top: 1px solid #00e5ff20;
 }
 
+.hidden {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s ease-out;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 700px) {
-  nav {
-    gap: 1rem;
-    padding: 10px 18px;
-    width: 95%;
-  }
-  nav a {
-    font-size: 0.8rem;
-  }
-  h2 {
-    font-size: 2rem;
-  }
-  .countdown {
-    font-size: 1.5rem;
-  }
-  .contact-flex {
-    flex-direction: column;
-  }
+  nav { gap: 1rem; padding: 10px 18px; width: 95%; }
+  nav a { font-size: 0.8rem; }
+  h2 { font-size: 2rem; }
+  .countdown { font-size: 1.5rem; }
 }
 </style>
 </head>
 <body>
+
+<!-- PRELOADER LOGO - S3A LOGO BEFORE PAGE LOADS -->
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">
+    <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+    <h2>S3A</h2>
+    <p>Class of 2026</p>
+    <div style="margin-top: 1rem;"><i class="fas fa-spinner fa-pulse"></i> Loading memories...</div>
+  </div>
+</div>
 
 <!-- background image -->
 <div style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; overflow:hidden;">
@@ -625,7 +628,6 @@ footer {
   <a href="#" id="loginNavBtn"><i class="fas fa-key"></i> Login</a>
 </nav>
 
-<!-- HERO -->
 <div class="hero" id="home">
   <h1><i class="fas fa-graduation-cap"></i> S3A GRADUATION 2026</h1>
   <p>Wisdom High School — Celebrating Excellence, Unity & Success</p>
@@ -636,13 +638,10 @@ footer {
   </div>
 </div>
 
-<!-- Audio element for music -->
 <audio id="music" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
 </audio>
 
-<!-- ABOUT + COUNTDOWN -->
 <section id="about">
   <h2>📖 The Journey</h2>
   <div class="card">
@@ -655,13 +654,11 @@ footer {
   </div>
 </section>
 
-<!-- STUDENTS SECTION -->
 <section id="students">
-  <h2><i class="fas fa-user-friends"></i> Graduating Class</h2>
+  <h2><i class="fas fa-user-friends"></i> Graduating Classmates</h2>
   <div class="grid" id="studentsGrid"></div>
 </section>
 
-<!-- GALLERY -->
 <section id="gallery">
   <h2><i class="fas fa-images"></i> Golden Moments</h2>
   <div class="gallery-grid">
@@ -670,296 +667,211 @@ footer {
     <div class="gallery-item"><i class="fas fa-futbol"></i><br>Sports Day</div>
     <div class="gallery-item"><i class="fas fa-laptop-code"></i><br>Tech Fair</div>
   </div>
-  <div class="card" style="margin-top:2rem; text-align:center;">
-    📸🎥 <strong>Graduation photos will be added soon — stay tuned!</strong>
-  </div>
+  <div class="card" style="margin-top:2rem; text-align:center;">📸🎥 <strong>Graduation photos will be added soon — stay tuned!</strong></div>
 </section>
 
-<!-- VIDEOS SECTION (NEW - from your JS) -->
 <section id="videos">
   <h2><i class="fas fa-video"></i> Graduation Memories</h2>
   <div class="video-container">
-    <div class="video-box">
-      <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
-      <p>🎬 Class of 2026 Highlights</p>
-    </div>
-    <div class="video-box">
-      <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video>
-      <p>🎓 Graduation Ceremony Teaser</p>
-    </div>
+    <div class="video-box"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video><p>🎬 Class of 2026 Highlights</p></div>
+    <div class="video-box"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video><p>🎓 Graduation Ceremony Teaser</p></div>
   </div>
-  <div class="card" style="text-align:center; margin-top:1.5rem;">
-    <i class="fas fa-film"></i> Click any video to watch in fullscreen popup!
-  </div>
+  <div class="card" style="text-align:center;"><i class="fas fa-film"></i> Click any video to watch in fullscreen popup!</div>
 </section>
 
-<!-- CONTACT + BONA IMAGE -->
 <section id="contact">
-  <h2>📞 Contact & Memories</h2>
+  <h2>📞 Contact & Bona's Moment</h2>
   <div class="contact-flex">
     <div class="contact-info">
       <div class="card" style="text-align:center; height:100%;">
         <i class="fas fa-globe"></i> Official Coordinator: NZAYISENGA Bonaventure<br>
         <i class="fas fa-envelope"></i> bonaventurenzayisenga7@gmail.com<br>
         <i class="fab fa-whatsapp"></i> +250 788 123 456<br><br>
-        <div style="display: flex; justify-content: center; margin-top: 15px;">
-          <div class="btn" onclick="toggleChat()"><i class="fas fa-robot"></i> AI Assistant</div>
-        </div>
+        <div class="btn" onclick="toggleChat()"><i class="fas fa-robot"></i> AI Assistant</div>
       </div>
     </div>
     <div class="bona-showcase">
       <div class="bona-card" onclick="celebrateImage()">
         <div class="bona-image">
-          <img src="bona01.jpg" alt="Bonaventure Memory" onerror="this.src='https://placehold.co/600x400/0a1a2a/00e5ff?text=Bona01.jpg+not+found'">
+          <img src="bona01.jpg" alt="Bonaventure Memory" onerror="this.src='https://placehold.co/600x400/0a1a2a/00e5ff?text=bona01.jpg+upload+to+repo'">
         </div>
-        <div class="bona-caption">
-          <i class="fas fa-camera-retro"></i> BONAVENTURE · PRECIOUS MOMENT
-        </div>
+        <div class="bona-caption"><i class="fas fa-camera-retro"></i> BONAVENTURE · PRECIOUS MOMENT</div>
+        <p style="margin-top:8px; font-size:0.8rem;">✨ Click to celebrate ✨</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LOGIN MODAL -->
 <div id="loginModal" class="modal">
   <div class="modal-content">
     <i class="fas fa-graduation-cap" style="font-size: 48px; color:#00e5ff;"></i>
     <h3>Student Portal</h3>
-    <p style="margin-bottom: 1rem;">Access exclusive memories & messages</p>
-    <input type="text" id="loginUsername" placeholder="Username" autocomplete="off">
+    <input type="text" id="loginUsername" placeholder="Username">
     <input type="password" id="loginPassword" placeholder="Password">
-    <button class="btn" id="doLoginBtn">Sign In <i class="fas fa-arrow-right"></i></button>
-    <div style="margin-top:12px; font-size:12px; opacity:0.7;">Demo: any user / pass: "grad2026"</div>
+    <button class="btn" id="doLoginBtn">Sign In</button>
+    <div style="margin:10px 0; font-size:12px;">Demo: any user / pass: "grad2026"</div>
     <button class="close-modal" id="closeModalBtn">Cancel</button>
   </div>
 </div>
 
-<!-- CHAT WIDGET -->
 <div id="chatWidget">
-  <div class="chat-toggle" onclick="toggleChat()">
-    <i class="fas fa-comment-dots"></i>
-  </div>
+  <div class="chat-toggle" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></div>
   <div id="chatBox">
-    <div class="chat-header">
-      <span><i class="fas fa-brain"></i> S3A AI Guide</span>
-      <span style="cursor:pointer;" onclick="toggleChat()">✕</span>
-    </div>
+    <div class="chat-header"><span><i class="fas fa-brain"></i> S3A AI Guide</span><span style="cursor:pointer;" onclick="toggleChat()">✕</span></div>
     <div id="msgs"></div>
-    <div id="inputBox">
-      <input id="msg" placeholder="Ask about graduation, dates..." autocomplete="off">
-      <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-    </div>
+    <div id="inputBox"><input id="msg" placeholder="Ask about graduation..."><button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div>
   </div>
 </div>
 
-<footer>
-  <i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School • Proudly Built with Next-Gen Design
-</footer>
+<footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School • Built with Next-Gen Design</footer>
 
 <script>
-  // ===============================
-  // 🎓 S3A WEBSITE JAVASCRIPT (ALL YOUR CODE + MY ADDITIONS)
-  // ===============================
-
-  // ---------- STUDENTS LIST
-  const studentsArray = [
-    "IRAFASHA Jean", "Kiara IRIZA Simone", "NZAYISENGA Bonaventure", "NYIRINKWAYA Kibamba Irene",
-    "IRAKOZE GAKURU Joseline", "NIWE Blessing", "UMWIZERWA Frank", "Belyse Umutoniwase",
-    "UMURERWA Clenia", "Furaha Sumaya", "AGASARO Keza Ornella", "MUHIMPUNDU Honneur",
-    "NDATSIKIRA MANZI Davin", "Ineza MUGISHA Kenny", "KABATESI BUTERA Kethia", "MUGABEKAZI Cynthia",
-    "NSANGA IRUMVA Alonzo"
-  ];
-
-  function renderStudents() {
-    const gridContainer = document.getElementById("studentsGrid");
-    if(gridContainer) {
-      gridContainer.innerHTML = "";
-      studentsArray.forEach(name => {
-        const div = document.createElement("div");
-        div.className = "student-card";
-        div.innerHTML = `<i class="fas fa-user-graduate"></i> ${name}`;
-        gridContainer.appendChild(div);
-      });
+// ========== PRELOADER HIDE AFTER LOAD ==========
+window.addEventListener("load", function() {
+  setTimeout(function() {
+    const preloader = document.getElementById("preloader");
+    if(preloader) {
+      preloader.style.opacity = "0";
+      preloader.style.visibility = "hidden";
     }
-  }
-  renderStudents();
+  }, 1500);
+});
 
-  // COUNTDOWN
-  let target = new Date("2026-12-01T00:00:00").getTime();
-  const countdownEl = document.getElementById("countdown");
-  function updateCountdown() {
-    let now = new Date().getTime();
-    let distance = target - now;
-    if(distance < 0) {
-      countdownEl.innerText = "🎓 GRADUATION DAY! 🎓";
-      return;
-    }
-    let days = Math.floor(distance / (1000*60*60*24));
-    let hours = Math.floor((distance % (86400000))/3600000);
-    let mins = Math.floor((distance % 3600000)/60000);
-    countdownEl.innerHTML = `<i class="far fa-clock"></i> ${days}d ${hours}h ${mins}m — until we shine ✨`;
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 60000);
+// ========== ALL CLASSMATES (FULL LIST) ==========
+const studentsArray = [
+  "IRAFASHA Jean", "Kiara IRIZA Simone", "NZAYISENGA Bonaventure", "NYIRINKWAYA Kibamba Irene",
+  "IRAKOZE GAKURU Joseline", "NIWE Blessing", "UMWIZERWA Frank", "Belyse Umutoniwase",
+  "UMURERWA Clenia", "Furaha Sumaya", "AGASARO Keza Ornella", "MUHIMPUNDU Honneur",
+  "NDATSIKIRA MANZI Davin", "Ineza MUGISHA Kenny", "KABATESI BUTERA Kethia", "MUGABEKAZI Cynthia",
+  "NSANGA IRUMVA Alonzo"
+];
 
-  // Invitation
-  window.openInvite = function() {
-    alert("🎓✨ You are cordially invited to the S3A Graduation Ceremony 2026! ✨🎓\nDate: 1st December 2026 | Venue: Wisdom High School Auditorium");
-  };
-
-  // ===============================
-  // 🎵 MUSIC PLAYER CONTROL (YOUR CODE)
-  // ===============================
-  let musicPlaying = false;
-  const music = document.getElementById("music");
-
-  window.toggleMusic = function() {
-    const btn = document.querySelector(".music-btn");
-    if(!music) return;
-    if(!musicPlaying){
-      music.play()
-        .then(() => {
-          musicPlaying = true;
-          btn.innerHTML = "⏸ Pause Music";
-        })
-        .catch(() => {
-          alert("Click again to start music 🎵 (browser restriction)");
-        });
-    } else {
-      music.pause();
-      musicPlaying = false;
-      btn.innerHTML = "🎵 Play Music";
-    }
-  }
-
-  // ===============================
-  // 🌟 SCROLL ANIMATION EFFECT (YOUR CODE)
-  // ===============================
-  const scrollObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add("show");
-      }
+function renderStudents() {
+  const grid = document.getElementById("studentsGrid");
+  if(grid) {
+    grid.innerHTML = "";
+    studentsArray.forEach(name => {
+      const div = document.createElement("div");
+      div.className = "student-card";
+      div.innerHTML = `<i class="fas fa-user-graduate"></i> ${name}`;
+      grid.appendChild(div);
     });
-  });
-
-  document.querySelectorAll(".card, .student-card, .video-box, .gallery-item").forEach(el => {
-    el.classList.add("hidden");
-    scrollObserver.observe(el);
-  });
-
-  // ===============================
-  // 🎬 VIDEO POPUP (YOUR CODE)
-  // ===============================
-  document.querySelectorAll("video").forEach(video => {
-    video.addEventListener("click", () => {
-      const modal = document.createElement("div");
-      modal.style.position = "fixed";
-      modal.style.top = "0";
-      modal.style.left = "0";
-      modal.style.width = "100%";
-      modal.style.height = "100%";
-      modal.style.background = "rgba(0,0,0,0.9)";
-      modal.style.display = "flex";
-      modal.style.justifyContent = "center";
-      modal.style.alignItems = "center";
-      modal.style.zIndex = "9999";
-
-      const clone = video.cloneNode(true);
-      clone.controls = true;
-      clone.style.width = "90%";
-      clone.style.maxWidth = "800px";
-
-      modal.appendChild(clone);
-      modal.addEventListener("click", () => {
-        modal.remove();
-      });
-      document.body.appendChild(modal);
-    });
-  });
-
-  // ===============================
-  // ✨ FLOATING TITLE EFFECT (YOUR CODE)
-  // ===============================
-  const title = document.querySelector(".hero h1");
-  if(title){
-    setInterval(() => {
-      title.style.transform = "translateY(-5px)";
-      setTimeout(() => {
-        title.style.transform = "translateY(0px)";
-      }, 500);
-    }, 2000);
   }
+}
+renderStudents();
 
-  // ===============================
-  // SMOOTH SCROLL FOR NAV LINKS (YOUR CODE)
-  // ===============================
-  document.querySelectorAll("nav a[href^='#']").forEach(link => {
-    link.addEventListener("click", function(e){
-      const href = this.getAttribute("href");
-      if(href && href !== "#" && href !== "#home"){
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if(target){
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    });
+// COUNTDOWN
+let target = new Date("2026-12-01T00:00:00").getTime();
+function updateCountdown() {
+  let now = new Date().getTime();
+  let distance = target - now;
+  if(distance < 0) { document.getElementById("countdown").innerText = "🎓 GRADUATION DAY! 🎓"; return; }
+  let days = Math.floor(distance / (1000*60*60*24));
+  let hours = Math.floor((distance % 86400000)/3600000);
+  let mins = Math.floor((distance % 3600000)/60000);
+  document.getElementById("countdown").innerHTML = `<i class="far fa-clock"></i> ${days}d ${hours}h ${mins}m — until we shine ✨`;
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+window.openInvite = () => alert("🎓✨ You are cordially invited to the S3A Graduation Ceremony 2026! ✨🎓\nDate: 1st December 2026 | Venue: Wisdom High School Auditorium");
+
+// MUSIC PLAYER
+let musicPlaying = false;
+const music = document.getElementById("music");
+window.toggleMusic = function() {
+  const btn = document.querySelector(".music-btn");
+  if(!musicPlaying) {
+    music.play().then(() => { musicPlaying = true; btn.innerHTML = "⏸ Pause Music"; }).catch(() => alert("Click again to start music 🎵"));
+  } else {
+    music.pause(); musicPlaying = false; btn.innerHTML = "🎵 Play Music";
+  }
+};
+
+// SCROLL ANIMATIONS
+const scrollObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); });
+});
+document.querySelectorAll(".card, .student-card, .video-box, .gallery-item, .bona-card").forEach(el => { el.classList.add("hidden"); scrollObserver.observe(el); });
+
+// VIDEO POPUP
+document.querySelectorAll("video").forEach(video => {
+  video.addEventListener("click", () => {
+    const modalDiv = document.createElement("div");
+    modalDiv.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:flex; justify-content:center; align-items:center; z-index:9999;";
+    const clone = video.cloneNode(true);
+    clone.controls = true;
+    clone.style.width = "90%";
+    clone.style.maxWidth = "800px";
+    modalDiv.appendChild(clone);
+    modalDiv.addEventListener("click", () => modalDiv.remove());
+    document.body.appendChild(modalDiv);
   });
+});
 
-  // LOGIN MODAL LOGIC
-  const modal = document.getElementById("loginModal");
-  const loginNavBtn = document.getElementById("loginNavBtn");
-  const heroLoginBtn = document.getElementById("heroLoginBtn");
-  const closeModalBtn = document.getElementById("closeModalBtn");
-  const doLoginBtn = document.getElementById("doLoginBtn");
+// FLOATING TITLE EFFECT
+const title = document.querySelector(".hero h1");
+if(title) {
+  setInterval(() => {
+    title.style.transform = "translateY(-5px)";
+    setTimeout(() => title.style.transform = "translateY(0px)", 500);
+  }, 2000);
+}
 
-  function openLoginModal() { modal.style.display = "flex"; }
-  function closeLoginModal() { modal.style.display = "none"; }
-  
-  loginNavBtn.addEventListener("click", (e) => { e.preventDefault(); openLoginModal(); });
-  if(heroLoginBtn) heroLoginBtn.addEventListener("click", () => openLoginModal());
-  closeModalBtn.addEventListener("click", closeLoginModal);
-  window.addEventListener("click", (e) => { if(e.target === modal) closeLoginModal(); });
-
-  doLoginBtn.addEventListener("click", () => {
-    const username = document.getElementById("loginUsername").value.trim();
-    const password = document.getElementById("loginPassword").value.trim();
-    if(password === "grad2026" && username !== "") {
-      alert(`✅ Welcome ${username}! You are now logged into S3A portal. 🎓`);
-      closeLoginModal();
-    } else {
-      alert("❌ Invalid credentials. Use any username and password: grad2026");
+// SMOOTH SCROLL
+document.querySelectorAll("nav a[href^='#']").forEach(link => {
+  link.addEventListener("click", function(e) {
+    const href = this.getAttribute("href");
+    if(href && href !== "#" && href !== "#home") {
+      e.preventDefault();
+      const targetEl = document.querySelector(href);
+      if(targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
     }
   });
+});
 
-  // AI CHAT
-  window.toggleChat = function() {
-    let chatDiv = document.getElementById("chatBox");
-    if(chatDiv.style.display === "flex") {
-      chatDiv.style.display = "none";
-    } else {
-      chatDiv.style.display = "flex";
-      if(document.getElementById("msgs").innerHTML === "") {
-        document.getElementById("msgs").innerHTML = `<div class="bubble-ai">🎓 Hey graduate! Ask me about the ceremony, date, dress code or classmates. ✨</div>`;
-      }
-    }
-  };
+// LOGIN MODAL
+const modal = document.getElementById("loginModal");
+document.getElementById("loginNavBtn")?.addEventListener("click", (e) => { e.preventDefault(); modal.style.display = "flex"; });
+document.getElementById("heroLoginBtn")?.addEventListener("click", () => modal.style.display = "flex");
+document.getElementById("closeModalBtn")?.addEventListener("click", () => modal.style.display = "none");
+window.addEventListener("click", (e) => { if(e.target === modal) modal.style.display = "none"; });
+document.getElementById("doLoginBtn")?.addEventListener("click", () => {
+  const user = document.getElementById("loginUsername").value.trim();
+  const pass = document.getElementById("loginPassword").value.trim();
+  if(pass === "grad2026" && user !== "") alert(`✅ Welcome ${user}! You are now logged into S3A portal. 🎓`);
+  else alert("❌ Invalid credentials. Use any username and password: grad2026");
+  modal.style.display = "none";
+});
 
-  function aiResponse(userMsg) {
-    let msg = userMsg.toLowerCase();
-    if(msg.includes("hello") || msg.includes("hi")) return "Hello S3A star! 👋 How can I assist you?";
-    if(msg.includes("graduation date")) return "📅 Graduation: December 1, 2026!";
-    if(msg.includes("dress code")) return "👔 Formal attire with school sash.";
-    if(msg.includes("students")) return `🎓 Our class has ${studentsArray.length} amazing graduates!`;
-    return "💡 Ask me about 'graduation date', 'dress code', or 'students' ✨";
-  }
+// AI CHAT SYSTEM
+window.toggleChat = function() {
+  const box = document.getElementById("chatBox");
+  if(box.style.display === "flex") { box.style.display = "none"; }
+  else { box.style.display = "flex"; if(!document.getElementById("msgs").innerHTML) document.getElementById("msgs").innerHTML = `<div class="bubble-ai">🎓 Hey graduate! Ask me about ceremony, date, dress code or classmates. ✨</div>`; }
+};
 
-  window.sendMessage = function() {
-    let inputField = document.getElementById("msg");
-    let msgText = inputField.value.trim();
-    if(msgText === "") return;
-    const chatMsgs = document.getElementById("msgs");
-    let userBubble = document.createElement("div");
-    userBubble.className = "bubble-user";
-    userBubble.innerHTML = `<i class="fas fa-user"></i> ${msgText.replace(/[&<>]/g, function(m){if(m==='&')return '&amp;
+function aiReply(msg) {
+  const lower = msg.toLowerCase();
+  if(lower.includes("hello") || lower.includes("hi")) return "Hello S3A star! 👋 How can I assist you?";
+  if(lower.includes("graduation date")) return "📅 December 1, 2026 – Mark your calendar!";
+  if(lower.includes("dress code")) return "👔 Formal gown + school sash. Smart elegant!";
+  if(lower.includes("venue")) return "📍 Wisdom High School Main Hall, Kigali – doors open 9:00 AM.";
+  if(lower.includes("classmates") || lower.includes("students")) return `🎓 Our amazing class has ${studentsArray.length} graduates. A brilliant family!`;
+  if(lower.includes("teacher")) return "👩‍🏫 Special thanks to Mrs. Uwera, Mr. Kagame and all mentors!";
+  if(lower.includes("song")) return "🎶 Graduation anthem: 'Unstoppable' by S3A choir!";
+  if(lower.includes("photo") || lower.includes("bona")) return "📸 Bona's special memory is in the Contact section! Click the image to celebrate 🎉";
+  return "💡 Ask me about 'graduation date', 'dress code', 'venue' or 'classmates' ✨";
+}
+
+window.sendMessage = function() {
+  const input = document.getElementById("msg");
+  const text = input.value.trim();
+  if(!text) return;
+  const chatMsgs = document.getElementById("msgs");
+  const userDiv = document.createElement("div"); userDiv.className = "bubble-user"; userDiv.innerHTML = `<i class="fas fa-user"></i> ${text.replace(/[&<>]/g, function(m){return m==='&'?'&amp;':m==='<'?'&lt;':'&gt;';})}`;
+  chatMsgs.appendChild(userDiv);
+  const aiDiv = document.createElement("div"); aiDiv.className = "bubble-ai"; aiDiv.innerHTML = `<i class="fas fa-robot"></i> ${aiReply(text)}`;
+  chatMsgs.appendChild(aiDiv);
+  input.value = "";
+  chatMsgs.scrollTop = chatMs
