@@ -443,6 +443,147 @@ h2 {
   color: #00e5ff;
 }
 
+/* ========= NEW: BONA IMAGE SECTION WITH AWESOME ANIMATIONS ========= */
+.bona-showcase {
+  margin: 2rem 0 1.5rem;
+  display: flex;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.bona-card {
+  background: rgba(0, 20, 30, 0.65);
+  backdrop-filter: blur(12px);
+  border-radius: 42px;
+  padding: 1.8rem;
+  text-align: center;
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  box-shadow: 0 25px 40px rgba(0,0,0,0.4), 0 0 0 2px rgba(0,229,255,0.2);
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+  width: 100%;
+  max-width: 450px;
+  animation: glowPulse 3s infinite alternate, floatSoft 5s infinite ease-in-out;
+  cursor: pointer;
+}
+
+.bona-card:hover {
+  transform: scale(1.02) rotateY(2deg);
+  border-color: #00e5ff;
+  box-shadow: 0 30px 50px rgba(0,229,255,0.3), 0 0 0 3px #00e5ff;
+}
+
+.bona-image {
+  width: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+}
+
+.bona-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.6s ease, filter 0.4s;
+  border-radius: 28px;
+}
+
+.bona-card:hover .bona-image img {
+  transform: scale(1.03) rotate(1deg);
+  filter: brightness(1.05) saturate(1.1);
+}
+
+.bona-caption {
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #fff, #00e5ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bona-caption i {
+  font-size: 1.3rem;
+  color: #00e5ff;
+  animation: bounceIcon 1.2s infinite;
+}
+
+/* keyframes for image section */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,229,255,0.3);
+    border-color: rgba(0,229,255,0.4);
+  }
+  100% {
+    box-shadow: 0 25px 45px rgba(0,229,255,0.4), 0 0 0 3px rgba(0,229,255,0.7);
+    border-color: #00e5ff;
+  }
+}
+
+@keyframes floatSoft {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes bounceIcon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ripple effect */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #00e5ff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10);
+  opacity: 0;
+  transition: transform .5s, opacity .8s;
+}
+
+.ripple-effect:active:after {
+  transform: scale(0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+/* contact extra style */
+.contact-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.contact-info {
+  flex: 1.2;
+  min-width: 250px;
+}
+
+.bona-showcase {
+  flex: 1;
+  min-width: 280px;
+}
+
 footer {
   text-align: center;
   padding: 2rem;
@@ -490,6 +631,9 @@ footer {
   .countdown {
     font-size: 1.5rem;
   }
+  .contact-flex {
+    flex-direction: column;
+  }
 }
 </style>
 </head>
@@ -536,7 +680,7 @@ footer {
 <section id="students">
   <h2><i class="fas fa-user-friends"></i> Graduating Class</h2>
   <div class="grid" id="studentsGrid">
-    <!-- dynamic but also keep original list: we fill with JS but also keep inline -->
+    <!-- dynamic students list -->
   </div>
 </section>
 
@@ -554,16 +698,35 @@ footer {
   </div>
 </section>
 
-<!-- CONTACT & AI BUTTON -->
+<!-- CONTACT & AI BUTTON + BONA IMAGE (NEW UPDATED!) -->
 <section id="contact">
-  <h2>📞 Contact & Support</h2>
-  <div class="card" style="text-align:center;">
-    <i class="fas fa-globe"></i> Official Coordinator: NZAYISENGA Bonaventure<br>
-    <i class="fas fa-envelope"></i> bonaventurenzayisenga7@gmail.com<br>
-    <i class="fab fa-whatsapp"></i> +250 788 123 456
-  </div>
-  <div style="display: flex; justify-content: center; margin-top: 20px;">
-    <div class="btn" onclick="toggleChat()"><i class="fas fa-robot"></i> AI Assistant</div>
+  <h2>📞 Contact & Memories</h2>
+  <div class="contact-flex">
+    <!-- Left side: original contact card -->
+    <div class="contact-info">
+      <div class="card" style="text-align:center; height:100%;">
+        <i class="fas fa-globe"></i> Official Coordinator: NZAYISENGA Bonaventure<br>
+        <i class="fas fa-envelope"></i> bonaventurenzayisenga7@gmail.com<br>
+        <i class="fab fa-whatsapp"></i> +250 788 123 456<br><br>
+        <div style="display: flex; justify-content: center; margin-top: 15px;">
+          <div class="btn" onclick="toggleChat()"><i class="fas fa-robot"></i> AI Assistant</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side: BONA01.JPG animated showcase (your image!!) -->
+    <div class="bona-showcase">
+      <div class="bona-card ripple-effect" onclick="celebrateImage()">
+        <div class="bona-image">
+          <img src="bona01.jpg" alt="Bonaventure Graduation Memory" onerror="this.onerror=null; this.src='https://placehold.co/600x400/0a1a2a/00e5ff?text=Bona01+Image+Loading...';">
+        </div>
+        <div class="bona-caption">
+          <i class="fas fa-camera-retro"></i> BONAVENTURE · PRECIOUS MOMENT
+          <i class="fas fa-star-of-life" style="font-size:0.8rem;"></i>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.85rem; opacity:0.85;">✨ Click image to celebrate! ✨</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -674,18 +837,16 @@ footer {
   doLoginBtn.addEventListener("click", () => {
     const username = document.getElementById("loginUsername").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
-    // Demo login condition: any non-empty user + pass "grad2026" OR any user+pass if you like
     if(password === "grad2026" && username !== "") {
       alert(`✅ Welcome ${username}! You are now logged into S3A portal. 🎓\n(Exclusive content: graduation rehearsal on Nov 25th)`);
       closeLoginModal();
-      // optional change UI
       localStorage.setItem("s3a_logged", "true");
     } else {
       alert("❌ Invalid credentials. Use any username and password: grad2026");
     }
   });
 
-  // ---------- AI CHAT with advanced responses, animations, graduation facts
+  // ---------- AI CHAT
   window.toggleChat = function() {
     let chatDiv = document.getElementById("chatBox");
     if(chatDiv.style.display === "flex") {
@@ -717,12 +878,10 @@ footer {
     let msgText = inputField.value.trim();
     if(msgText === "") return;
     const chatMsgs = document.getElementById("msgs");
-    // user bubble
     let userBubble = document.createElement("div");
     userBubble.className = "bubble-user";
     userBubble.innerHTML = `<i class="fas fa-user"></i> ${escapeHtml(msgText)}`;
     chatMsgs.appendChild(userBubble);
-    // AI reply
     let reply = aiResponse(msgText);
     let aiBubble = document.createElement("div");
     aiBubble.className = "bubble-ai";
@@ -745,7 +904,21 @@ footer {
     if(e.key === "Enter") sendMessage();
   });
 
-  // additional: smooth reveal on scroll (simple)
+  // CELEBRATE FUNCTION for BONA image (extra fun animation!)
+  window.celebrateImage = function() {
+    let bonaCard = document.querySelector('.bona-card');
+    if(bonaCard) {
+      bonaCard.style.transform = "scale(1.05) rotateY(4deg)";
+      setTimeout(() => {
+        bonaCard.style.transform = "";
+      }, 300);
+    }
+    alert("🎉 BONAVENTURE'S MEMORY! 🎉\n'Success is no accident. It is hard work, perseverance, and learning.' — Keep shining, S3A!");
+    // optional: create confetti effect 
+    console.log("Celebrating Bona's image!");
+  };
+
+  // smooth reveal on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting) {
@@ -755,12 +928,8 @@ footer {
     });
   }, {threshold: 0.1});
 
-  document.querySelectorAll('.card, .student-card, .gallery-item').forEach(el => {
+  document.querySelectorAll('.card, .student-card, .gallery-item, .bona-card').forEach(el => {
     el.style.opacity = "0";
     el.style.transform = "translateY(25px)";
     el.style.transition = "0.6s ease-out";
-    observer.observe(el);
-  });
-</script>
-</body>
-</html>
+    observer.observe(el
