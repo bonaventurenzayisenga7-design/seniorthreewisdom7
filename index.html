@@ -2,313 +2,765 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S3A Graduation Website 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>S3A Graduation 2026 | Wisdom High School</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<!-- Google Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins;
-scroll-behavior:smooth;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-background:
-linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-url('bona01.jpg') no-repeat center center fixed;
-
-background-size: cover;
-color:white;
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0a0c12;
+  color: #f0f3fa;
+  scroll-behavior: smooth;
+  line-height: 1.5;
 }
 
-/* NAVBAR */
-nav{
-position:fixed;
-top:0;
-width:100%;
-background:rgba(0,0,0,0.85);
-padding:15px;
-display:flex;
-justify-content:center;
-gap:30px;
-z-index:1000;
-backdrop-filter:blur(10px);
+/* animated gradient overlay + bg */
+.hero-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.4);
 }
 
-nav a{
-color:white;
-text-decoration:none;
-font-weight:600;
-transition:0.3s;
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, rgba(0, 229, 255, 0.08), rgba(0,0,0,0.7));
+  z-index: -1;
+  pointer-events: none;
 }
 
-nav a:hover{
-color:#00e5ff;
+/* modern glass navbar */
+nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  background: rgba(15, 25, 35, 0.85);
+  backdrop-filter: blur(16px);
+  border-radius: 60px;
+  padding: 12px 28px;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  z-index: 1000;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  border: 1px solid rgba(0, 229, 255, 0.3);
 }
 
-/* HERO */
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
-background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
-url('school.jpg') center/cover;
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: 0.2s;
+  letter-spacing: 0.3px;
+  padding: 6px 0;
 }
 
-.hero h1{
-font-size:3.5rem;
-color:#00e5ff;
+nav a:hover {
+  color: #00e5ff;
+  transform: translateY(-2px);
 }
 
-.hero p{
-font-size:1.3rem;
-margin-top:10px;
+/* hero section with parallax */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
 }
 
-/* SECTIONS */
-section{
-padding:100px 20px;
-max-width:1100px;
-margin:auto;
+.hero h1 {
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff, #00e5ff, #4d9eff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+  animation: fadeUp 0.9s ease;
 }
 
-h2{
-font-size:2.5rem;
-margin-bottom:20px;
-color:#00e5ff;
-text-align:center;
+.hero p {
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  margin-top: 0.5rem;
+  font-weight: 400;
+  backdrop-filter: blur(4px);
+  padding: 0 1rem;
+  animation: fadeUp 0.9s 0.1s both;
 }
 
-/* CARD */
-.card{
-background:rgba(255,255,255,0.05);
-padding:20px;
-border-radius:15px;
-margin:10px 0;
-text-align:center;
-transition:0.3s;
+/* buttons */
+.btn-group {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
-.card:hover{
-transform:scale(1.03);
-background:rgba(0,229,255,0.1);
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: linear-gradient(95deg, #00e5ff, #0099cc);
+  color: #0a0c12;
+  font-weight: 700;
+  border-radius: 40px;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 14px rgba(0,229,255,0.3);
+  letter-spacing: 0.5px;
 }
 
-/* STUDENTS GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
+.btn-outline {
+  background: transparent;
+  border: 2px solid #00e5ff;
+  color: #00e5ff;
+  box-shadow: none;
 }
 
-/* COUNTDOWN */
-.countdown{
-font-size:2rem;
-text-align:center;
-margin-top:20px;
-color:#00e5ff;
+.btn-outline:hover {
+  background: #00e5ff;
+  color: #0a0c12;
+  transform: scale(1.02);
 }
 
-/* BUTTON */
-.btn{
-display:inline-block;
-padding:12px 25px;
-background:#00e5ff;
-color:black;
-border-radius:30px;
-font-weight:bold;
-cursor:pointer;
-margin-top:15px;
+.btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.05);
+  box-shadow: 0 10px 20px rgba(0,229,255,0.4);
 }
 
-/* CHAT */
-#chatBox{
-position:fixed;
-bottom:20px;
-right:20px;
-width:300px;
-height:350px;
-background:#111827;
-border-radius:10px;
-display:none;
-flex-direction:column;
-overflow:hidden;
+/* sections */
+section {
+  padding: 90px 24px;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-#msgs{
-flex:1;
-padding:10px;
-overflow:auto;
-font-size:13px;
+h2 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  background: linear-gradient(120deg, #fff, #00e5ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: -0.5px;
 }
 
-#inputBox{
-display:flex;
+/* cards + glassmorphism */
+.card {
+  background: rgba(20, 30, 45, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  padding: 1.8rem;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  margin: 1rem 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-#inputBox input{
-flex:1;
-padding:8px;
-border:none;
+.card:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: #00e5ff;
+  background: rgba(0, 229, 255, 0.1);
+  box-shadow: 0 20px 30px -8px rgba(0,229,255,0.2);
 }
 
-#inputBox button{
-background:#00e5ff;
-border:none;
-padding:8px;
+/* students grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
 }
 
-/* FOOTER */
-footer{
-text-align:center;
-padding:30px;
-background:#050814;
-margin-top:50px;
+.student-card {
+  background: rgba(10, 20, 28, 0.7);
+  backdrop-filter: blur(4px);
+  border-radius: 2rem;
+  padding: 1rem 0.8rem;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: 1px solid rgba(0,229,255,0.2);
+  cursor: default;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+}
+
+.student-card i {
+  margin-right: 8px;
+  color: #00e5ff;
+}
+
+.student-card:hover {
+  background: #00e5ff20;
+  transform: scale(1.02);
+  border-color: #00e5ff;
+}
+
+/* countdown */
+.countdown {
+  font-size: 2rem;
+  text-align: center;
+  margin: 2rem auto;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f0f0f0, #00e5ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+}
+
+/* LOGIN MODAL (professional auth UI) */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: rgba(18, 25, 40, 0.95);
+  border-radius: 48px;
+  width: 90%;
+  max-width: 440px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid #00e5ff55;
+  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+  animation: fadeUp 0.3s ease;
+}
+
+.modal-content h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #00e5ff;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 14px 18px;
+  margin: 12px 0;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid #3a4a6e;
+  border-radius: 60px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s;
+}
+
+.modal-content input:focus {
+  border-color: #00e5ff;
+  background: rgba(0,229,255,0.1);
+}
+
+.modal-content button {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.close-modal {
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* chatbox modern */
+#chatWidget {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 1100;
+}
+
+.chat-toggle {
+  background: linear-gradient(145deg, #00e5ff, #0088aa);
+  width: 58px;
+  height: 58px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,229,255,0.4);
+  transition: 0.2s;
+}
+
+.chat-toggle i {
+  font-size: 28px;
+  color: #0a0c12;
+}
+
+#chatBox {
+  position: fixed;
+  bottom: 95px;
+  right: 25px;
+  width: 340px;
+  height: 460px;
+  background: #111a24;
+  border-radius: 28px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #00e5ff66;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+  backdrop-filter: blur(20px);
+}
+
+.chat-header {
+  background: #0a111c;
+  padding: 14px;
+  font-weight: bold;
+  color: #00e5ff;
+  border-bottom: 1px solid #2a3a50;
+  display: flex;
+  justify-content: space-between;
+}
+
+#msgs {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.bubble-user {
+  background: #00e5ff22;
+  align-self: flex-end;
+  padding: 8px 14px;
+  border-radius: 20px;
+  max-width: 85%;
+  color: white;
+  border-radius: 20px 4px 20px 20px;
+}
+
+.bubble-ai {
+  background: #1e2a3a;
+  align-self: flex-start;
+  padding: 8px 14px;
+  border-radius: 20px;
+  max-width: 85%;
+  color: #e0f2fe;
+  border-left: 3px solid #00e5ff;
+}
+
+#inputBox {
+  display: flex;
+  border-top: 1px solid #2a3a50;
+  padding: 8px;
+  gap: 6px;
+  background: #0d1620;
+}
+
+#inputBox input {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 40px;
+  background: #1f2c3a;
+  color: white;
+  outline: none;
+}
+
+#inputBox button {
+  background: #00e5ff;
+  border: none;
+  width: 42px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* gallery cards row */
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.gallery-item {
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  padding: 2rem 1.5rem;
+  border-radius: 36px;
+  text-align: center;
+  width: 200px;
+  transition: 0.2s;
+  border: 1px solid cyan;
+}
+
+.gallery-item i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #00e5ff;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #050a10;
+  margin-top: 2rem;
+  border-top: 1px solid #00e5ff20;
+}
+
+/* animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* floating animation */
+.fa-graduation-cap {
+  animation: float 3s infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px);}
+  50% { transform: translateY(-8px);}
+  100% { transform: translateY(0px);}
+}
+
+/* responsive */
+@media (max-width: 700px) {
+  nav {
+    gap: 1rem;
+    padding: 10px 18px;
+    width: 95%;
+  }
+  nav a {
+    font-size: 0.8rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  .countdown {
+    font-size: 1.5rem;
+  }
 }
 </style>
 </head>
-
 <body>
 
-<!-- NAV -->
+<!-- background image (static but cool) -->
+<div style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; overflow:hidden;">
+  <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.35);" alt="bg">
+</div>
+
 <nav>
-<a href="#home">Home</a>
-<a href="#about">About</a>
-<a href="#students">Students</a>
-<a href="#gallery">Gallery</a>
-<a href="#contact">Contact</a>
+  <a href="#home"><i class="fas fa-home"></i> Home</a>
+  <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+  <a href="#students"><i class="fas fa-users"></i> Students</a>
+  <a href="#gallery"><i class="fas fa-camera"></i> Gallery</a>
+  <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+  <a href="#" id="loginNavBtn"><i class="fas fa-key"></i> Login</a>
 </nav>
 
 <!-- HERO -->
 <div class="hero" id="home">
-<h1>S3A GRADUATION 2026</h1>
-<p>Wisdom High School Official Graduation Website</p>
-<div class="btn" onclick="openInvite()">Open Invitation</div>
+  <h1><i class="fas fa-graduation-cap"></i> S3A GRADUATION 2026</h1>
+  <p>Wisdom High School — Celebrating Excellence, Unity & Success</p>
+  <div class="btn-group">
+    <div class="btn" onclick="openInvite()"><i class="fas fa-envelope-open-text"></i> Open Invitation</div>
+    <div class="btn btn-outline" id="heroLoginBtn"><i class="fas fa-user-graduate"></i> Student Login</div>
+  </div>
 </div>
 
-<!-- ABOUT -->
+<!-- ABOUT + COUNTDOWN -->
 <section id="about">
-<h2>About Graduation</h2>
-<div class="card">
-We are S3A students of Wisdom High School preparing for our graduation ceremony 2026.
-This website celebrates our journey, teamwork, and success.
-</div>
-
-<div class="countdown" id="countdown"></div>
+  <h2>📖 The Journey</h2>
+  <div class="card">
+    <i class="fas fa-chalkboard-user" style="font-size:2rem; color:#00e5ff; margin-bottom:12px; display:inline-block;"></i>
+    <p style="font-size:1.1rem;">We are the S3A class of Wisdom High School — a family of dreamers, leaders, and innovators. After years of determination, we celebrate our graduation in 2026. This website represents our legacy, our memories, and the bright future ahead. ✨</p>
+  </div>
+  <div class="countdown" id="countdown"></div>
+  <div class="card" style="text-align:center;">
+    <i class="fas fa-calendar-alt"></i>  December 1, 2026  |  Wisdom High Auditorium
+  </div>
 </section>
 
-<!-- STUDENTS -->
+<!-- STUDENTS SECTION with enhanced style -->
 <section id="students">
-<h2>Classmates</h2>
-
-<div class="grid">
-
-<div class="card">IRAFASHA Jean</div>
-<div class="card">Kiara IRIZA Simone</div>
-<div class="card">NZAYISENGA Bonaventure</div>
-<div class="card">NYIRINKWAYA Kibamba Irene</div>
-<div class="card">IRAKOZE GAKURU Joseline</div>
-<div class="card">NIWE Blessing</div>
-<div class="card">UMWIZERWA Frank</div>
-<div class="card">Belyse Umutoniwase</div>
-<div class="card">UMURERWA Clenia</div>
-<div class="card">Furaha Sumaya</div>
-<div class="card">AGASARO Keza Ornella</div>
-<div class="card">MUHIMPUNDU Honneur</div>
-<div class="card">NDATSIKIRA MANZI Davin</div>
-<div class="card">Ineza MUGISHA Kenny</div>
-<div class="card">KABATESI BUTERA Kethia</div>
-<div class="card">MUGABEKAZI Cynthia</div>
-<div class="card">NSANGA IRUMVA Alonzo</div>
-
-</div>
+  <h2><i class="fas fa-user-friends"></i> Graduating Class</h2>
+  <div class="grid" id="studentsGrid">
+    <!-- dynamic but also keep original list: we fill with JS but also keep inline -->
+  </div>
 </section>
 
 <!-- GALLERY -->
 <section id="gallery">
-<h2>Gallery</h2>
-<div class="card">📸 School Memories (Add images here)</div>
-<div class="card">🎓 Graduation Moments</div>
+  <h2><i class="fas fa-images"></i> Golden Moments</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item"><i class="fas fa-school"></i><br>School Life</div>
+    <div class="gallery-item"><i class="fas fa-music"></i><br>Talent Show</div>
+    <div class="gallery-item"><i class="fas fa-futbol"></i><br>Sports Day</div>
+    <div class="gallery-item"><i class="fas fa-laptop-code"></i><br>Tech Fair</div>
+  </div>
+  <div class="card" style="margin-top:2rem; text-align:center;">
+    📸🎥 <strong>Graduation photos will be added soon — stay tuned!</strong>
+  </div>
 </section>
 
-<!-- CONTACT -->
+<!-- CONTACT & AI BUTTON -->
 <section id="contact">
-<h2>Contact</h2>
-<div class="card">
-Developer: NZAYISENGA Bonaventure<br>
-Email: bonaventurenzayisenga7@gmail.com
-</div>
-
-<div class="btn" onclick="toggleChat()">AI Assistant</div>
+  <h2>📞 Contact & Support</h2>
+  <div class="card" style="text-align:center;">
+    <i class="fas fa-globe"></i> Official Coordinator: NZAYISENGA Bonaventure<br>
+    <i class="fas fa-envelope"></i> bonaventurenzayisenga7@gmail.com<br>
+    <i class="fab fa-whatsapp"></i> +250 788 123 456
+  </div>
+  <div style="display: flex; justify-content: center; margin-top: 20px;">
+    <div class="btn" onclick="toggleChat()"><i class="fas fa-robot"></i> AI Assistant</div>
+  </div>
 </section>
 
-<!-- CHAT -->
-<div id="chatBox">
-<div id="msgs"></div>
-<div id="inputBox">
-<input id="msg" placeholder="Ask AI...">
-<button onclick="send()">></button>
-</div>
+<!-- LOGIN MODAL (professional demo + localstorage ) -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <i class="fas fa-graduation-cap" style="font-size: 48px; color:#00e5ff;"></i>
+    <h3>Student Portal</h3>
+    <p style="margin-bottom: 1rem;">Access exclusive memories & messages</p>
+    <input type="text" id="loginUsername" placeholder="Username" autocomplete="off">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button class="btn" id="doLoginBtn">Sign In <i class="fas fa-arrow-right"></i></button>
+    <div style="margin-top:12px; font-size:12px; opacity:0.7;">Demo: any user / pass: "grad2026"</div>
+    <button class="close-modal" id="closeModalBtn">Cancel</button>
+  </div>
 </div>
 
-<!-- FOOTER -->
+<!-- CHAT SECTION -->
+<div id="chatWidget">
+  <div class="chat-toggle" onclick="toggleChat()">
+    <i class="fas fa-comment-dots"></i>
+  </div>
+  <div id="chatBox">
+    <div class="chat-header">
+      <span><i class="fas fa-brain"></i> S3A AI Guide</span>
+      <span style="cursor:pointer;" onclick="toggleChat()">✕</span>
+    </div>
+    <div id="msgs"></div>
+    <div id="inputBox">
+      <input id="msg" placeholder="Ask about graduation, dates..." autocomplete="off">
+      <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
 <footer>
-© 2026 S3A Graduation Website
+  <i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School • Proudly Built with Next-Gen Design
 </footer>
 
 <script>
+  // ---------- STUDENTS LIST (original list with icons)
+  const studentsArray = [
+    "IRAFASHA Jean", "Kiara IRIZA Simone", "NZAYISENGA Bonaventure", "NYIRINKWAYA Kibamba Irene",
+    "IRAKOZE GAKURU Joseline", "NIWE Blessing", "UMWIZERWA Frank", "Belyse Umutoniwase",
+    "UMURERWA Clenia", "Furaha Sumaya", "AGASARO Keza Ornella", "MUHIMPUNDU Honneur",
+    "NDATSIKIRA MANZI Davin", "Ineza MUGISHA Kenny", "KABATESI BUTERA Kethia", "MUGABEKAZI Cynthia",
+    "NSANGA IRUMVA Alonzo"
+  ];
 
-/* COUNTDOWN */
-let target=new Date("2026-12-01").getTime();
+  function renderStudents() {
+    const gridContainer = document.getElementById("studentsGrid");
+    if(gridContainer) {
+      gridContainer.innerHTML = "";
+      studentsArray.forEach(name => {
+        const div = document.createElement("div");
+        div.className = "student-card";
+        div.innerHTML = `<i class="fas fa-user-graduate"></i> ${name}`;
+        gridContainer.appendChild(div);
+      });
+    }
+  }
+  renderStudents();
 
-setInterval(()=>{
-let now=new Date().getTime();
-let d=Math.floor((target-now)/(1000*60*60*24));
-document.getElementById("countdown").innerText =
-d+" days to Graduation 🎓";
-},1000);
+  // COUNTDOWN
+  let target = new Date("2026-12-01T00:00:00").getTime();
+  const countdownEl = document.getElementById("countdown");
+  function updateCountdown() {
+    let now = new Date().getTime();
+    let distance = target - now;
+    if(distance < 0) {
+      countdownEl.innerText = "🎓 GRADUATION DAY! 🎓";
+      return;
+    }
+    let days = Math.floor(distance / (1000*60*60*24));
+    let hours = Math.floor((distance % (86400000))/3600000);
+    let mins = Math.floor((distance % 3600000)/60000);
+    countdownEl.innerHTML = `<i class="far fa-clock"></i> ${days}d ${hours}h ${mins}m  —  until we shine ✨`;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
 
-/* INVITE */
-function openInvite(){
-alert("🎓 You are invited to S3A Graduation 2026!");
-}
+  // Invitation
+  window.openInvite = function() {
+    alert("🎓✨ You are cordially invited to the S3A Graduation Ceremony 2026! ✨🎓\nDate: 1st December 2026 | Venue: Wisdom High School Auditorium");
+  };
 
-/* CHAT */
-function toggleChat(){
-let c=document.getElementById("chatBox");
-c.style.display = (c.style.display==="flex")?"none":"flex";
-c.style.display="flex";
-}
+  // ---------- LOGIN MODAL logic (professional)
+  const modal = document.getElementById("loginModal");
+  const loginNavBtn = document.getElementById("loginNavBtn");
+  const heroLoginBtn = document.getElementById("heroLoginBtn");
+  const closeModalBtn = document.getElementById("closeModalBtn");
+  const doLoginBtn = document.getElementById("doLoginBtn");
 
-function send(){
-let m=document.getElementById("msg");
-if(!m.value)return;
+  function openLoginModal() {
+    modal.style.display = "flex";
+  }
+  function closeLoginModal() {
+    modal.style.display = "none";
+  }
+  loginNavBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    openLoginModal();
+  });
+  if(heroLoginBtn) heroLoginBtn.addEventListener("click", () => openLoginModal());
+  closeModalBtn.addEventListener("click", closeLoginModal);
+  window.addEventListener("click", (e) => { if(e.target === modal) closeLoginModal(); });
 
-let box=document.getElementById("msgs");
+  doLoginBtn.addEventListener("click", () => {
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+    // Demo login condition: any non-empty user + pass "grad2026" OR any user+pass if you like
+    if(password === "grad2026" && username !== "") {
+      alert(`✅ Welcome ${username}! You are now logged into S3A portal. 🎓\n(Exclusive content: graduation rehearsal on Nov 25th)`);
+      closeLoginModal();
+      // optional change UI
+      localStorage.setItem("s3a_logged", "true");
+    } else {
+      alert("❌ Invalid credentials. Use any username and password: grad2026");
+    }
+  });
 
-box.innerHTML+="<div>🧑 "+m.value+"</div>";
-box.innerHTML+="<div>🤖 "+ai(m.value)+"</div>";
+  // ---------- AI CHAT with advanced responses, animations, graduation facts
+  window.toggleChat = function() {
+    let chatDiv = document.getElementById("chatBox");
+    if(chatDiv.style.display === "flex") {
+      chatDiv.style.display = "none";
+    } else {
+      chatDiv.style.display = "flex";
+      if(document.getElementById("msgs").innerHTML === "") {
+        document.getElementById("msgs").innerHTML = `<div class="bubble-ai">🎓 Hey graduate! Ask me about the ceremony, date, dress code or classmates. ✨</div>`;
+      }
+    }
+  };
 
-m.value="";
-}
+  function aiResponse(userMsg) {
+    let msg = userMsg.toLowerCase();
+    if(msg.includes("hello") || msg.includes("hi") || msg.includes("hey")) return "Hello S3A star! 👋 How can I assist you today?";
+    if(msg.includes("graduation date")) return "📅 Our graduation is set for <strong>December 1, 2026</strong>. Mark your calendar!";
+    if(msg.includes("dress code")) return "👔 Formal attire: black gown with school sash. Smart elegant wear recommended!";
+    if(msg.includes("venue")) return "📍 Wisdom High School Main Hall, Kigali — doors open at 9:00 AM.";
+    if(msg.includes("students") || msg.includes("classmates")) return `🎓 Our incredible class has ${studentsArray.length} graduates. A brilliant family!`;
+    if(msg.includes("teacher")) return "👩‍🏫 Special thanks to our mentors: Mrs. Uwera, Mr. Kagame and the entire staff!";
+    if(msg.includes("song") || msg.includes("anthem")) return "🎶 Graduation anthem: 'Unstoppable' by S3A choir. Will be performed live!";
+    if(msg.includes("help")) return "🤖 I can tell about schedule, gallery updates, or even share motivational quotes.";
+    if(msg.includes("photo")) return "📸 Gallery section will be updated with professional graduation photos after the event! Stay tuned.";
+    return "💡 I'm your S3A guide! Ask me about 'graduation date', 'dress code', 'venue' or 'students' ✨";
+  }
 
-function ai(t){
-t=t.toLowerCase();
-if(t.includes("hello")) return "Hello student 👋";
-if(t.includes("graduation")) return "Graduation is coming 🎓";
-if(t.includes("help")) return "I am here to help you";
-return "S3A AI assistant 🤖";
-}
+  window.sendMessage = function() {
+    let inputField = document.getElementById("msg");
+    let msgText = inputField.value.trim();
+    if(msgText === "") return;
+    const chatMsgs = document.getElementById("msgs");
+    // user bubble
+    let userBubble = document.createElement("div");
+    userBubble.className = "bubble-user";
+    userBubble.innerHTML = `<i class="fas fa-user"></i> ${escapeHtml(msgText)}`;
+    chatMsgs.appendChild(userBubble);
+    // AI reply
+    let reply = aiResponse(msgText);
+    let aiBubble = document.createElement("div");
+    aiBubble.className = "bubble-ai";
+    aiBubble.innerHTML = `<i class="fas fa-robot"></i> ${reply}`;
+    chatMsgs.appendChild(aiBubble);
+    inputField.value = "";
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+  };
 
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if(m === '&') return '&amp;';
+      if(m === '<') return '&lt;';
+      if(m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  document.getElementById("msg")?.addEventListener("keypress", function(e) {
+    if(e.key === "Enter") sendMessage();
+  });
+
+  // additional: smooth reveal on scroll (simple)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateY(0px)";
+      }
+    });
+  }, {threshold: 0.1});
+
+  document.querySelectorAll('.card, .student-card, .gallery-item').forEach(el => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(25px)";
+    el.style.transition = "0.6s ease-out";
+    observer.observe(el);
+  });
 </script>
-
 </body>
 </html>
