@@ -25,60 +25,6 @@ body {
   overflow-x: hidden;
 }
 
-/* =============== PRELOADER LOGO (S3A LOGO BEFORE PAGE LOADS) =============== */
-.preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, #0a0f1a, #030507);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-
-.preloader-logo {
-  text-align: center;
-  animation: logoPop 1.2s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
-}
-
-.preloader-logo .logo-icon {
-  font-size: 5rem;
-  color: #00e5ff;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 0 20px rgba(0,229,255,0.6));
-  animation: iconGlow 1.5s infinite alternate;
-}
-
-.preloader-logo h2 {
-  font-size: 3rem;
-  background: linear-gradient(135deg, #fff, #00e5ff, #4d9eff);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  letter-spacing: 4px;
-}
-
-.preloader-logo p {
-  color: #88ccff;
-  margin-top: 0.5rem;
-  font-weight: 500;
-}
-
-@keyframes logoPop {
-  0% { transform: scale(0.5); opacity: 0; }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes iconGlow {
-  0% { filter: drop-shadow(0 0 5px rgba(0,229,255,0.3)); }
-  100% { filter: drop-shadow(0 0 25px rgba(0,229,255,0.9)); }
-}
-
 body::before {
   content: "";
   position: fixed;
@@ -210,6 +156,195 @@ nav a:hover {
 
 .music-btn:hover {
   box-shadow: 0 10px 20px rgba(124,58,237,0.5);
+}
+
+/* CONGRATULATIONS BUTTON - SPECIAL ANIMATION */
+.congrats-btn {
+  background: linear-gradient(135deg, #ffd700, #ff8c00, #ff0080);
+  background-size: 200% 200%;
+  animation: gradientShift 1s ease infinite, pulse 0.5s ease infinite;
+  box-shadow: 0 0 20px rgba(255,215,0,0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.congrats-btn::before {
+  content: "🎓";
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: flyLeft 1.5s ease infinite;
+}
+
+.congrats-btn::after {
+  content: "🎉";
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: flyRight 1.5s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes flyLeft {
+  0% { left: -20px; opacity: 0; }
+  50% { left: 5px; opacity: 1; }
+  100% { left: -20px; opacity: 0; }
+}
+
+@keyframes flyRight {
+  0% { right: -20px; opacity: 0; }
+  50% { right: 5px; opacity: 1; }
+  100% { right: -20px; opacity: 0; }
+}
+
+/* FIREWORKS & FLOWERS ANIMATION */
+.firework {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  animation: explode 1s ease-out forwards;
+}
+
+.flower {
+  position: fixed;
+  font-size: 30px;
+  pointer-events: none;
+  z-index: 10000;
+  animation: flowerFall 2s ease-out forwards;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(30);
+    opacity: 0;
+  }
+}
+
+@keyframes flowerFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 20px;
+  background: linear-gradient(135deg, #ffd700, #ff0080, #00e5ff);
+  pointer-events: none;
+  z-index: 10000;
+  animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* MESSAGE BOARD STYLES */
+.message-board {
+  background: rgba(20, 30, 45, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 1px solid rgba(0, 229, 255, 0.3);
+}
+
+.message-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.message-input-area input,
+.message-input-area textarea {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid #3a4a6e;
+  border-radius: 16px;
+  padding: 12px 16px;
+  color: white;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.message-input-area input:focus,
+.message-input-area textarea:focus {
+  border-color: #00e5ff;
+  outline: none;
+}
+
+.message-input-area textarea {
+  min-height: 80px;
+}
+
+.messages-list {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message-item {
+  background: rgba(0, 20, 40, 0.6);
+  border-left: 3px solid #00e5ff;
+  padding: 1rem;
+  border-radius: 16px;
+  transition: 0.2s;
+}
+
+.message-item:hover {
+  background: rgba(0, 229, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.message-name {
+  font-weight: bold;
+  color: #00e5ff;
+  margin-bottom: 5px;
+}
+
+.message-text {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.message-date {
+  font-size: 0.7rem;
+  color: #88aacc;
+  margin-top: 5px;
 }
 
 section {
@@ -603,16 +738,6 @@ footer {
 </head>
 <body>
 
-<!-- PRELOADER LOGO - S3A LOGO BEFORE PAGE LOADS (3 SECONDS) -->
-<div class="preloader" id="preloader">
-  <div class="preloader-logo">
-    <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
-    <h2>S3A</h2>
-    <p>Class of 2026</p>
-    <div style="margin-top: 1rem;"><i class="fas fa-spinner fa-pulse"></i> Loading memories...</div>
-  </div>
-</div>
-
 <!-- background image -->
 <div style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; overflow:hidden;">
   <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.35);" alt="bg">
@@ -625,6 +750,7 @@ footer {
   <a href="#gallery"><i class="fas fa-camera"></i> Gallery</a>
   <a href="#videos"><i class="fas fa-video"></i> Videos</a>
   <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+  <a href="#messages"><i class="fas fa-comments"></i> Messages</a>
   <a href="#" id="loginNavBtn"><i class="fas fa-key"></i> Login</a>
 </nav>
 
@@ -635,11 +761,12 @@ footer {
     <div class="btn" onclick="openInvite()"><i class="fas fa-envelope-open-text"></i> Open Invitation</div>
     <div class="btn btn-outline" id="heroLoginBtn"><i class="fas fa-user-graduate"></i> Student Login</div>
     <div class="btn music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i> 🎵 Play Music</div>
+    <div class="btn congrats-btn" onclick="showCongratulations()"><i class="fas fa-trophy"></i> 🎉 CONGRATULATIONS! 🎓</div>
   </div>
 </div>
 
 <audio id="music" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <section id="about">
@@ -677,6 +804,26 @@ footer {
     <div class="video-box"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video><p>🎓 Graduation Ceremony Teaser</p></div>
   </div>
   <div class="card" style="text-align:center;"><i class="fas fa-film"></i> Click any video to watch in fullscreen popup!</div>
+</section>
+
+<!-- MESSAGE BOARD SECTION -->
+<section id="messages">
+  <h2><i class="fas fa-comment-dots"></i> Graduation Guestbook</h2>
+  <div class="message-board">
+    <div class="message-input-area">
+      <input type="text" id="messageName" placeholder="Your Name">
+      <textarea id="messageText" placeholder="Leave your congratulations or memories... 🎓✨"></textarea>
+      <button class="btn" onclick="leaveMessage()"><i class="fas fa-paper-plane"></i> Leave Message</button>
+    </div>
+    <h3 style="margin-bottom: 1rem;"><i class="fas fa-heart" style="color: #ff69b4;"></i> Messages from Friends & Family</h3>
+    <div class="messages-list" id="messagesList">
+      <div class="message-item">
+        <div class="message-name">🎓 S3A Family</div>
+        <div class="message-text">Congratulations to all graduates! We are so proud of you! 🌟🎉</div>
+        <div class="message-date">Welcome to the guestbook!</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="contact">
@@ -726,17 +873,6 @@ footer {
 <footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School • Built with Next-Gen Design</footer>
 
 <script>
-// ========== PRELOADER HIDE AFTER 3 SECONDS (FIXED) ==========
-window.addEventListener("load", function() {
-  setTimeout(function() {
-    const preloader = document.getElementById("preloader");
-    if(preloader) {
-      preloader.style.opacity = "0";
-      preloader.style.visibility = "hidden";
-    }
-  }, 3000); // ← 3 SECONDS (changed from 1500)
-});
-
 // ========== ALL CLASSMATES (FULL LIST) ==========
 const studentsArray = [
   "IRAFASHA Jean", "Kiara IRIZA Simone", "NZAYISENGA Bonaventure", "NYIRINKWAYA Kibamba Irene",
@@ -776,103 +912,43 @@ setInterval(updateCountdown, 60000);
 
 window.openInvite = () => alert("🎓✨ You are cordially invited to the S3A Graduation Ceremony 2026! ✨🎓\nDate: 1st December 2026 | Venue: Wisdom High School Auditorium");
 
-// MUSIC PLAYER
+// MUSIC PLAYER (LOCAL music.mp3)
 let musicPlaying = false;
 const music = document.getElementById("music");
 window.toggleMusic = function() {
   const btn = document.querySelector(".music-btn");
   if(!musicPlaying) {
-    music.play().then(() => { musicPlaying = true; btn.innerHTML = "⏸ Pause Music"; }).catch(() => alert("Click again to start music 🎵"));
+    music.play().then(() => { musicPlaying = true; btn.innerHTML = "⏸ Pause Music"; }).catch(() => alert("Make sure music.mp3 is in your repo folder! 🎵"));
   } else {
     music.pause(); musicPlaying = false; btn.innerHTML = "🎵 Play Music";
   }
 };
 
-window.celebrateImage = function() {
-  alert("🎉✨ BONAVENTURE! A precious moment captured forever! ✨🎉\nClass of 2026 — We shine together!");
-};
-
-// SCROLL ANIMATIONS
-const scrollObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); });
-});
-document.querySelectorAll(".card, .student-card, .video-box, .gallery-item, .bona-card").forEach(el => { el.classList.add("hidden"); scrollObserver.observe(el); });
-
-// VIDEO POPUP
-document.querySelectorAll("video").forEach(video => {
-  video.addEventListener("click", () => {
-    const modalDiv = document.createElement("div");
-    modalDiv.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:flex; justify-content:center; align-items:center; z-index:9999;";
-    const clone = video.cloneNode(true);
-    clone.controls = true;
-    clone.style.width = "90%";
-    clone.style.maxWidth = "800px";
-    modalDiv.appendChild(clone);
-    modalDiv.addEventListener("click", () => modalDiv.remove());
-    document.body.appendChild(modalDiv);
-  });
-});
-
-// FLOATING TITLE EFFECT
-const title = document.querySelector(".hero h1");
-if(title) {
-  setInterval(() => {
-    title.style.transform = "translateY(-5px)";
-    setTimeout(() => title.style.transform = "translateY(0px)", 500);
-  }, 2000);
-}
-
-// SMOOTH SCROLL
-document.querySelectorAll("nav a[href^='#']").forEach(link => {
-  link.addEventListener("click", function(e) {
-    const href = this.getAttribute("href");
-    if(href && href !== "#" && href !== "#home") {
-      e.preventDefault();
-      const targetEl = document.querySelector(href);
-      if(targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
-    }
-  });
-});
-
-// LOGIN MODAL
-const modal = document.getElementById("loginModal");
-document.getElementById("loginNavBtn")?.addEventListener("click", (e) => { e.preventDefault(); modal.style.display = "flex"; });
-document.getElementById("heroLoginBtn")?.addEventListener("click", () => modal.style.display = "flex");
-document.getElementById("closeModalBtn")?.addEventListener("click", () => modal.style.display = "none");
-window.addEventListener("click", (e) => { if(e.target === modal) modal.style.display = "none"; });
-document.getElementById("doLoginBtn")?.addEventListener("click", () => {
-  const user = document.getElementById("loginUsername").value.trim();
-  const pass = document.getElementById("loginPassword").value.trim();
-  if(pass === "grad2026" && user !== "") alert(`✅ Welcome ${user}! You are now logged into S3A portal. 🎓`);
-  else alert("❌ Invalid credentials. Use any username and password: grad2026");
-  modal.style.display = "none";
-});
-
-// AI CHAT SYSTEM
-window.toggleChat = function() {
-  const box = document.getElementById("chatBox");
-  if(box.style.display === "flex") { box.style.display = "none"; }
-  else { box.style.display = "flex"; if(!document.getElementById("msgs").innerHTML) document.getElementById("msgs").innerHTML = `<div class="bubble-ai">🎓 Hey graduate! Ask me about ceremony, date, dress code or classmates. ✨</div>`; }
-};
-
-function aiReply(msg) {
-  const lower = msg.toLowerCase();
-  if(lower.includes("hello") || lower.includes("hi")) return "Hello S3A star! 👋 How can I assist you?";
-  if(lower.includes("graduation date")) return "📅 December 1, 2026 – Mark your calendar!";
-  if(lower.includes("dress code")) return "👔 Formal gown + school sash. Smart elegant!";
-  if(lower.includes("venue")) return "📍 Wisdom High School Main Hall, Kigali – doors open 9:00 AM.";
-  if(lower.includes("classmates") || lower.includes("students")) return `🎓 Our amazing class has ${studentsArray.length} graduates. A brilliant family!`;
-  if(lower.includes("teacher")) return "👩‍🏫 Special thanks to Mrs. Uwera, Mr. Kagame and all mentors!";
-  if(lower.includes("song")) return "🎶 Graduation anthem: 'Unstoppable' by S3A choir!";
-  if(lower.includes("photo") || lower.includes("bona")) return "📸 Bona's special memory is in the Contact section! Click the image to celebrate 🎉";
-  return "💡 Ask me about 'graduation date', 'dress code', 'venue' or 'classmates' ✨";
-}
-
-window.sendMessage = function() {
-  const input = document.getElementById("msg");
-  const text = input.value.trim();
-  if(!text) return;
-  const chatMsgs = document.getElementById("msgs");
-  const userDiv = document.createElement("div"); userDiv.className = "bubble-user"; userDiv.innerHTML = `<i class="fas fa-user"></i> ${text.replace(/[&<>]/g, function(m){return m==='&'?'&amp;':m==='<'?'&lt;':'&gt;';})}`;
-  chatMsgs.appendChild(userDiv);
-  const aiDiv =
+// ========== CONGRATULATIONS BUTTON WITH FLOWERS & FIREWORKS ==========
+window.showCongratulations = function() {
+  // Play celebration sound
+  const celebrationSound = new Audio();
+  celebrationSound.src = "https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3";
+  celebrationSound.play().catch(() => {});
+  
+  // Show alert with celebration
+  alert("🎉✨ CONGRATULATIONS GRADUATES! ✨🎉\n\nYou did it! Class of 2026!\n\n🎓 Wishing you success, happiness, and bright futures! 🎓");
+  
+  // Create fireworks and flowers
+  for(let i = 0; i < 50; i++) {
+    setTimeout(() => createFirework(), i * 50);
+  }
+  
+  for(let i = 0; i < 100; i++) {
+    setTimeout(() => createFlower(), i * 30);
+  }
+  
+  for(let i = 0; i < 200; i++) {
+    setTimeout(() => createConfetti(), i * 10);
+  }
+  
+  // Auto-play graduation song
+  if(!musicPlaying) {
+    music.play().then(() => { 
+      musicPlaying = true; 
+     
