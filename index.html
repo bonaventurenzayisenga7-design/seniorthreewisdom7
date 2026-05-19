@@ -603,7 +603,7 @@ footer {
 </head>
 <body>
 
-<!-- PRELOADER LOGO - S3A LOGO BEFORE PAGE LOADS -->
+<!-- PRELOADER LOGO - S3A LOGO BEFORE PAGE LOADS (3 SECONDS) -->
 <div class="preloader" id="preloader">
   <div class="preloader-logo">
     <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
@@ -726,7 +726,7 @@ footer {
 <footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School • Built with Next-Gen Design</footer>
 
 <script>
-// ========== PRELOADER HIDE AFTER LOAD ==========
+// ========== PRELOADER HIDE AFTER 3 SECONDS (FIXED) ==========
 window.addEventListener("load", function() {
   setTimeout(function() {
     const preloader = document.getElementById("preloader");
@@ -734,7 +734,7 @@ window.addEventListener("load", function() {
       preloader.style.opacity = "0";
       preloader.style.visibility = "hidden";
     }
-  }, 1500);
+  }, 3000); // ← 3 SECONDS (changed from 1500)
 });
 
 // ========== ALL CLASSMATES (FULL LIST) ==========
@@ -786,6 +786,10 @@ window.toggleMusic = function() {
   } else {
     music.pause(); musicPlaying = false; btn.innerHTML = "🎵 Play Music";
   }
+};
+
+window.celebrateImage = function() {
+  alert("🎉✨ BONAVENTURE! A precious moment captured forever! ✨🎉\nClass of 2026 — We shine together!");
 };
 
 // SCROLL ANIMATIONS
@@ -871,7 +875,4 @@ window.sendMessage = function() {
   const chatMsgs = document.getElementById("msgs");
   const userDiv = document.createElement("div"); userDiv.className = "bubble-user"; userDiv.innerHTML = `<i class="fas fa-user"></i> ${text.replace(/[&<>]/g, function(m){return m==='&'?'&amp;':m==='<'?'&lt;':'&gt;';})}`;
   chatMsgs.appendChild(userDiv);
-  const aiDiv = document.createElement("div"); aiDiv.className = "bubble-ai"; aiDiv.innerHTML = `<i class="fas fa-robot"></i> ${aiReply(text)}`;
-  chatMsgs.appendChild(aiDiv);
-  input.value = "";
-  chatMsgs.scrollTop = chatMs
+  const aiDiv =
