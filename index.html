@@ -605,6 +605,21 @@ footer {
   transform: translateY(0);
 }
 
+.firework {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(30); opacity: 0; }
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -619,8 +634,6 @@ footer {
 </style>
 </head>
 <body>
-
-<!-- BACKGROUND IS NOW school1.jpg FROM YOUR REPO -->
 
 <nav>
   <a href="#home"><i class="fas fa-home"></i> Home</a>
@@ -659,10 +672,12 @@ footer {
   </div>
 </section>
 
-<!-- STUDENTS SECTION - NOW WITH ALL NAMES VISIBLE -->
+<!-- STUDENTS SECTION WITH ALL NAMES DISPLAYED -->
 <section id="students">
   <h2><i class="fas fa-user-friends"></i> Graduating Classmates</h2>
-  <div class="grid" id="studentsGrid"></div>
+  <div class="grid" id="studentsGrid">
+    <!-- Student names will appear here -->
+  </div>
 </section>
 
 <section id="gallery">
@@ -676,7 +691,6 @@ footer {
   <div class="card" style="margin-top:2rem; text-align:center;">📸🎥 <strong>Graduation photos will be added soon — stay tuned!</strong></div>
 </section>
 
-<!-- VIDEOS SECTION - RESTORED -->
 <section id="videos">
   <h2><i class="fas fa-video"></i> Graduation Memories</h2>
   <div class="video-container">
@@ -686,7 +700,7 @@ footer {
   <div class="card" style="text-align:center;"><i class="fas fa-film"></i> Click any video to watch in fullscreen popup!</div>
 </section>
 
-<!-- SUBSCRIPTION SECTION ADDED -->
+<!-- SUBSCRIPTION SECTION -->
 <section id="subscribe">
   <div class="subscription-section">
     <i class="fas fa-envelope-open-text" style="font-size: 3rem; color: #00e5ff; margin-bottom: 1rem;"></i>
@@ -750,15 +764,28 @@ footer {
 </footer>
 
 <script>
-// ========== ALL CLASSMATES (FULL LIST - NOW VISIBLE) ==========
+// ========== GRADUATING CLASSMATES NAMES (FULL LIST DISPLAYED) ==========
 const studentsArray = [
-  "IRAFASHA Jean", "Kiara IRIZA Simone", "NZAYISENGA Bonaventure", "NYIRINKWAYA Kibamba Irene",
-  "IRAKOZE GAKURU Joseline", "NIWE Blessing", "UMWIZERWA Frank", "Belyse Umutoniwase",
-  "UMURERWA Clenia", "Furaha Sumaya", "AGASARO Keza Ornella", "MUHIMPUNDU Honneur",
-  "NDATSIKIRA MANZI Davin", "Ineza MUGISHA Kenny", "KABATESI BUTERA Kethia", "MUGABEKAZI Cynthia",
+  "IRAFASHA Jean", 
+  "Kiara IRIZA Simone", 
+  "NZAYISENGA Bonaventure", 
+  "NYIRINKWAYA Kibamba Irene",
+  "IRAKOZE GAKURU Joseline", 
+  "NIWE Blessing", 
+  "UMWIZERWA Frank", 
+  "Belyse Umutoniwase",
+  "UMURERWA Clenia", 
+  "Furaha Sumaya", 
+  "AGASARO Keza Ornella", 
+  "MUHIMPUNDU Honneur",
+  "NDATSIKIRA MANZI Davin", 
+  "Ineza MUGISHA Kenny", 
+  "KABATESI BUTERA Kethia", 
+  "MUGABEKAZI Cynthia",
   "NSANGA IRUMVA Alonzo"
 ];
 
+// Function to display all student names
 function renderStudents() {
   const grid = document.getElementById("studentsGrid");
   if(grid) {
@@ -767,11 +794,14 @@ function renderStudents() {
       const div = document.createElement("div");
       div.className = "student-card";
       div.innerHTML = `<i class="fas fa-user-graduate"></i> ${name}`;
+      div.onclick = () => alert(`🎓 ${name} - Class of 2026! Congratulations! 🎉`);
       grid.appendChild(div);
     });
-    console.log("✅ Students loaded:", studentsArray.length);
+    console.log("✅ Students loaded successfully:", studentsArray.length + " names displayed");
   }
 }
+
+// Call the function when page loads
 renderStudents();
 
 // COUNTDOWN
@@ -807,11 +837,11 @@ window.toggleMusic = function() {
   }
 };
 
-// CONGRATULATIONS FUNCTION
+// CONGRATULATIONS FUNCTION WITH FIREWORKS
 window.showCongratulations = function() {
   alert("🎉✨ CONGRATULATIONS GRADUATES! ✨🎉\n\nYou did it! Class of 2026!\n\n🎓 Wishing you success, happiness, and bright futures! 🎓");
   
-  // Create celebration effects
+  // Create firework effects
   for(let i = 0; i < 50; i++) {
     setTimeout(() => {
       const firework = document.createElement("div");
@@ -824,7 +854,7 @@ window.showCongratulations = function() {
     }, i * 50);
   }
   
-  // Play celebration sound
+  // Play celebration music if not already playing
   if(!musicPlaying) {
     music.play().catch(() => {});
   }
@@ -895,14 +925,4 @@ document.getElementById("closeModalBtn")?.addEventListener("click", () => modal.
 window.addEventListener("click", (e) => { if(e.target === modal) modal.style.display = "none"; });
 document.getElementById("doLoginBtn")?.addEventListener("click", () => {
   const user = document.getElementById("loginUsername").value.trim();
-  const pass = document.getElementById("loginPassword").value.trim();
-  if(pass === "grad2026" && user !== "") alert(`✅ Welcome ${user}! You are now logged into S3A portal. 🎓`);
-  else alert("❌ Invalid credentials. Use any username and password: grad2026");
-  modal.style.display = "none";
-});
-
-// AI CHAT SYSTEM
-window.toggleChat = function() {
-  const box = document.getElementById("chatBox");
-  if(box.style.display === "flex") { box.style.display = "none"; }
-  else { box.style.display = "flex"; if(!document.getElementById("msgs").innerHTML) document
+  const pass = document.getElementById("loginPassword").
