@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <link rel="icon" type="image/jpeg" href="school1.jpg">
 <link rel="shortcut icon" href="school1.jpg">
-<title>🏫 S3A Graduation 2026 | Wisdom High School - GTA STYLE GAME</title>
+<title>🏫 S3A Graduation 2026 | 3D GTA STYLE GAME</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script type="importmap">
@@ -128,7 +128,7 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
     <div class="btn btn-outline" id="heroLoginBtn"><i class="fas fa-user-graduate"></i> Student Portal</div>
     <div class="btn music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i> 🎵 Play Music</div>
     <div class="btn congrats-btn" onclick="showCongratulations()"><i class="fas fa-trophy"></i> 🎉 CONGRATULATIONS! 🎓</div>
-    <div class="btn game-btn" onclick="openGTA()"><i class="fas fa-gamepad"></i> 🎮 GTA STYLE - DAMSEN CITY 🎮</div>
+    <div class="btn game-btn" onclick="open3DGame()"><i class="fas fa-gamepad"></i> 🎮 3D OPEN WORLD - DAMSEN CITY 🎮</div>
   </div>
 </div>
 
@@ -148,319 +148,352 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
 <div id="gameModal" class="modal">
   <div class="modal-content game-modal-content">
     <div class="game-modal-header">
-      <h3><i class="fas fa-city"></i> 🎮 GTA STYLE - DAMSEN CITY OPEN WORLD 🎮</h3>
+      <h3><i class="fas fa-city"></i> 🎮 3D OPEN WORLD - DAMSEN CITY 🎮</h3>
       <div class="mission-controls">
-        <button onclick="toggleVehicleMode()" id="vehicleModeBtn">🚗 GET IN CAR</button>
-        <button onclick="nextGTAMission()" id="nextMissionBtn">✅ NEXT MISSION</button>
+        <button onclick="window.enterVehicle()" id="vehicleModeBtn">🚗 FIND CAR</button>
+        <button onclick="window.nextMission3D()" id="nextMissionBtn">✅ NEXT MISSION</button>
       </div>
       <div><button class="fullscreen-btn" onclick="toggleGameFullscreen()"><i class="fas fa-expand"></i> Fullscreen</button><button id="closeGameModalBtn">✖ CLOSE</button></div>
     </div>
-    <div id="gameCanvasContainer" style="flex:1; position:relative;">
-      <div class="game-controls-hint" id="gameControlsHint">🎮 WASD: Move | SHIFT: Run | SPACE: Shoot | E: Enter/Exit Vehicle | 🖱️ Mouse: Look around</div>
-      <div class="mission-panel" id="missionPanel">
-        <h4><i class="fas fa-trophy"></i> MISSION <span id="currentMission">1</span>/<span id="totalMissions">10</span></h4>
-        <p id="missionDesc">🏁 ELIMINATE 5 ENEMY GANG MEMBERS</p>
-        <p>Progress: <span id="missionProgress">0</span>/<span id="missionRequired">5</span></p>
-        <div class="progress-bar"><div class="progress-fill-game" id="missionProgressFill"></div></div>
-      </div>
-      <div class="health-bar" id="healthBar">
-        ❤️ HEALTH: <span id="healthValue">100</span>%
-      </div>
-      <div class="weapon-status" id="weaponStatus">
-        🔫 WEAPON: PISTOL | AMMO: ∞
-      </div>
-    </div>
+    <div id="gameCanvasContainer" style="flex:1; position:relative;"></div>
   </div>
 </div>
 
 <div id="chatWidget"><div class="chat-toggle" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></div><div id="chatBox"><div class="chat-header"><span><i class="fas fa-brain"></i> S3A AI Guide</span><span style="cursor:pointer;" onclick="toggleChat()">✕</span></div><div id="msgs"></div><div id="inputBox"><input id="msg" placeholder="Ask about graduation..."><button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div></div></div>
 
-<footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School<br><small>© 2026 All Rights Reserved | GTA Style Open World Game - 10 Missions</small></footer>
+<footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School<br><small>© 2026 All Rights Reserved | 3D Open World Game</small></footer>
 
 <script type="module">
 import * as THREE from 'three';
 
-let scene, camera, renderer, player, enemies = [], vehicles = [], bullets = [];
-let keys = {}, mouseX = 0, mouseY = 0, isDragging = false;
-let currentMission = 1, missionProgress = 0;
-let missionRequirements = {1:5,2:8,3:10,4:12,5:15,6:18,7:20,8:22,9:25,10:30};
-let health = 100, inVehicle = false, currentVehicle = null;
-let playerSpeed = 5, runSpeed = 8, vehicleSpeed = 0, vehicleAcc = 0;
-let cameraAngle = {theta: 0, phi: 0.5};
-let shootCooldown = 0;
-let enemySpawned = false;
+let scene, camera, renderer, player, enemies = [], vehicles = [];
+let keys = { w: false, s: false, a: false, d: false, ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
+let playerVelocity = { x: 0, z: 0 };
+let health = 100;
+let currentMission = 1;
+let missionProgress = 0;
+let missionTargets = {1:5,2:8,3:10,4:12,5:15,6:18,7:20,8:22,9:25,10:30};
+let inVehicle = false;
+let currentVehicle = null;
+let cameraAngle = { theta: 0, phi: 0.5 };
+let isDragging = false;
+let mouseX = 0, mouseY = 0;
 
-function updateMissionUI(){
-  document.getElementById('currentMission').textContent = currentMission;
-  const req = missionRequirements[currentMission];
-  document.getElementById('missionRequired').textContent = req;
-  document.getElementById('missionProgress').textContent = missionProgress;
-  const percent = (missionProgress / req) * 100;
-  document.getElementById('missionProgressFill').style.width = percent + '%';
-  
-  const missionDesc = document.getElementById('missionDesc');
-  if(currentMission === 1) missionDesc.innerHTML = '🏁 ELIMINATE 5 ENEMY GANG MEMBERS';
-  else if(currentMission === 2) missionDesc.innerHTML = '🏁 CLEAR THE STREETS - 8 ENEMIES';
-  else if(currentMission === 3) missionDesc.innerHTML = '🏁 GANG HIDEOUT - 10 ENEMIES';
-  else if(currentMission === 4) missionDesc.innerHTML = '🏁 DRIVE-BY MISSION - 12 ENEMIES';
-  else if(currentMission === 5) missionDesc.innerHTML = '🏁 BOSS ENCOUNTER - 15 ENEMIES';
-  else if(currentMission === 6) missionDesc.innerHTML = '🏁 DRUG RAID - 18 ENEMIES';
-  else if(currentMission === 7) missionDesc.innerHTML = '🏁 PRISON BREAK - 20 ENEMIES';
-  else if(currentMission === 8) missionDesc.innerHTML = '🏁 MILITARY BASE - 22 ENEMIES';
-  else if(currentMission === 9) missionDesc.innerHTML = '🏁 FINAL SHOWDOWN - 25 ENEMIES';
-  else missionDesc.innerHTML = '🏁 LEGENDARY BOSS - 30 ENEMIES';
-  
-  document.getElementById('healthValue').textContent = health;
-  if(health < 30) document.getElementById('healthValue').style.color = '#ff0000';
-  else document.getElementById('healthValue').style.color = '#ff4757';
-}
-
-function spawnEnemies(){
-  enemies.forEach(e => scene.remove(e));
-  enemies = [];
-  const count = 3 + Math.floor(Math.random() * 5);
-  for(let i=0;i<count;i++){
-    const enemyGroup = new THREE.Group();
-    const bodyGeo = new THREE.CylinderGeometry(0.4,0.4,0.7,6);
-    const bodyMat = new THREE.MeshStandardMaterial({ color: 0xcc3333 });
-    const body = new THREE.Mesh(bodyGeo, bodyMat);
-    body.castShadow = true;
-    enemyGroup.add(body);
-    const headGeo = new THREE.SphereGeometry(0.35,16,16);
-    const headMat = new THREE.MeshStandardMaterial({ color: 0xdd8866 });
-    const head = new THREE.Mesh(headGeo, headMat);
-    head.position.y = 0.55;
-    enemyGroup.add(head);
-    const angle = Math.random() * Math.PI * 2;
-    const radius = 8 + Math.random() * 10;
-    enemyGroup.position.set(Math.cos(angle)*radius, 0, Math.sin(angle)*radius);
-    enemyGroup.userData = { health: 50, active: true };
-    scene.add(enemyGroup);
-    enemies.push(enemyGroup);
+function updateMissionUI() {
+  const panel = document.querySelector('.mission-panel');
+  if(panel) {
+    panel.innerHTML = `
+      <h4><i class="fas fa-trophy"></i> MISSION ${currentMission}/10</h4>
+      <p>🏁 Eliminate ${missionTargets[currentMission]} enemies</p>
+      <p>Progress: ${missionProgress}/${missionTargets[currentMission]}</p>
+      <div class="progress-bar"><div class="progress-fill-game" style="width:${(missionProgress/missionTargets[currentMission])*100}%"></div></div>
+      <p style="color:#ffd200; font-size:11px;">❤️ HEALTH: ${health}%</p>
+    `;
   }
 }
 
-function shoot(){
-  if(shootCooldown > 0) return;
-  shootCooldown = 20;
-  const direction = new THREE.Vector3(0,0,-1).applyQuaternion(camera.quaternion);
-  const origin = player.position.clone();
-  origin.y += 0.5;
-  
-  for(let i=0;i<enemies.length;i++){
-    const enemy = enemies[i];
-    if(!enemy.userData.active) continue;
-    const toEnemy = enemy.position.clone().sub(origin);
-    const dist = toEnemy.length();
-    if(dist < 15){
-      const angleTo = direction.angleTo(toEnemy.normalize());
-      if(angleTo < 0.3){
-        enemy.userData.health -= 25;
-        if(enemy.userData.health <= 0){
-          scene.remove(enemy);
-          enemies.splice(i,1);
-          missionProgress = Math.min(missionRequirements[currentMission], missionProgress + 1);
-          updateMissionUI();
-          for(let p=0;p<10;p++) setTimeout(()=>{let f=document.createElement('div');f.className='firework';f.style.left=Math.random()*innerWidth+'px';f.style.top=Math.random()*innerHeight+'px';f.style.background=`hsl(${Math.random()*360},100%,60%)`;document.body.appendChild(f);setTimeout(()=>f.remove(),500);},p*50);
-          i--;
-        }
-      }
+function shootAtEnemy() {
+  if(enemies.length === 0) return;
+  const closest = enemies.reduce((prev, curr) => 
+    player.position.distanceTo(curr.position) < player.position.distanceTo(prev.position) ? curr : prev
+  );
+  const dist = player.position.distanceTo(closest.position);
+  if(dist < 8) {
+    scene.remove(closest);
+    const idx = enemies.indexOf(closest);
+    if(idx > -1) enemies.splice(idx, 1);
+    missionProgress = Math.min(missionTargets[currentMission], missionProgress + 1);
+    updateMissionUI();
+    // Flash effect
+    const flash = document.createElement('div');
+    flash.style.position = 'fixed';
+    flash.style.top = 0;
+    flash.style.left = 0;
+    flash.style.width = '100%';
+    flash.style.height = '100%';
+    flash.style.background = 'rgba(255,255,255,0.3)';
+    flash.style.pointerEvents = 'none';
+    flash.style.zIndex = 9999;
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 100);
+    
+    if(missionProgress >= missionTargets[currentMission]) {
+      alert(`✅ MISSION ${currentMission} COMPLETE! Click NEXT MISSION to continue!`);
     }
   }
 }
 
-function toggleVehicleMode(){
-  if(!inVehicle){
-    if(currentVehicle){
-      inVehicle = true;
-      player.visible = false;
-      currentVehicle.visible = true;
-      player.position.copy(currentVehicle.position);
-      document.getElementById('vehicleModeBtn').innerHTML = '🚶 EXIT CAR';
-      document.getElementById('gameControlsHint').innerHTML = '🚗 CAR MODE: WASD Drive | SPACE: Brake | E: Exit';
-    } else {
-      alert('Find a car nearby! Look for blue cars on the street!');
-    }
-  } else {
-    inVehicle = false;
-    player.visible = true;
-    currentVehicle.visible = false;
-    vehicleSpeed = 0;
-    document.getElementById('vehicleModeBtn').innerHTML = '🚗 GET IN CAR';
-    document.getElementById('gameControlsHint').innerHTML = '🎮 WASD: Move | SHIFT: Run | SPACE: Shoot | E: Enter Vehicle';
-  }
-}
-
-function spawnVehicles(){
-  for(let i=0;i<6;i++){
-    const carGroup = new THREE.Group();
-    const bodyGeo = new THREE.BoxGeometry(0.8,0.4,1.5);
-    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x3399ff });
-    const body = new THREE.Mesh(bodyGeo, bodyMat);
-    body.castShadow = true;
-    carGroup.add(body);
-    const roofGeo = new THREE.BoxGeometry(0.7,0.25,1.0);
-    const roofMat = new THREE.MeshStandardMaterial({ color: 0x224466 });
-    const roof = new THREE.Mesh(roofGeo, roofMat);
-    roof.position.y = 0.35;
-    carGroup.add(roof);
-    const angle = Math.random() * Math.PI * 2;
-    const radius = 6 + Math.random() * 12;
-    carGroup.position.set(Math.cos(angle)*radius, 0, Math.sin(angle)*radius);
-    carGroup.rotation.y = angle;
-    scene.add(carGroup);
-    vehicles.push(carGroup);
-    if(!currentVehicle) currentVehicle = carGroup;
-  }
-}
-
-function initGTAGame(){
+function init3DGame() {
   const container = document.getElementById('gameCanvasContainer');
   if(!container) return;
-  while(container.firstChild && container.lastChild !== document.querySelector('.game-controls-hint') && container.lastChild !== document.querySelector('.mission-panel') && container.lastChild !== document.querySelector('.health-bar') && container.lastChild !== document.querySelector('.weapon-status')) container.removeChild(container.firstChild);
+  while(container.firstChild) container.removeChild(container.firstChild);
   
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x0a0a2a);
   scene.fog = new THREE.FogExp2(0x0a0a2a, 0.008);
   
-  camera = new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight, 0.1, 1000);
-  camera.position.set(0,3,5);
+  camera = new THREE.PerspectiveCamera(65, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.set(0, 4, 8);
   
-  renderer = new THREE.WebGLRenderer({antialias:true});
+  renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(container.clientWidth, container.clientHeight);
   renderer.shadowMap.enabled = true;
   container.appendChild(renderer.domElement);
   
+  // Add mission UI panel
+  const missionDiv = document.createElement('div');
+  missionDiv.className = 'mission-panel';
+  missionDiv.style.position = 'absolute';
+  missionDiv.style.top = '15px';
+  missionDiv.style.right = '15px';
+  missionDiv.style.background = 'rgba(0,0,0,0.85)';
+  missionDiv.style.padding = '10px 20px';
+  missionDiv.style.borderRadius = '20px';
+  missionDiv.style.borderLeft = '4px solid #ffd200';
+  missionDiv.style.zIndex = '20';
+  missionDiv.style.pointerEvents = 'none';
+  missionDiv.style.color = 'white';
+  missionDiv.style.fontSize = '12px';
+  container.appendChild(missionDiv);
+  
+  const controlsDiv = document.createElement('div');
+  controlsDiv.className = 'game-controls-hint';
+  controlsDiv.innerHTML = '🎮 WASD: Move | SHIFT: Run | Click on enemies to shoot! | 🖱️ Drag mouse to look';
+  controlsDiv.style.position = 'absolute';
+  controlsDiv.style.bottom = '15px';
+  controlsDiv.style.left = '15px';
+  controlsDiv.style.background = 'rgba(0,0,0,0.7)';
+  controlsDiv.style.padding = '8px 15px';
+  controlsDiv.style.borderRadius = '20px';
+  controlsDiv.style.color = '#ffd200';
+  controlsDiv.style.fontSize = '12px';
+  controlsDiv.style.zIndex = '20';
+  controlsDiv.style.pointerEvents = 'none';
+  container.appendChild(controlsDiv);
+  
+  const healthDiv = document.createElement('div');
+  healthDiv.className = 'health-bar';
+  healthDiv.style.position = 'absolute';
+  healthDiv.style.top = '15px';
+  healthDiv.style.left = '15px';
+  healthDiv.style.background = 'rgba(0,0,0,0.85)';
+  healthDiv.style.padding = '8px 15px';
+  healthDiv.style.borderRadius = '20px';
+  healthDiv.style.zIndex = '20';
+  healthDiv.innerHTML = '❤️ HEALTH: <span style="color:#ff4757;">100</span>%';
+  container.appendChild(healthDiv);
+  
+  window.update3DUI = () => {
+    missionDiv.innerHTML = `
+      <h4 style="color:#ffd200; margin:0 0 5px 0;"><i class="fas fa-trophy"></i> MISSION ${currentMission}/10</h4>
+      <p style="margin:3px 0;">🏁 Eliminate ${missionTargets[currentMission]} enemies</p>
+      <p style="margin:3px 0;">Progress: ${missionProgress}/${missionTargets[currentMission]}</p>
+      <div style="width:150px; height:8px; background:rgba(255,255,255,0.3); border-radius:10px; overflow:hidden; margin-top:5px;"><div style="height:100%; background:linear-gradient(90deg,#ffd200,#ff8c00); width:${(missionProgress/missionTargets[currentMission])*100}%;"></div></div>
+    `;
+    healthDiv.innerHTML = `❤️ HEALTH: <span style="color:${health<30?'#ff0000':'#ff4757'};">${health}</span>%`;
+  };
+  
+  // Lighting
   const ambientLight = new THREE.AmbientLight(0x404060);
   scene.add(ambientLight);
   const dirLight = new THREE.DirectionalLight(0xffeedd, 1.2);
-  dirLight.position.set(15,25,10);
+  dirLight.position.set(15, 25, 10);
   dirLight.castShadow = true;
   scene.add(dirLight);
   const fillLight = new THREE.PointLight(0x4466aa, 0.5);
-  fillLight.position.set(0,10,0);
+  fillLight.position.set(0, 10, 0);
   scene.add(fillLight);
   
-  const groundGeo = new THREE.CircleGeometry(35,32);
-  const groundMat = new THREE.MeshStandardMaterial({ color: 0x2c2c3e, roughness: 0.7, metalness: 0.1 });
+  // Ground
+  const groundGeo = new THREE.CircleGeometry(35, 32);
+  const groundMat = new THREE.MeshStandardMaterial({ color: 0x2c2c3e, roughness: 0.7 });
   const ground = new THREE.Mesh(groundGeo, groundMat);
-  ground.rotation.x = -Math.PI/2;
+  ground.rotation.x = -Math.PI / 2;
   ground.position.y = -0.5;
   ground.receiveShadow = true;
   scene.add(ground);
   
-  const roadMat = new THREE.MeshStandardMaterial({ color: 0x333344 });
-  for(let i=-25;i<=25;i+=3){
-    const roadStripe = new THREE.Mesh(new THREE.BoxGeometry(0.2,0.05,2), new THREE.MeshStandardMaterial({ color: 0xffdd88 }));
-    roadStripe.position.set(i, -0.45, 0);
-    roadStripe.receiveShadow = true;
-    scene.add(roadStripe);
+  // Road grid
+  const roadMat = new THREE.MeshStandardMaterial({ color: 0x444455 });
+  for(let i = -25; i <= 25; i+=2.5) {
+    const stripe = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.05, 1.5), new THREE.MeshStandardMaterial({ color: 0xffdd88 }));
+    stripe.position.set(i, -0.45, 0);
+    scene.add(stripe);
   }
   
-  for(let i=0;i<40;i++){
-    const buildingGeo = new THREE.BoxGeometry(1.2, 1.5 + Math.random()*2, 1.2);
-    const buildingMat = new THREE.MeshStandardMaterial({ color: 0x6688aa + Math.random()*0x334466 });
+  // Buildings
+  const colors = [0x6688aa, 0x778899, 0x6699cc, 0x5588aa, 0x7799bb];
+  for(let i = 0; i < 35; i++) {
+    const height = 1.2 + Math.random() * 2.5;
+    const buildingGeo = new THREE.BoxGeometry(1, height, 1);
+    const buildingMat = new THREE.MeshStandardMaterial({ color: colors[Math.floor(Math.random() * colors.length)] });
     const building = new THREE.Mesh(buildingGeo, buildingMat);
     const angle = Math.random() * Math.PI * 2;
-    const radius = 16 + Math.random() * 8;
-    building.position.set(Math.cos(angle)*radius, 0, Math.sin(angle)*radius);
+    const radius = 12 + Math.random() * 10;
+    building.position.set(Math.cos(angle) * radius, height/2 - 0.5, Math.sin(angle) * radius);
     building.castShadow = true;
     building.receiveShadow = true;
     scene.add(building);
   }
   
+  // Player character (DAMSEN)
   const playerGroup = new THREE.Group();
-  const bodyGeo = new THREE.CylinderGeometry(0.45,0.45,0.8,8);
+  const bodyGeo = new THREE.CylinderGeometry(0.45, 0.45, 0.8, 8);
   const bodyMat = new THREE.MeshStandardMaterial({ color: 0x44aa44 });
-  const playerBody = new THREE.Mesh(bodyGeo, bodyMat);
-  playerBody.castShadow = true;
-  playerGroup.add(playerBody);
-  const headGeo = new THREE.SphereGeometry(0.4,24,24);
+  const body = new THREE.Mesh(bodyGeo, bodyMat);
+  body.castShadow = true;
+  playerGroup.add(body);
+  const headGeo = new THREE.SphereGeometry(0.4, 24, 24);
   const headMat = new THREE.MeshStandardMaterial({ color: 0xffaa77 });
-  const playerHead = new THREE.Mesh(headGeo, headMat);
-  playerHead.position.y = 0.65;
-  playerHead.castShadow = true;
-  playerGroup.add(playerHead);
-  playerGroup.position.set(0,0,0);
+  const head = new THREE.Mesh(headGeo, headMat);
+  head.position.y = 0.65;
+  head.castShadow = true;
+  playerGroup.add(head);
+  playerGroup.position.set(0, 0, 0);
   scene.add(playerGroup);
   player = playerGroup;
   
-  spawnVehicles();
-  spawnEnemies();
+  // Cars (vehicles)
+  for(let i = 0; i < 6; i++) {
+    const carGroup = new THREE.Group();
+    const carBody = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.4, 1.5), new THREE.MeshStandardMaterial({ color: 0x3399ff }));
+    carBody.castShadow = true;
+    carGroup.add(carBody);
+    const carRoof = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.25, 1.0), new THREE.MeshStandardMaterial({ color: 0x225588 }));
+    carRoof.position.y = 0.35;
+    carRoof.castShadow = true;
+    carGroup.add(carRoof);
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 8 + Math.random() * 12;
+    carGroup.position.set(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
+    carGroup.rotation.y = angle;
+    scene.add(carGroup);
+    vehicles.push(carGroup);
+  }
   
-  window.addEventListener('keydown', (e) => { keys[e.key] = true; if(e.key === ' '){ e.preventDefault(); shoot(); } });
-  window.addEventListener('keyup', (e) => { keys[e.key] = false; });
+  // Enemies (red gang members)
+  for(let i = 0; i < 8; i++) {
+    const enemyGroup = new THREE.Group();
+    const eBody = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.7, 6), new THREE.MeshStandardMaterial({ color: 0xcc3333 }));
+    eBody.castShadow = true;
+    enemyGroup.add(eBody);
+    const eHead = new THREE.Mesh(new THREE.SphereGeometry(0.35, 16, 16), new THREE.MeshStandardMaterial({ color: 0xdd8866 }));
+    eHead.position.y = 0.55;
+    enemyGroup.add(eHead);
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 6 + Math.random() * 12;
+    enemyGroup.position.set(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
+    scene.add(enemyGroup);
+    enemies.push(enemyGroup);
+  }
   
+  // Keyboard controls
+  window.addEventListener('keydown', (e) => {
+    if(keys.hasOwnProperty(e.key)) keys[e.key] = true;
+    if(e.key === ' ' || e.key === 'Space') {
+      e.preventDefault();
+      shootAtEnemy();
+    }
+    if(e.key === 'e' || e.key === 'E') {
+      for(let v of vehicles) {
+        if(player.position.distanceTo(v.position) < 2) {
+          inVehicle = !inVehicle;
+          if(inVehicle) {
+            currentVehicle = v;
+            player.visible = false;
+            alert('🚗 You entered the car! Use WASD to drive!');
+          } else {
+            player.position.copy(v.position);
+            player.visible = true;
+            currentVehicle = null;
+          }
+          break;
+        }
+      }
+    }
+  });
+  window.addEventListener('keyup', (e) => { if(keys.hasOwnProperty(e.key)) keys[e.key] = false; });
+  
+  // Mouse controls
   const canvas = renderer.domElement;
-  canvas.addEventListener('mousedown', (e) => { if(e.button === 0){ isDragging = true; mouseX = e.clientX; mouseY = e.clientY; canvas.style.cursor = 'grabbing'; } });
+  canvas.addEventListener('mousedown', (e) => { isDragging = true; mouseX = e.clientX; mouseY = e.clientY; canvas.style.cursor = 'grabbing'; });
   window.addEventListener('mouseup', () => { isDragging = false; canvas.style.cursor = 'default'; });
-  window.addEventListener('mousemove', (e) => { if(isDragging){ const dx = e.clientX - mouseX; const dy = e.clientY - mouseY; cameraAngle.theta += dx * 0.008; cameraAngle.phi += dy * 0.008; cameraAngle.phi = Math.max(0.2, Math.min(1.0, cameraAngle.phi)); mouseX = e.clientX; mouseY = e.clientY; } });
+  window.addEventListener('mousemove', (e) => {
+    if(isDragging) {
+      const dx = e.clientX - mouseX;
+      const dy = e.clientY - mouseY;
+      cameraAngle.theta += dx * 0.008;
+      cameraAngle.phi += dy * 0.008;
+      cameraAngle.phi = Math.max(0.2, Math.min(1.0, cameraAngle.phi));
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }
+  });
   
-  function animate(){
+  // Click to shoot
+  canvas.addEventListener('click', (e) => {
+    shootAtEnemy();
+  });
+  
+  // Enemy AI - chase player
+  function animate() {
     requestAnimationFrame(animate);
-    if(shootCooldown > 0) shootCooldown--;
     
-    if(!inVehicle){
-      let mx = 0, mz = 0;
-      if(keys.w || keys.ArrowUp) mz -= 1;
-      if(keys.s || keys.ArrowDown) mz += 1;
-      if(keys.a || keys.ArrowLeft) mx -= 1;
-      if(keys.d || keys.ArrowRight) mx += 1;
-      if(mx !== 0 || mz !== 0){ const len = Math.hypot(mx,mz); mx /= len; mz /= len; }
-      let spd = (keys.Shift ? runSpeed : playerSpeed) * 0.15;
-      let newX = player.position.x + mx * spd;
-      let newZ = player.position.z + mz * spd;
+    // Player movement
+    let mx = 0, mz = 0;
+    if(keys.w || keys.ArrowUp) mz -= 1;
+    if(keys.s || keys.ArrowDown) mz += 1;
+    if(keys.a || keys.ArrowLeft) mx -= 1;
+    if(keys.d || keys.ArrowRight) mx += 1;
+    if(mx !== 0 || mz !== 0) { const len = Math.hypot(mx, mz); mx /= len; mz /= len; }
+    
+    let speed = (keys.Shift ? 7 : 4.5) * 0.12;
+    if(inVehicle && currentVehicle) speed = 0.18;
+    
+    if(!inVehicle) {
+      let newX = player.position.x + mx * speed;
+      let newZ = player.position.z + mz * speed;
       const bound = 28;
       newX = Math.max(-bound, Math.min(bound, newX));
       newZ = Math.max(-bound, Math.min(bound, newZ));
       player.position.x = newX;
       player.position.z = newZ;
-      if(mx !== 0 || mz !== 0){ const angle = Math.atan2(mx, mz); player.rotation.y = angle; }
-    } else {
-      if(currentVehicle){
-        let acc = 0;
-        if(keys.w || keys.ArrowUp) acc = 0.15;
-        if(keys.s || keys.ArrowDown) acc = -0.1;
-        if(keys[' ']) acc = -0.2;
-        vehicleSpeed += acc;
-        vehicleSpeed *= 0.98;
-        vehicleSpeed = Math.max(-1.5, Math.min(2.5, vehicleSpeed));
-        let turn = 0;
-        if(keys.a || keys.ArrowLeft) turn = 0.03;
-        if(keys.d || keys.ArrowRight) turn = -0.03;
-        currentVehicle.rotation.y += turn * (1 + Math.abs(vehicleSpeed));
-        let newX = currentVehicle.position.x + Math.sin(currentVehicle.rotation.y) * vehicleSpeed;
-        let newZ = currentVehicle.position.z + Math.cos(currentVehicle.rotation.y) * vehicleSpeed;
-        const bound = 28;
-        newX = Math.max(-bound, Math.min(bound, newX));
-        newZ = Math.max(-bound, Math.min(bound, newZ));
-        currentVehicle.position.x = newX;
-        currentVehicle.position.z = newZ;
-        player.position.copy(currentVehicle.position);
-      }
+      if(mx !== 0 || mz !== 0) player.rotation.y = Math.atan2(mx, mz);
+    } else if(currentVehicle) {
+      let turn = 0;
+      if(keys.a || keys.ArrowLeft) turn = 0.04;
+      if(keys.d || keys.ArrowRight) turn = -0.04;
+      currentVehicle.rotation.y += turn;
+      let newX = currentVehicle.position.x + Math.sin(currentVehicle.rotation.y) * speed;
+      let newZ = currentVehicle.position.z + Math.cos(currentVehicle.rotation.y) * speed;
+      const bound = 28;
+      newX = Math.max(-bound, Math.min(bound, newX));
+      newZ = Math.max(-bound, Math.min(bound, newZ));
+      currentVehicle.position.x = newX;
+      currentVehicle.position.z = newZ;
+      player.position.copy(currentVehicle.position);
     }
     
-    for(let i=0;i<enemies.length;i++){
-      const enemy = enemies[i];
-      if(!enemy.userData.active) continue;
-      const dirToPlayer = new THREE.Vector3().subVectors(player.position, enemy.position).normalize();
-      enemy.position.x += dirToPlayer.x * 0.04;
-      enemy.position.z += dirToPlayer.z * 0.04;
+    // Enemies chase player
+    for(let enemy of enemies) {
+      const dir = new THREE.Vector3().subVectors(player.position, enemy.position).normalize();
+      enemy.position.x += dir.x * 0.05;
+      enemy.position.z += dir.z * 0.05;
       enemy.lookAt(player.position);
-      if(player.position.distanceTo(enemy.position) < 1.5 && Math.random() < 0.02){
-        health = Math.max(0, health - 5);
-        updateMissionUI();
-        if(health <= 0){
-          alert('💀 GAME OVER! You died! Resetting...');
+      if(player.position.distanceTo(enemy.position) < 1.2) {
+        health = Math.max(0, health - 0.5);
+        update3DUI();
+        if(health <= 0) {
+          alert('💀 GAME OVER! Resetting...');
           health = 100;
           currentMission = 1;
           missionProgress = 0;
-          updateMissionUI();
-          spawnEnemies();
+          update3DUI();
         }
       }
     }
     
+    // Camera follow
     const radius = 7;
     const camX = player.position.x + Math.sin(cameraAngle.theta) * Math.cos(cameraAngle.phi) * radius;
     const camY = player.position.y + Math.sin(cameraAngle.phi) * radius + 1.5;
@@ -470,34 +503,64 @@ function initGTAGame(){
     
     renderer.render(scene, camera);
   }
-  animate();
   
-  window.addEventListener('resize', () => { if(container.clientWidth > 0){ camera.aspect = container.clientWidth / container.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(container.clientWidth, container.clientHeight); } });
+  animate();
+  update3DUI();
+  
+  window.addEventListener('resize', () => {
+    if(container.clientWidth > 0) {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+  });
 }
 
-function destroyGame(){ const container = document.getElementById('gameCanvasContainer'); if(container){ const hints = container.querySelector('.game-controls-hint'); const panel = container.querySelector('.mission-panel'); const healthBar = container.querySelector('.health-bar'); const weapon = container.querySelector('.weapon-status'); container.innerHTML = ''; if(hints) container.appendChild(hints); if(panel) container.appendChild(panel); if(healthBar) container.appendChild(healthBar); if(weapon) container.appendChild(weapon); } }
+function destroyGame() {
+  const container = document.getElementById('gameCanvasContainer');
+  if(container) while(container.firstChild) container.removeChild(container.firstChild);
+}
 
-window.openGTA = function(){ document.getElementById("gameModal").style.display = "flex"; setTimeout(() => initGTAGame(), 100); updateMissionUI(); };
-document.getElementById("closeGameModalBtn").onclick = function(){ document.getElementById("gameModal").style.display = "none"; destroyGame(); };
-window.onclick = function(e){ if(e.target === document.getElementById("gameModal")){ document.getElementById("gameModal").style.display = "none"; destroyGame(); } };
-window.toggleGameFullscreen = function(){ const m = document.getElementById('gameModal'); if(!document.fullscreenElement) m.requestFullscreen(); else document.exitFullscreen(); };
-window.toggleVehicleMode = toggleVehicleMode;
-window.nextGTAMission = function(){
-  if(missionProgress >= missionRequirements[currentMission]){
-    if(currentMission === 10){
-      alert('🎉✨ YOU BEAT THE GAME! YOU ARE THE LEGEND OF DAMSEN CITY! ✨🎉');
-      for(let i=0;i<80;i++) setTimeout(()=>{let f=document.createElement('div');f.className='firework';f.style.left=Math.random()*innerWidth+'px';f.style.top=Math.random()*innerHeight+'px';f.style.background=`hsl(${Math.random()*360},100%,60%)`;document.body.appendChild(f);setTimeout(()=>f.remove(),1000);},i*70);
+window.open3DGame = function() {
+  document.getElementById("gameModal").style.display = "flex";
+  setTimeout(() => init3DGame(), 100);
+};
+
+window.nextMission3D = function() {
+  if(missionProgress >= missionTargets[currentMission]) {
+    if(currentMission >= 10) {
+      alert('🎉✨ CONGRATULATIONS! YOU BEAT ALL 10 MISSIONS! YOU ARE A LEGEND! ✨🎉');
       currentMission = 1;
       missionProgress = 0;
     } else {
       currentMission++;
       missionProgress = 0;
-      updateMissionUI();
-      spawnEnemies();
-      alert(`🚀 MISSION ${currentMission} STARTED! ${document.getElementById('missionDesc').innerHTML}`);
+      alert(`🚀 MISSION ${currentMission} STARTED! Eliminate ${missionTargets[currentMission]} enemies!`);
     }
+    update3DUI();
   } else {
-    alert(`❌ Complete current mission first! Need ${missionRequirements[currentMission] - missionProgress} more enemies!`);
+    alert(`❌ Need ${missionTargets[currentMission] - missionProgress} more enemies!`);
+  }
+};
+
+window.enterVehicle = function() {
+  alert('🚗 Find blue cars around the city! Walk up to one and press E to drive!');
+};
+
+window.toggleGameFullscreen = function() {
+  const m = document.getElementById('gameModal');
+  if(!document.fullscreenElement) m.requestFullscreen();
+  else document.exitFullscreen();
+};
+
+document.getElementById("closeGameModalBtn").onclick = function() {
+  document.getElementById("gameModal").style.display = "none";
+  destroyGame();
+};
+window.onclick = function(e) {
+  if(e.target === document.getElementById("gameModal")) {
+    document.getElementById("gameModal").style.display = "none";
+    destroyGame();
   }
 };
 </script>
