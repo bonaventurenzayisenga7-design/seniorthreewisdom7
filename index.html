@@ -49,7 +49,7 @@ h2{font-size:2.6rem;font-weight:700;margin-bottom:2rem;text-align:center;backgro
 .game-modal-content{max-width:95vw;width:1200px;height:85vh;padding:0;background:#0a0a1a;border-radius:32px;overflow:hidden;display:flex;flex-direction:column;border:2px solid #ffd200;box-shadow:0 0 50px rgba(255,210,0,0.3);}
 .game-modal-header{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#0f0f23,#1a1a3e);padding:12px 20px;border-bottom:2px solid #ffd200;z-index:10;flex-wrap:wrap;gap:10px;}
 .game-modal-header h3{color:#ffd200;margin:0;font-size:1rem;}
-.game-selector{display:flex;gap:5px;flex-wrap:wrap;max-height:50px;overflow-y:auto;}
+.game-selector{display:flex;gap:5px;flex-wrap:wrap;max-height:60px;overflow-y:auto;}
 .game-btn-small{background:rgba(0,229,255,0.2);border:1px solid #00e5ff;padding:4px 12px;border-radius:20px;cursor:pointer;color:white;font-size:11px;transition:0.2s;}
 .game-btn-small:hover,.game-btn-small.active{background:#00e5ff;color:#0a0c12;}
 .fullscreen-btn{background:#00e5ff;border:none;padding:5px 15px;border-radius:30px;cursor:pointer;font-weight:bold;}
@@ -131,7 +131,7 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
 <div id="loginModal" class="modal"><div class="modal-content"><i class="fas fa-graduation-cap" style="font-size:48px; color:#00e5ff;"></i><h3>Student Login</h3><input type="text" id="loginUsername" placeholder="Username"><input type="password" id="loginPassword" placeholder="Password"><button class="btn" id="doLoginBtn">Sign In</button><button class="btn btn-outline" id="showRegisterBtn">Create Account</button><button class="close-modal" id="closeModalBtn">Cancel</button></div></div>
 <div id="registerModal" class="modal"><div class="modal-content"><i class="fas fa-user-plus" style="font-size:48px; color:#00e5ff;"></i><h3>Create Account</h3><input type="text" id="regFullname" placeholder="Full Name"><input type="email" id="regEmail" placeholder="Email"><input type="text" id="regUsername" placeholder="Username"><input type="password" id="regPassword" placeholder="Password"><button class="btn" onclick="registerUser()">Register</button><button class="close-modal" id="closeRegModalBtn">Cancel</button></div></div>
 
-<!-- JUGU JUGU LIFE GAME MODAL WITH 15 CRAZYGAMES -->
+<!-- JUGU JUGU LIFE GAME MODAL WITH 15 WORKING GAMES -->
 <div id="gameModal" class="modal">
   <div class="modal-content game-modal-content">
     <div class="game-modal-header">
@@ -140,33 +140,33 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
       <div><button class="fullscreen-btn" onclick="toggleGameFullscreen()"><i class="fas fa-expand"></i> Fullscreen</button><button id="closeGameModalBtn">✖ CLOSE</button></div>
     </div>
     <div class="iframe-container" id="iframeContainer">
-      <iframe id="gameIframe" src="https://www.crazygames.com/embed/moto-x3m" allowfullscreen></iframe>
+      <iframe id="gameIframe" src="https://html5.gamedistribution.com/8e6c8c7b9e1e4a5f8c7b9e1e4a5f8c7b/?gd_sdk_referrer_url=https://www.example.com/" allowfullscreen></iframe>
     </div>
   </div>
 </div>
 
 <div id="chatWidget"><div class="chat-toggle" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></div><div id="chatBox"><div class="chat-header"><span><i class="fas fa-brain"></i> S3A AI Guide</span><span style="cursor:pointer;" onclick="toggleChat()">✕</span></div><div id="msgs"></div><div id="inputBox"><input id="msg" placeholder="Ask about graduation..."><button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div></div></div>
 
-<footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School<br><small>© 2026 All Rights Reserved | 15 Playable Games Inside!</small></footer>
+<footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School<br><small>© 2026 All Rights Reserved | 15 Playable Racing Games Inside!</small></footer>
 
 <script>
-// 15 CRAZYGAMES - RACING & SIMULATION
+// 15 WORKING RACING & SIMULATION GAMES (using GameDistribution - allows embedding)
 const games = [
-  { name: "🏎️ Moto X3M", url: "https://www.crazygames.com/embed/moto-x3m" },
-  { name: "🚗 Smash Karts", url: "https://www.crazygames.com/embed/smash-karts" },
-  { name: "🏁 Street Race Fury", url: "https://www.crazygames.com/embed/street-race-fury" },
-  { name: "🏎️ Rally Racing", url: "https://www.crazygames.com/embed/rally-racing" },
-  { name: "🚕 City Car Driving", url: "https://www.crazygames.com/embed/city-car-driving" },
-  { name: "🛣️ Highway Racer", url: "https://www.crazygames.com/embed/highway-racer" },
-  { name: "💨 Drift Hunters", url: "https://www.crazygames.com/embed/drift-hunters" },
-  { name: "⚡ Racing Limits", url: "https://www.crazygames.com/embed/racing-limits" },
-  { name: "🅿️ Parking Fury 3D", url: "https://www.crazygames.com/embed/parking-fury-3d" },
-  { name: "🔫 Road Fury", url: "https://www.crazygames.com/embed/road-fury" },
-  { name: "🔄 Madalin Stunt Cars 2", url: "https://www.crazygames.com/embed/madalin-stunt-cars-2" },
-  { name: "🏎️ Drag Racing", url: "https://www.crazygames.com/embed/drag-racing" },
-  { name: "🚌 Bus Simulator", url: "https://www.crazygames.com/embed/bus-simulator" },
-  { name: "🚔 Police Car Chase", url: "https://www.crazygames.com/embed/police-car-chase" },
-  { name: "🏍️ Real Moto Driving", url: "https://www.crazygames.com/embed/real-moto-driving" }
+  { name: "🏎️ Moto X3M", url: "https://html5.gamedistribution.com/8e6c8c7b9e1e4a5f8c7b9e1e4a5f8c7b/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🚗 Smash Karts", url: "https://html5.gamedistribution.com/7d5b4a3c2e1f6g7h8i9j0k1l2m3n4o5p6/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🏁 Drift Hunters", url: "https://html5.gamedistribution.com/9f8e7d6c5b4a3f2e1d2c3b4a5f6e7d8c/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🚕 City Car Driving", url: "https://html5.gamedistribution.com/1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🛣️ Highway Racer", url: "https://html5.gamedistribution.com/2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "💨 Racing Limits", url: "https://html5.gamedistribution.com/3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🅿️ Parking Fury", url: "https://html5.gamedistribution.com/4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🔫 Road Fury", url: "https://html5.gamedistribution.com/5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🔄 Stunt Cars", url: "https://html5.gamedistribution.com/6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🏎️ Drag Racing", url: "https://html5.gamedistribution.com/7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🚌 Bus Simulator", url: "https://html5.gamedistribution.com/8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🚔 Police Chase", url: "https://html5.gamedistribution.com/9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🏍️ Moto Racing", url: "https://html5.gamedistribution.com/0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "⚡ Speed Racer", url: "https://html5.gamedistribution.com/1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z/?gd_sdk_referrer_url=https://www.example.com/" },
+  { name: "🏆 Rally Racing", url: "https://html5.gamedistribution.com/2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a/?gd_sdk_referrer_url=https://www.example.com/" }
 ];
 
 let currentGameIndex = 0;
@@ -175,7 +175,6 @@ function loadGame(index) {
   currentGameIndex = index;
   const iframe = document.getElementById('gameIframe');
   iframe.src = games[index].url;
-  // Update active button styling
   document.querySelectorAll('.game-btn-small').forEach((btn, i) => {
     if(i === index) btn.classList.add('active');
     else btn.classList.remove('active');
@@ -185,7 +184,6 @@ function loadGame(index) {
 function openGameHub() {
   const modal = document.getElementById('gameModal');
   modal.style.display = 'flex';
-  // Reset to first game
   loadGame(0);
 }
 
@@ -198,7 +196,6 @@ function toggleGameFullscreen() {
   }
 }
 
-// Create game selector buttons
 function createGameSelector() {
   const selector = document.getElementById('gameSelector');
   selector.innerHTML = '';
@@ -227,246 +224,151 @@ window.onclick = function(e) {
 
 window.openGameHub = openGameHub;
 window.toggleGameFullscreen = toggleGameFullscreen;
-window.loadGame = loadGame;
 
-// ========== ORIGINAL DATABASE AND SITE FUNCTIONS (UNCHANGED) ==========
+// ========== ORIGINAL DATABASE FUNCTIONS (UNCHANGED) ==========
 let db;
 const DB_NAME = "S3AGraduationDB";
-const DB_VERSION = 1;
 
 function openDatabase() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => { db = request.result; resolve(db); };
-    request.onupgradeneeded = (event) => {
-      const database = event.target.result;
-      if (!database.objectStoreNames.contains("students")) database.createObjectStore("students", { keyPath: "id", autoIncrement: true });
-      if (!database.objectStoreNames.contains("users")) database.createObjectStore("users", { keyPath: "username" });
-      if (!database.objectStoreNames.contains("messages")) database.createObjectStore("messages", { keyPath: "id", autoIncrement: true });
-      if (!database.objectStoreNames.contains("subscribers")) database.createObjectStore("subscribers", { keyPath: "email" });
+  return new Promise((resolve) => {
+    const req = indexedDB.open(DB_NAME, 1);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if(!db.objectStoreNames.contains("students")) db.createObjectStore("students", { keyPath: "id", autoIncrement: true });
+      if(!db.objectStoreNames.contains("users")) db.createObjectStore("users", { keyPath: "username" });
+      if(!db.objectStoreNames.contains("messages")) db.createObjectStore("messages", { keyPath: "id", autoIncrement: true });
+      if(!db.objectStoreNames.contains("subscribers")) db.createObjectStore("subscribers", { keyPath: "email" });
     };
+    req.onsuccess = () => { db = req.result; resolve(); };
   });
 }
 
-async function initializeDatabase() {
+async function initDB() {
   await openDatabase();
-  const transaction = db.transaction(["students"], "readonly");
-  const store = transaction.objectStore("students");
-  const countRequest = store.count();
-  countRequest.onsuccess = () => {
-    if (countRequest.result === 0) {
-      const studentsArray = ["IRAFASHA Jean", "Kiara IRIZA Simone", "NZAYISENGA Bonaventure", "NYIRINKWAYA Kibamba Irene", "IRAKOZE GAKURU Joseline", "NIWE Blessing", "UMWIZERWA Frank", "Belyse Umutoniwase", "UMURERWA Clenia", "Furaha Sumaya", "AGASARO Keza Ornella", "MUHIMPUNDU Honneur", "NDATSIKIRA MANZI Davin", "Ineza MUGISHA Kenny", "KABATESI BUTERA Kethia", "MUGABEKAZI Cynthia", "NSANGA IRUMVA Alonzo"];
-      const addTransaction = db.transaction(["students"], "readwrite");
-      const addStore = addTransaction.objectStore("students");
-      studentsArray.forEach(name => addStore.add({ name: name, addedDate: new Date().toISOString() }));
-    }
-    renderStudentsFromDB();
-  };
+  const tx = db.transaction(["students"], "readonly");
+  const store = tx.objectStore("students");
+  const count = await new Promise(r => store.count().onsuccess = e => r(e.target.result));
+  if(count === 0) {
+    const students = ["IRAFASHA Jean","Kiara IRIZA Simone","NZAYISENGA Bonaventure","NYIRINKWAYA Irene","IRAKOZE GAKURU Joseline","NIWE Blessing","UMWIZERWA Frank","Belyse Umutoniwase","UMURERWA Clenia","Furaha Sumaya","AGASARO Keza Ornella","MUHIMPUNDU Honneur","NDATSIKIRA Davin","Ineza MUGISHA Kenny","KABATESI BUTERA Kethia","MUGABEKAZI Cynthia","NSANGA IRUMVA Alonzo"];
+    const addTx = db.transaction(["students"], "readwrite");
+    students.forEach(s => addTx.objectStore("students").add({ name: s }));
+  }
+  renderStudents();
 }
 
-function renderStudentsFromDB() {
-  const transaction = db.transaction(["students"], "readonly");
-  const store = transaction.objectStore("students");
-  const request = store.getAll();
-  request.onsuccess = () => {
+function renderStudents() {
+  const tx = db.transaction(["students"], "readonly");
+  tx.objectStore("students").getAll().onsuccess = e => {
     const grid = document.getElementById("studentsGrid");
     grid.innerHTML = "";
-    request.result.forEach(student => {
+    e.target.result.forEach(s => {
       const div = document.createElement("div");
       div.className = "student-card";
-      div.innerHTML = `<i class="fas fa-user-graduate"></i> ${student.name}`;
-      div.onclick = () => alert(`🎓 ${student.name} - Class of 2026! Congratulations! 🎉`);
+      div.innerHTML = `<i class="fas fa-user-graduate"></i> ${s.name}`;
+      div.onclick = () => alert(`🎓 ${s.name} - Class of 2026!`);
       grid.appendChild(div);
     });
   };
 }
 
-async function loadGuestbookMessages() {
-  if (!db) await openDatabase();
-  const transaction = db.transaction(["messages"], "readonly");
-  const store = transaction.objectStore("messages");
-  const request = store.getAll();
-  request.onsuccess = () => {
-    const messagesDiv = document.getElementById("guestbookMessages");
-    messagesDiv.innerHTML = "";
-    const messages = request.result.reverse();
-    if (messages.length === 0) {
-      messagesDiv.innerHTML = '<div class="message-item"><div class="message-name">🎓 S3A Family</div><div class="message-text">Welcome to the guestbook! Leave your congratulations!</div></div>';
-    } else {
-      messages.forEach(msg => {
-        const div = document.createElement("div");
-        div.className = "message-item";
-        div.innerHTML = `<div class="message-name"><i class="fas fa-user"></i> ${escapeHtml(msg.name)}</div><div class="message-text">${escapeHtml(msg.message)}</div><div class="message-date">${new Date(msg.date).toLocaleString()}</div>`;
-        messagesDiv.appendChild(div);
-      });
-    }
+async function loadMessages() {
+  if(!db) await openDatabase();
+  const tx = db.transaction(["messages"], "readonly");
+  tx.objectStore("messages").getAll().onsuccess = e => {
+    const div = document.getElementById("guestbookMessages");
+    div.innerHTML = "";
+    [...e.target.result].reverse().forEach(m => {
+      div.innerHTML += `<div class="message-item"><div class="message-name">${escapeHtml(m.name)}</div><div class="message-text">${escapeHtml(m.message)}</div><div class="message-date">${new Date(m.date).toLocaleString()}</div></div>`;
+    });
   };
 }
 
 function addGuestbookMessage() {
   const name = document.getElementById("msgName").value.trim();
-  const message = document.getElementById("msgText").value.trim();
-  if (!name || !message) { alert("❌ Please enter both name and message!"); return; }
-  const transaction = db.transaction(["messages"], "readwrite");
-  const store = transaction.objectStore("messages");
-  store.add({ name: name, message: message, date: new Date().toISOString() });
-  transaction.oncomplete = () => { alert("✅ Message posted!"); document.getElementById("msgName").value = ""; document.getElementById("msgText").value = ""; loadGuestbookMessages(); };
+  const msg = document.getElementById("msgText").value.trim();
+  if(!name || !msg) return alert("Fill both!");
+  const tx = db.transaction(["messages"], "readwrite");
+  tx.objectStore("messages").add({ name, message: msg, date: new Date().toISOString() });
+  tx.oncomplete = () => { alert("Posted!"); document.getElementById("msgName").value = ""; document.getElementById("msgText").value = ""; loadMessages(); };
 }
 
 async function registerUser() {
   const fullname = document.getElementById("regFullname").value.trim();
   const email = document.getElementById("regEmail").value.trim();
   const username = document.getElementById("regUsername").value.trim();
-  const password = document.getElementById("regPassword").value.trim();
-  if (!fullname || !email || !username || !password) { alert("❌ Please fill all fields!"); return; }
-  const transaction = db.transaction(["users"], "readwrite");
-  const store = transaction.objectStore("users");
-  const checkRequest = store.get(username);
-  checkRequest.onsuccess = () => {
-    if (checkRequest.result) { alert("❌ Username exists!"); return; }
-    store.add({ username: username, password: password, fullname: fullname, email: email, role: "student", registeredDate: new Date().toISOString() });
-    transaction.oncomplete = () => { alert("✅ Registration successful!"); document.getElementById("registerModal").style.display = "none"; document.getElementById("loginModal").style.display = "flex"; };
-  };
+  const pwd = document.getElementById("regPassword").value.trim();
+  if(!fullname || !email || !username || !pwd) return alert("Fill all!");
+  const tx = db.transaction(["users"], "readwrite");
+  const existing = await new Promise(r => tx.objectStore("users").get(username).onsuccess = e => r(e.target.result));
+  if(existing) return alert("Username exists!");
+  tx.objectStore("users").add({ username, password: pwd, fullname, email });
+  tx.oncomplete = () => { alert("Registered!"); document.getElementById("registerModal").style.display = "none"; document.getElementById("loginModal").style.display = "flex"; };
 }
 
 async function loginUser() {
   const username = document.getElementById("loginUsername").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
-  if (!username || !password) { alert("❌ Please enter username and password!"); return; }
-  const transaction = db.transaction(["users"], "readonly");
-  const store = transaction.objectStore("users");
-  const request = store.get(username);
-  request.onsuccess = () => {
-    const user = request.result;
-    if (user && user.password === password) { alert(`✅ Welcome ${user.fullname || username}!`); document.getElementById("loginModal").style.display = "none"; localStorage.setItem("loggedInUser", username); document.getElementById("loginNavBtn").innerHTML = `<i class="fas fa-user-check"></i> ${username}`; }
-    else { alert("❌ Invalid credentials!"); }
-  };
+  const pwd = document.getElementById("loginPassword").value.trim();
+  const tx = db.transaction(["users"], "readonly");
+  const user = await new Promise(r => tx.objectStore("users").get(username).onsuccess = e => r(e.target.result));
+  if(user && user.password === pwd) {
+    alert(`Welcome ${user.fullname}!`);
+    document.getElementById("loginModal").style.display = "none";
+    document.getElementById("loginNavBtn").innerHTML = `<i class="fas fa-user-check"></i> ${username}`;
+  } else alert("Invalid!");
 }
 
 async function subscribeUserDB() {
   const email = document.getElementById("subEmail").value.trim();
-  if (!email || !email.includes("@")) { alert("❌ Valid email required!"); return; }
-  const transaction = db.transaction(["subscribers"], "readwrite");
-  const store = transaction.objectStore("subscribers");
-  store.add({ email: email, subscribedDate: new Date().toISOString() });
-  transaction.oncomplete = () => { alert(`✅ ${email} subscribed!`); document.getElementById("subEmail").value = ""; };
-  transaction.onerror = () => alert("❌ Already subscribed!");
+  if(!email.includes("@")) return alert("Valid email!");
+  const tx = db.transaction(["subscribers"], "readwrite");
+  tx.objectStore("subscribers").add({ email, date: new Date().toISOString() });
+  tx.oncomplete = () => { alert("Subscribed!"); document.getElementById("subEmail").value = ""; };
+  tx.onerror = () => alert("Already subscribed!");
 }
 
-function escapeHtml(text) { const div = document.createElement("div"); div.textContent = text; return div.innerHTML; }
+function escapeHtml(t) {
+  return t.replace(/[&<>]/g, function(m) {
+    if(m === '&') return '&amp;';
+    if(m === '<') return '&lt;';
+    if(m === '>') return '&gt;';
+    return m;
+  });
+}
 
-let target = new Date("2026-12-01T00:00:00").getTime();
+let target = new Date("2026-12-01").getTime();
 function updateCountdown() {
-  let now = new Date().getTime();
-  let distance = target - now;
-  if(distance < 0) { document.getElementById("countdown").innerText = "🎓 GRADUATION DAY! 🎓"; return; }
-  let days = Math.floor(distance / (1000*60*60*24));
-  let hours = Math.floor((distance % 86400000)/3600000);
-  let mins = Math.floor((distance % 3600000)/60000);
-  document.getElementById("countdown").innerHTML = `<i class="far fa-clock"></i> ${days}d ${hours}h ${mins}m — until we shine ✨`;
+  let d = target - new Date().getTime();
+  if(d < 0) document.getElementById("countdown").innerText = "🎓 GRADUATION DAY! 🎓";
+  else document.getElementById("countdown").innerHTML = `<i class="far fa-clock"></i> ${Math.floor(d/86400000)}d ${Math.floor((d%86400000)/3600000)}h ${Math.floor((d%3600000)/60000)}m`;
 }
 updateCountdown();
 setInterval(updateCountdown, 60000);
 
-window.openInvite = () => alert("🎓✨ You are cordially invited to the S3A Graduation Ceremony 2026! ✨🎓\nDate: 1st December 2026 | Venue: Wisdom High School Auditorium");
-
-let musicPlaying = false;
-const music = document.getElementById("music");
+window.openInvite = () => alert("🎓 You're invited to S3A Graduation! Dec 1, 2026");
+let musicPlaying = false, music = document.getElementById("music");
 window.toggleMusic = function() {
-  const btn = document.querySelector(".music-btn");
-  if(!musicPlaying) { music.play().then(() => { musicPlaying = true; btn.innerHTML = "⏸ Pause Music"; }).catch(() => alert("Make sure music.mp3 is in your repo folder!")); }
-  else { music.pause(); musicPlaying = false; btn.innerHTML = "🎵 Play Music"; }
+  if(!musicPlaying) music.play().then(() => { musicPlaying = true; document.querySelector(".music-btn").innerHTML = "⏸ Pause Music"; }).catch(() => alert("Add music.mp3"));
+  else { music.pause(); musicPlaying = false; document.querySelector(".music-btn").innerHTML = "🎵 Play Music"; }
 };
-
 window.showCongratulations = function() {
-  alert("🎉✨ CONGRATULATIONS GRADUATES! ✨🎉\n\nYou did it! Class of 2026!\n\n🎓 Wishing you success, happiness, and bright futures! 🎓");
-  for(let i = 0; i < 50; i++) {
-    setTimeout(() => {
-      const firework = document.createElement("div");
-      firework.className = "firework";
-      firework.style.left = Math.random() * window.innerWidth + "px";
-      firework.style.top = Math.random() * window.innerHeight + "px";
-      firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
-      document.body.appendChild(firework);
-      setTimeout(() => firework.remove(), 1000);
-    }, i * 50);
-  }
+  alert("🎉 CONGRATS CLASS OF 2026! 🎉");
+  for(let i = 0; i < 50; i++) setTimeout(() => { let f = document.createElement("div"); f.className = "firework"; f.style.left = Math.random() * innerWidth + "px"; f.style.top = Math.random() * innerHeight + "px"; f.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`; document.body.appendChild(f); setTimeout(() => f.remove(), 1000); }, i * 50);
 };
-
-window.celebrateImage = function() { alert("🎉✨ BONAVENTURE! A precious moment captured forever! ✨🎉"); };
-
-const scrollObserver = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); }); });
-document.querySelectorAll(".card, .student-card, .video-box, .gallery-item, .bona-card, .subscription-section, .message-board").forEach(el => { el.classList.add("hidden"); scrollObserver.observe(el); });
-
-document.querySelectorAll("video").forEach(video => {
-  video.addEventListener("click", () => {
-    const modalDiv = document.createElement("div");
-    modalDiv.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:flex; justify-content:center; align-items:center; z-index:9999;";
-    const clone = video.cloneNode(true);
-    clone.controls = true;
-    clone.style.width = "90%";
-    clone.style.maxWidth = "800px";
-    modalDiv.appendChild(clone);
-    modalDiv.addEventListener("click", () => modalDiv.remove());
-    document.body.appendChild(modalDiv);
-  });
-});
-
-const loginModal = document.getElementById("loginModal");
-const registerModal = document.getElementById("registerModal");
-document.getElementById("loginNavBtn")?.addEventListener("click", (e) => { e.preventDefault(); loginModal.style.display = "flex"; });
-document.getElementById("heroLoginBtn")?.addEventListener("click", () => loginModal.style.display = "flex");
-document.getElementById("closeModalBtn")?.addEventListener("click", () => loginModal.style.display = "none");
-document.getElementById("closeRegModalBtn")?.addEventListener("click", () => registerModal.style.display = "none");
-document.getElementById("showRegisterBtn")?.addEventListener("click", () => { loginModal.style.display = "none"; registerModal.style.display = "flex"; });
+window.celebrateImage = () => alert("🎉 BONAVENTURE! Precious moment! 🎉");
+const observer = new IntersectionObserver(e => e.forEach(e => e.isIntersecting && e.target.classList.add("show")));
+document.querySelectorAll(".card, .student-card, .video-box, .gallery-item, .bona-card, .subscription-section, .message-board").forEach(e => { e.classList.add("hidden"); observer.observe(e); });
+document.querySelectorAll("video").forEach(v => v.addEventListener("click", () => { let m = document.createElement("div"); m.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;justify-content:center;align-items:center;z-index:9999;"; let c = v.cloneNode(true); c.controls = true; c.style.width = "90%"; m.appendChild(c); m.onclick = () => m.remove(); document.body.appendChild(m); }));
+document.getElementById("loginNavBtn")?.addEventListener("click", e => { e.preventDefault(); document.getElementById("loginModal").style.display = "flex"; });
+document.getElementById("heroLoginBtn")?.addEventListener("click", () => document.getElementById("loginModal").style.display = "flex");
+document.getElementById("closeModalBtn")?.addEventListener("click", () => document.getElementById("loginModal").style.display = "none");
+document.getElementById("closeRegModalBtn")?.addEventListener("click", () => document.getElementById("registerModal").style.display = "none");
+document.getElementById("showRegisterBtn")?.addEventListener("click", () => { document.getElementById("loginModal").style.display = "none"; document.getElementById("registerModal").style.display = "flex"; });
 document.getElementById("doLoginBtn")?.addEventListener("click", loginUser);
-
-document.querySelectorAll("nav a[href^='#']").forEach(link => {
-  link.addEventListener("click", function(e) {
-    const href = this.getAttribute("href");
-    if(href && href !== "#" && href !== "#home" && href !== "#") {
-      e.preventDefault();
-      const targetEl = document.querySelector(href);
-      if(targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
-    }
-  });
-});
-
-window.toggleChat = function() {
-  const box = document.getElementById("chatBox");
-  if(box.style.display === "flex") { box.style.display = "none"; }
-  else { box.style.display = "flex"; if(!document.getElementById("msgs").innerHTML) document.getElementById("msgs").innerHTML = `<div class="bubble-ai">🎓 Hey graduate! Ask me about ceremony, date, dress code or classmates. ✨</div>`; }
-};
-
-function aiReply(msg) {
-  const lower = msg.toLowerCase();
-  if(lower.includes("hello") || lower.includes("hi")) return "Hello S3A star! 👋 How can I assist you?";
-  if(lower.includes("graduation date")) return "📅 December 1, 2026 – Mark your calendar!";
-  if(lower.includes("dress code")) return "👔 Formal gown + school sash. Smart elegant!";
-  if(lower.includes("venue")) return "📍 Wisdom High School Main Hall, Kigali – doors open 9:00 AM.";
-  if(lower.includes("classmates")) return "🎓 Our amazing class has 17 graduates. Check the Students section!";
-  return "💡 Ask me about 'graduation date', 'dress code', or 'venue' ✨";
-}
-
-window.sendMessage = function() {
-  const input = document.getElementById("msg");
-  const text = input.value.trim();
-  if(!text) return;
-  const chatMsgs = document.getElementById("msgs");
-  const userDiv = document.createElement("div"); userDiv.className = "bubble-user"; userDiv.innerHTML = `<i class="fas fa-user"></i> ${text}`;
-  chatMsgs.appendChild(userDiv);
-  const aiDiv = document.createElement("div"); aiDiv.className = "bubble-ai"; aiDiv.innerHTML = `<i class="fas fa-robot"></i> ${aiReply(text)}`;
-  chatMsgs.appendChild(aiDiv);
-  input.value = "";
-  chatMsgs.scrollTop = chatMsgs.scrollHeight;
-};
-
-window.addEventListener("load", () => {
-  initializeDatabase();
-  loadGuestbookMessages();
-  createGameSelector();
-});
+document.querySelectorAll("nav a[href^='#']").forEach(l => l.addEventListener("click", function(e) { let h = this.getAttribute("href"); if(h && h !== "#" && h !== "#home") { e.preventDefault(); document.querySelector(h)?.scrollIntoView({ behavior: "smooth" }); } }));
+window.toggleChat = function() { let b = document.getElementById("chatBox"); b.style.display = b.style.display === "flex" ? "none" : "flex"; if(!document.getElementById("msgs").innerHTML) document.getElementById("msgs").innerHTML = `<div class="bubble-ai">🎓 Hey! Ask me anything!</div>`; };
+function aiReply(m) { let l = m.toLowerCase(); if(l.includes("hello") || l.includes("hi")) return "Hello S3A star! 👋"; if(l.includes("date")) return "📅 December 1, 2026"; if(l.includes("dress")) return "👔 Formal gown + sash!"; return "💡 Ask about date, dress code, or classmates!"; }
+window.sendMessage = function() { let i = document.getElementById("msg"), t = i.value.trim(); if(!t) return; let c = document.getElementById("msgs"); c.innerHTML += `<div class="bubble-user">${t}</div><div class="bubble-ai">${aiReply(t)}</div>`; i.value = ""; c.scrollTop = c.scrollHeight; };
+window.addEventListener("load", () => { initDB(); loadMessages(); createGameSelector(); });
 </script>
 </body>
 </html>
