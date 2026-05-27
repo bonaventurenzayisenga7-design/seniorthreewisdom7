@@ -925,4 +925,166 @@ async function registerUser() {
   const checkRequest = store.get(username);
   checkRequest.onsuccess = () => {
     if (checkRequest.result) { alert("❌ Username exists!"); return; }
-    store.add({
+    store.add({ username: username, password: password, fullname: fullname, email: email, role: "student", registeredDate: new Date().toISOString() });
+    transaction.oncomplete = () => { alert("✅ Registration successful!"); document.getElementById("registerModal").style.display = "none"; document.getElementById("loginModal").style.display = "flex"; };
+  };
+}
+
+async function loginUser() {
+  const username = document.getElementById("loginUsername").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+  if (!username || !password) { alert("❌ Please enter username and password!"); return; }
+  const transaction = db.transaction(["users"], "readonly");
+  const store = transaction.objectStore("users");
+  const request = store.get(username);
+  request.onsuccess = () => {
+    const user = request.result;
+    if (user && user.password === password) { alert(`✅ Welcome ${user.fullname || username}!`); document.getElementById("loginModal").style.display = "none"; localStorage.setItem("loggedInUser", username); document.getElementById("loginNavBtn").innerHTML = `<i class="fas fa-user-check"></i> ${username}`; }
+    else { alert("❌ Invalid credentials!"); }
+  };
+}
+
+async function subscribeUserDB() {
+  const email = document.getElementById("subEmail").value.trim();
+  if (!email || !email.includes("@")) { alert("❌ Valid email required!"); return; }
+  const transaction = db.transaction(["subscribers"], "readwrite");
+  const store = transaction.objectStore("subscribers");
+  store.add({ email: email, subscribedDate: new Date().toISOString() });
+  transaction.oncomplete = () => { alert(`✅ ${email} subscribed!`); document.getElementById("subEmail").value = ""; };
+  transaction.onerror = () => alert("❌ Already subscribed!");
+}
+
+function escapeHtml(text) { const div = document.createElement("div"); div.textContent = text; return div.innerHTML; }
+
+let target = new Date("2026-12-01T00:00:00").getTime();
+function updateCountdown() {
+  let now = new Date().getTime();
+  let distance = target - now;
+  if(distance < 0) { document.getElementById("countdown").innerText = "🎓 GRADUATION DAY! 🎓"; return; }
+  let days = Math.floor(distance / (1000*60*60*24));
+  let hours = Math.floor((distance % 86400000)/3600000);
+  let mins = Math.floor((distance % 3600000)/60000);
+  document.getElementById("countdown").innerHTML = `<i class="far fa-clock"></i> ${days}d ${hours}h ${mins}m — until we shine ✨`;
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+window.openInvite = () => alert("🎓✨ You are cordially invited to the S3A Graduation Ceremony 2026! ✨🎓\nDate: 1st December 2026 | Venue: Wisdom High School Auditorium");
+
+let musicPlaying = false;
+const music = document.getElementById("music");
+window.toggleMusic = function() {
+  const btn = document.querySelector(".music-btn");
+  if(!musicPlaying) { music.play().then(() => { musicPlaying = true; btn.innerHTML = "⏸ Pause Music"; }).catch(() => alert("Make sure music.mp3 is in your repo folder!")); }
+  else { music.pause(); musicPlaying = false; btn.innerHTML = "🎵 Play Music"; }
+};
+
+window.showCongratulations = function() {
+  alert("🎉✨ CONGRATULATIONS GRADUATES! ✨🎉\n\nYou did it! Class of 2026!\n\n🎓 Wishing you success, happiness, and bright futures! 🎓");
+  for(let i = 0; i < 50; i++) {
+    setTimeout(() => {
+      const firework = document.createElement("div");
+      firework.className = "firework";
+      firework.style.left = Math.random() * window.innerWidth + "px";
+      firework.style.top = Math.random() * window.innerHeight + "px";
+      firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      document.body.appendChild(firework);
+      setTimeout(() => firework.remove(), 1000);
+    }, i * 50);
+  }
+};
+
+window.celebrateImage = function() { alert("🎉✨ BONAVENTURE! A precious moment captured forever! ✨🎉"); };
+
+// GAME FUNCTION - JUGU JUGU LIFE
+window.openJuguJuguGame = function() {
+  const gameModal = document.getElementById("gameModal");
+  gameModal.style.display = "flex";
+};
+
+// Close game modal
+document.getElementById("closeGameModalBtn").onclick = function() {
+  document.getElementById("gameModal").style.display = "none";
+};
+
+// Click outside to close game modal
+window.onclick = function(event) {
+  const gameModal = document.getElementById("gameModal");
+  if (event.target == gameModal) {
+    gameModal.style.display = "none";
+  }
+};
+
+const scrollObserver = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); }); });
+document.querySelectorAll(".card, .student-card, .video-box, .gallery-item, .bona-card, .subscription-section, .message-board").forEach(el => { el.classList.add("hidden"); scrollObserver.observe(el); });
+
+document.querySelectorAll("video").forEach(video => {
+  video.addEventListener("click", () => {
+    const modalDiv = document.createElement("div");
+    modalDiv.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:flex; justify-content:center; align-items:center; z-index:9999;";
+    const clone = video.cloneNode(true);
+    clone.controls = true;
+    clone.style.width = "90%";
+    clone.style.maxWidth = "800px";
+    modalDiv.appendChild(clone);
+    modalDiv.addEventListener("click", () => modalDiv.remove());
+    document.body.appendChild(modalDiv);
+  });
+});
+
+const loginModal = document.getElementById("loginModal");
+const registerModal = document.getElementById("registerModal");
+document.getElementById("loginNavBtn")?.addEventListener("click", (e) => { e.preventDefault(); loginModal.style.display = "flex"; });
+document.getElementById("heroLoginBtn")?.addEventListener("click", () => loginModal.style.display = "flex");
+document.getElementById("closeModalBtn")?.addEventListener("click", () => loginModal.style.display = "none");
+document.getElementById("closeRegModalBtn")?.addEventListener("click", () => registerModal.style.display = "none");
+document.getElementById("showRegisterBtn")?.addEventListener("click", () => { loginModal.style.display = "none"; registerModal.style.display = "flex"; });
+document.getElementById("doLoginBtn")?.addEventListener("click", loginUser);
+
+document.querySelectorAll("nav a[href^='#']").forEach(link => {
+  link.addEventListener("click", function(e) {
+    const href = this.getAttribute("href");
+    if(href && href !== "#" && href !== "#home" && href !== "#") {
+      e.preventDefault();
+      const targetEl = document.querySelector(href);
+      if(targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+});
+
+window.toggleChat = function() {
+  const box = document.getElementById("chatBox");
+  if(box.style.display === "flex") { box.style.display = "none"; }
+  else { box.style.display = "flex"; if(!document.getElementById("msgs").innerHTML) document.getElementById("msgs").innerHTML = `<div class="bubble-ai">🎓 Hey graduate! Ask me about ceremony, date, dress code or classmates. ✨</div>`; }
+};
+
+function aiReply(msg) {
+  const lower = msg.toLowerCase();
+  if(lower.includes("hello") || lower.includes("hi")) return "Hello S3A star! 👋 How can I assist you?";
+  if(lower.includes("graduation date")) return "📅 December 1, 2026 – Mark your calendar!";
+  if(lower.includes("dress code")) return "👔 Formal gown + school sash. Smart elegant!";
+  if(lower.includes("venue")) return "📍 Wisdom High School Main Hall, Kigali – doors open 9:00 AM.";
+  if(lower.includes("classmates")) return "🎓 Our amazing class has 17 graduates. Check the Students section!";
+  return "💡 Ask me about 'graduation date', 'dress code', or 'venue' ✨";
+}
+
+window.sendMessage = function() {
+  const input = document.getElementById("msg");
+  const text = input.value.trim();
+  if(!text) return;
+  const chatMsgs = document.getElementById("msgs");
+  const userDiv = document.createElement("div"); userDiv.className = "bubble-user"; userDiv.innerHTML = `<i class="fas fa-user"></i> ${text}`;
+  chatMsgs.appendChild(userDiv);
+  const aiDiv = document.createElement("div"); aiDiv.className = "bubble-ai"; aiDiv.innerHTML = `<i class="fas fa-robot"></i> ${aiReply(text)}`;
+  chatMsgs.appendChild(aiDiv);
+  input.value = "";
+  chatMsgs.scrollTop = chatMsgs.scrollHeight;
+};
+
+window.addEventListener("load", () => {
+  initializeDatabase();
+  loadGuestbookMessages();
+});
+</script>
+</body>
+</html>
