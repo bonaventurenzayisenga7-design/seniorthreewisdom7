@@ -327,13 +327,13 @@ h2 {
   cursor: pointer;
 }
 
-/* GAME MODAL STYLES - UPGRADED */
+/* GAME MODAL STYLES */
 .game-modal-content {
   max-width: 95vw;
-  width: 1200px;
-  min-height: 750px;
+  width: 1100px;
+  min-height: 700px;
   padding: 0;
-  background: linear-gradient(135deg, #0a0a1a, #16213e);
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
   border-radius: 32px;
   overflow: hidden;
   display: flex;
@@ -355,16 +355,7 @@ h2 {
   color: #ffd200;
   margin: 0;
   font-size: 1.3rem;
-}
-
-.fullscreen-btn {
-  background: #00e5ff;
-  border: none;
-  padding: 6px 16px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-right: 10px;
+  text-shadow: 0 0 5px rgba(255,210,0,0.5);
 }
 
 #closeGameModalBtn {
@@ -375,15 +366,21 @@ h2 {
   color: white;
   cursor: pointer;
   font-weight: bold;
+  transition: 0.2s;
+}
+
+#closeGameModalBtn:hover {
+  background: #ff6b81;
+  transform: scale(1.05);
 }
 
 .game-container {
   padding: 20px;
   background: linear-gradient(135deg, #0f3460, #1a1a2e);
-  min-height: 650px;
-  transition: all 0.3s;
+  min-height: 600px;
 }
 
+/* GAME UI */
 .game-ui {
   display: flex;
   justify-content: space-between;
@@ -392,8 +389,7 @@ h2 {
   padding: 15px;
   background: rgba(0,0,0,0.5);
   border-radius: 20px;
-  flex-wrap: wrap;
-  gap: 10px;
+  backdrop-filter: blur(5px);
 }
 
 .mission-counter {
@@ -402,17 +398,19 @@ h2 {
   border-radius: 30px;
   color: #1a1a2e;
   font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .quote-box {
   background: rgba(0,0,0,0.7);
-  padding: 8px 15px;
+  padding: 10px 20px;
   border-radius: 30px;
   border-left: 4px solid #ffd200;
+  font-style: italic;
   color: #ffd200;
 }
 
-/* CHARACTER AREA - REALISTIC MOVEMENTS */
+/* CHARACTER AREA */
 .character-area {
   display: flex;
   flex-direction: column;
@@ -424,7 +422,11 @@ h2 {
 .damsen-character {
   position: relative;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s;
+}
+
+.damsen-character:hover {
+  transform: scale(1.05);
 }
 
 .big-head {
@@ -435,7 +437,6 @@ h2 {
   position: relative;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   border: 3px solid #ffd200;
-  transition: transform 0.2s;
 }
 
 .eyes {
@@ -493,15 +494,6 @@ h2 {
   50% { width: 40px; }
 }
 
-.mouth.talking {
-  animation: talkAnim 0.4s infinite;
-}
-
-@keyframes talkAnim {
-  0%, 100% { height: 30px; }
-  50% { height: 20px; }
-}
-
 .short-body {
   width: 100px;
   height: 80px;
@@ -510,7 +502,6 @@ h2 {
   margin: -10px auto 0;
   position: relative;
   border: 2px solid #27AE60;
-  transition: transform 0.2s;
 }
 
 .arms {
@@ -527,7 +518,11 @@ h2 {
   height: 15px;
   background: #FFB347;
   border-radius: 10px;
-  transition: transform 0.3s ease;
+  transition: 0.2s;
+}
+
+.arm.waving {
+  transform: rotate(30deg);
 }
 
 .legs {
@@ -544,31 +539,6 @@ h2 {
   height: 25px;
   background: #FFB347;
   border-radius: 10px;
-  transition: transform 0.2s;
-}
-
-/* Moving obstacle - realistic challenge */
-.obstacle {
-  position: absolute;
-  bottom: 30px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  background: rgba(255, 50, 50, 0.9);
-  border-radius: 10px;
-  animation: slideObstacle 4s linear infinite;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  box-shadow: 0 0 15px rgba(255,0,0,0.5);
-  z-index: 5;
-}
-
-@keyframes slideObstacle {
-  0% { right: -60px; transform: rotate(0deg); }
-  100% { right: 110%; transform: rotate(360deg); }
 }
 
 .action-buttons {
@@ -587,17 +557,18 @@ h2 {
   border-radius: 40px;
   cursor: pointer;
   transition: all 0.2s;
+  background: linear-gradient(135deg, #00e5ff, #0099cc);
+  color: #0a0c12;
 }
 
 .action-btn:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-3px);
   filter: brightness(1.1);
 }
 
 .action-btn.eat { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
 .action-btn.sleep { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
 .action-btn.dance { background: linear-gradient(135deg, #fdcb6e, #f39c12); }
-.action-btn.dodge { background: linear-gradient(135deg, #ff4757, #c0392b); }
 
 .mission-area {
   background: rgba(0,0,0,0.5);
@@ -607,7 +578,7 @@ h2 {
 }
 
 .mission-description {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 15px;
   text-align: center;
 }
@@ -623,7 +594,7 @@ h2 {
   height: 100%;
   background: linear-gradient(90deg, #ffd200, #ff8c00);
   width: 0%;
-  transition: width 0.3s ease;
+  transition: width 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -642,12 +613,6 @@ h2 {
   cursor: pointer;
   width: 100%;
   display: none;
-  transition: all 0.2s;
-}
-
-.next-mission-btn:hover {
-  transform: scale(1.02);
-  filter: brightness(1.05);
 }
 
 .speech-bubble {
@@ -657,14 +622,13 @@ h2 {
   transform: translateX(-50%);
   background: white;
   color: #1a1a2e;
-  padding: 10px 18px;
+  padding: 12px 20px;
   border-radius: 20px;
   font-weight: bold;
   white-space: nowrap;
   animation: fadeInOut 2s ease;
   z-index: 10;
-  font-size: 0.85rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  font-size: 0.9rem;
 }
 
 .speech-bubble::after {
@@ -685,27 +649,23 @@ h2 {
   100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
 }
 
-.shake {
-  animation: shakeAnim 0.3s ease-in-out;
-}
-
-@keyframes shakeAnim {
+@keyframes shake {
   0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
-.particle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: particleFloat 1s forwards;
+.shake {
+  animation: shake 0.3s ease-in-out;
 }
 
-@keyframes particleFloat {
-  to { opacity: 0; transform: translateY(-60px); }
+.hard-mode {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+  50% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
 }
 
 #chatWidget {
@@ -975,7 +935,6 @@ footer {
   .action-btn { padding: 8px 16px; font-size: 0.8rem; }
   .big-head { width: 120px; height: 120px; }
   .mouth { bottom: 30px; width: 40px; height: 20px; }
-  .obstacle { width: 35px; height: 35px; font-size: 1.2rem; }
 }
 </style>
 </head>
@@ -1122,15 +1081,12 @@ footer {
   </div>
 </div>
 
-<!-- UPGRADED JUGU JUGU LIFE GAME MODAL -->
+<!-- JUGU JUGU LIFE GAME MODAL - CUSTOM GAME -->
 <div id="gameModal" class="modal">
   <div class="modal-content game-modal-content">
     <div class="game-modal-header">
       <h3><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE - DAMSEN'S ADVENTURE 🎮</h3>
-      <div>
-        <button class="fullscreen-btn" onclick="toggleGameFullscreen()"><i class="fas fa-expand"></i> Fullscreen</button>
-        <button id="closeGameModalBtn">✖ CLOSE</button>
-      </div>
+      <button id="closeGameModalBtn">✖ CLOSE</button>
     </div>
     <div class="game-container" id="gameContainer">
       <div class="game-ui">
@@ -1138,7 +1094,7 @@ footer {
         <div class="quote-box" id="quoteBox">💬 "I'm Damsen Jugjugu Bro!"</div>
       </div>
 
-      <div class="character-area" id="characterArea">
+      <div class="character-area">
         <div class="damsen-character" id="damsenChar">
           <div class="big-head" id="bigHead">
             <div class="eyes">
@@ -1153,24 +1109,21 @@ footer {
               <div class="arm" id="rightArm"></div>
             </div>
             <div class="legs">
-              <div class="leg" id="leftLeg"></div>
-              <div class="leg" id="rightLeg"></div>
+              <div class="leg"></div>
+              <div class="leg"></div>
             </div>
           </div>
         </div>
-        <!-- MOVING CHALLENGE OBSTACLE -->
-        <div id="obstacle" class="obstacle" onclick="dodgeObstacle()">⚠️</div>
       </div>
 
       <div class="action-buttons">
         <button class="action-btn eat" onclick="performAction('eat')">🍔 EAT</button>
         <button class="action-btn sleep" onclick="performAction('sleep')">😴 SLEEP</button>
-        <button class="action-btn dance" onclick="performAction('dance')">💃 DANCE</button>
-        <button class="action-btn dodge" onclick="dodgeObstacle()">⚡ DODGE</button>
+        <button class="action-btn dance" onclick="performAction('dance')">💃 ENJOY/DANCE</button>
       </div>
 
       <div class="mission-area">
-        <div class="mission-description" id="missionDesc">🏆 Complete actions & DODGE obstacles to survive!</div>
+        <div class="mission-description" id="missionDesc">🏆 Tap EAT, SLEEP, or DANCE to complete missions!</div>
         <div class="mission-progress">
           <div class="progress-fill" id="progressFill">0/10</div>
         </div>
@@ -1195,54 +1148,95 @@ footer {
 </footer>
 
 <script>
-// ========== UPGRADED JUGU JUGU LIFE GAME ==========
+// ========== JUGU JUGU LIFE GAME SYSTEM ==========
 let currentMission = 1;
 let totalMissions = 10;
-let missionRequirements = {1:3,2:5,3:7,4:10,5:12,6:15,7:18,8:20,9:25,10:30};
+let missionProgress = 0;
+let missionRequirements = {
+  1: 3,   // Easy: 3 actions
+  2: 5,
+  3: 7,
+  4: 10,
+  5: 12,
+  6: 15,
+  7: 18,
+  8: 20,
+  9: 25,
+  10: 30  // Final boss mission: hardest!
+};
 let currentActionCount = 0;
-let dodgeSuccessCount = 0;
+
+// Character animation states
+let isAnimating = false;
 
 function updateUI() {
   document.getElementById('currentMission').textContent = currentMission;
   const required = missionRequirements[currentMission];
-  const percent = (currentActionCount / required) * 100;
-  document.getElementById('progressFill').style.width = percent + '%';
+  const progressPercent = (currentActionCount / required) * 100;
+  document.getElementById('progressFill').style.width = progressPercent + '%';
   document.getElementById('progressFill').textContent = `${currentActionCount}/${required}`;
   
-  const desc = document.getElementById('missionDesc');
-  if(currentMission === 10) desc.innerHTML = '🔥 FINAL BOSS! Dodge & complete 30 actions to become LEGEND! 🔥';
-  else desc.innerHTML = `🏆 MISSION ${currentMission}/10: ${required} actions | Dodge obstacles to survive!`;
+  const missionDesc = document.getElementById('missionDesc');
+  if (currentMission === 10) {
+    missionDesc.innerHTML = '🔥🔥 FINAL BOSS MISSION! Complete 30 actions to become the LEGEND! 🔥🔥';
+    missionDesc.style.color = '#ff4444';
+  } else {
+    missionDesc.innerHTML = `🏆 MISSION ${currentMission}/10: Complete ${required} actions (Eat, Sleep, or Dance) to progress!`;
+    missionDesc.style.color = '#ffd200';
+  }
+  
+  // Add hard mode visual for later missions
+  const gameContainer = document.getElementById('gameContainer');
+  if (currentMission >= 7) {
+    gameContainer.style.boxShadow = 'inset 0 0 30px rgba(255,0,0,0.3)';
+  } else {
+    gameContainer.style.boxShadow = 'none';
+  }
 }
 
-function showSpeech(text, isDamsen = true) {
-  const area = document.querySelector('.character-area');
-  const existing = document.querySelector('.speech-bubble');
-  if(existing) existing.remove();
+function showSpeechBubble(text) {
+  const charArea = document.querySelector('.character-area');
+  const existingBubble = document.querySelector('.speech-bubble');
+  if (existingBubble) existingBubble.remove();
+  
   const bubble = document.createElement('div');
   bubble.className = 'speech-bubble';
   bubble.textContent = text;
-  area.appendChild(bubble);
+  charArea.appendChild(bubble);
   
-  // Animate mouth when Damsen speaks
-  if(isDamsen) {
-    const mouth = document.getElementById('mouth');
-    mouth.classList.add('talking');
-    setTimeout(() => mouth.classList.remove('talking'), 800);
-  }
-  
-  setTimeout(() => bubble.remove(), 2000);
+  setTimeout(() => {
+    if (bubble) bubble.remove();
+  }, 2000);
 }
 
-function createParticles() {
-  const container = document.getElementById('gameContainer');
-  for(let i=0;i<12;i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 300 + 100 + 'px';
-    p.style.top = Math.random() * 200 + 300 + 'px';
-    p.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
-    container.appendChild(p);
-    setTimeout(() => p.remove(), 1000);
+function animateMouth(type) {
+  const mouth = document.getElementById('mouth');
+  mouth.classList.remove('happy', 'eating');
+  if (type === 'eat') {
+    mouth.classList.add('eating');
+    setTimeout(() => mouth.classList.remove('eating'), 500);
+  } else if (type === 'dance') {
+    mouth.classList.add('happy');
+    setTimeout(() => mouth.classList.remove('happy'), 500);
+  } else {
+    mouth.style.borderRadius = '30px 30px 0 0';
+    setTimeout(() => mouth.style.borderRadius = '0 0 30px 30px', 500);
+  }
+}
+
+function animateArms(type) {
+  const leftArm = document.getElementById('leftArm');
+  const rightArm = document.getElementById('rightArm');
+  if (type === 'dance') {
+    leftArm.style.transform = 'rotate(-30deg)';
+    rightArm.style.transform = 'rotate(30deg)';
+    setTimeout(() => {
+      leftArm.style.transform = 'rotate(0deg)';
+      rightArm.style.transform = 'rotate(0deg)';
+    }, 500);
+  } else if (type === 'eat') {
+    leftArm.style.transform = 'rotate(-45deg)';
+    setTimeout(() => leftArm.style.transform = 'rotate(0deg)', 500);
   }
 }
 
@@ -1250,163 +1244,111 @@ function animateCharacter(type) {
   const char = document.getElementById('damsenChar');
   char.classList.add('shake');
   setTimeout(() => char.classList.remove('shake'), 300);
-  
-  const leftArm = document.getElementById('leftArm');
-  const rightArm = document.getElementById('rightArm');
-  const leftLeg = document.getElementById('leftLeg');
-  const rightLeg = document.getElementById('rightLeg');
-  const mouth = document.getElementById('mouth');
-  
-  mouth.classList.remove('happy', 'eating');
-  
-  if(type === 'eat') {
-    mouth.classList.add('eating');
-    leftArm.style.transform = 'rotate(-60deg)';
-    setTimeout(() => leftArm.style.transform = 'rotate(0deg)', 400);
-  } else if(type === 'dance') {
-    mouth.classList.add('happy');
-    leftArm.style.transform = 'rotate(-40deg)';
-    rightArm.style.transform = 'rotate(40deg)';
-    leftLeg.style.transform = 'rotate(-15deg)';
-    rightLeg.style.transform = 'rotate(15deg)';
-    setTimeout(() => {
-      leftArm.style.transform = 'rotate(0deg)';
-      rightArm.style.transform = 'rotate(0deg)';
-      leftLeg.style.transform = 'rotate(0deg)';
-      rightLeg.style.transform = 'rotate(0deg)';
-    }, 500);
-  } else if(type === 'sleep') {
-    document.getElementById('bigHead').style.transform = 'rotate(90deg)';
-    setTimeout(() => document.getElementById('bigHead').style.transform = 'rotate(0deg)', 1000);
-  }
+  animateMouth(type);
+  animateArms(type);
 }
 
 function performAction(action) {
-  if(currentMission > totalMissions) {
-    showSpeech("🎉 All missions done! Reset to play again!", true);
+  if (currentMission > totalMissions) {
+    showSpeechBubble("🎉 I've already completed all missions! Reset to play again! 🎉");
     return;
   }
+  
   const required = missionRequirements[currentMission];
-  if(currentActionCount >= required) {
-    showSpeech("✅ Click COMPLETE MISSION to advance!", true);
+  if (currentActionCount >= required) {
+    showSpeechBubble("✅ Mission ready to complete! Click the button below!");
     return;
   }
   
   currentActionCount++;
   animateCharacter(action);
   
-  // DAMSEN SHOUTS "I'm Damsen huuu" on every action!
-  const damsenPhrases = ["🗣️ I'm Damsen huuu!", "🗣️ DAMSEN HUUU!", "🗣️ Jugu Jugu! I'm Damsen!", "🗣️ Hoo hoo! Damsen here!", "🗣️ Damsen jugjugu!", "🗣️ HUUU! That's me Damsen!"];
-  const randomPhrase = damsenPhrases[Math.floor(Math.random() * damsenPhrases.length)];
-  showSpeech(randomPhrase, true);
-  
-  const actionMessages = {
-    eat: ["🍔 Yummy! Delicious meal!", "🍕 Nom nom! So tasty!", "🍜 Eating makes me strong!", "🥗 Healthy and happy!"],
-    sleep: ["😴 Zzz... so restful!", "💤 Sweet dreams!", "🛌 Energy restored!", "🌙 Sleeping like a baby!"],
-    dance: ["💃 Dancing all night long!", "🕺 Groovy moves!", "🎵 Feel the rhythm!", "✨ Enjoying life!"]
+  // Show different messages based on action
+  const messages = {
+    eat: ["🍔 Yummy! Delicious!", "🍕 Nom nom nom!", "🍜 So tasty!", "🥗 Healthy choice!"],
+    sleep: ["😴 Zzz... so peaceful!", "💤 Sweet dreams!", "🛌 Resting well!", "🌙 Night night!"],
+    dance: ["💃 Dancing all night!", "🕺 Groovy moves!", "🎵 Feel the rhythm!", "✨ Enjoying life!"]
   };
-  const msg = actionMessages[action][Math.floor(Math.random() * actionMessages[action].length)];
-  setTimeout(() => showSpeech(msg, false), 800);
   
-  createParticles();
+  const randomMsg = messages[action][Math.floor(Math.random() * messages[action].length)];
+  showSpeechBubble(randomMsg);
+  
   updateUI();
   
-  if(currentActionCount >= required) {
-    document.getElementById('nextMissionBtn').style.display = 'block';
-  }
-}
-
-function dodgeObstacle() {
-  const obstacle = document.getElementById('obstacle');
-  obstacle.style.animation = 'none';
-  obstacle.style.transform = 'scale(0.5)';
-  setTimeout(() => {
-    obstacle.style.animation = 'slideObstacle 4s linear infinite';
-    obstacle.style.transform = 'scale(1)';
-  }, 100);
-  
-  dodgeSuccessCount++;
-  showSpeech("⚡ DODGED! Quick reflexes! +1 survival point ⚡", false);
-  createParticles();
-  
-  // Realistic challenge: sometimes hitting the obstacle costs progress
-  if(Math.random() < 0.15 && currentActionCount > 0) {
-    currentActionCount = Math.max(0, currentActionCount - 1);
-    showSpeech("😵 OUCH! Got hit by obstacle! Lost 1 progress! 😵", true);
-    updateUI();
-  } else {
-    // Bonus: successful dodge adds a little extra
-    if(Math.random() < 0.3 && currentActionCount < missionRequirements[currentMission]) {
-      currentActionCount = Math.min(missionRequirements[currentMission], currentActionCount + 1);
-      showSpeech("✨ PERFECT DODGE! Bonus progress! ✨", false);
-      updateUI();
-    }
+  // Auto-complete if reached requirement
+  if (currentActionCount >= required) {
+    completeMission();
   }
 }
 
 function completeMission() {
   const required = missionRequirements[currentMission];
-  if(currentActionCount >= required) {
-    showSpeech("🗣️ I'M DAMSEN HUUU! MISSION COMPLETE! 🎉", true);
-    for(let i=0;i<25;i++) {
+  if (currentActionCount >= required) {
+    // Show the catchphrase!
+    showSpeechBubble("🗣️ I'M DAMSEN JUGJUGU BRO! 🎉");
+    
+    // Fireworks effect
+    for(let i = 0; i < 20; i++) {
       setTimeout(() => {
-        const fw = document.createElement('div');
-        fw.className = 'firework';
-        fw.style.left = Math.random() * window.innerWidth + 'px';
-        fw.style.top = Math.random() * window.innerHeight + 'px';
-        fw.style.background = `hsl(${Math.random()*360}, 100%, 60%)`;
-        document.body.appendChild(fw);
-        setTimeout(() => fw.remove(), 1000);
-      }, i*60);
+        const firework = document.createElement("div");
+        firework.className = "firework";
+        firework.style.left = Math.random() * window.innerWidth + "px";
+        firework.style.top = Math.random() * window.innerHeight + "px";
+        firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+      }, i * 50);
     }
+    
     document.getElementById('nextMissionBtn').style.display = 'block';
   }
 }
 
 function nextMission() {
-  if(currentMission === totalMissions) {
-    showSpeech("🏆 I AM THE LEGEND! DAMSEN HUUU! 🏆", true);
-    alert("🎉✨ CONGRATULATIONS! You completed all 10 missions! DAMSEN IS LEGEND! ✨🎉");
-    for(let i=0;i<60;i++) {
+  if (currentMission === totalMissions) {
+    // Game complete!
+    showSpeechBubble("🏆🎉 I AM THE LEGEND! JUGU JUGU LIFE MASTER! 🎉🏆");
+    alert("🎉✨ CONGRATULATIONS! ✨🎉\n\nYou completed all 10 missions!\nDAMSEN JUGJUGU BRO is now a LEGEND!\n\n🏆 Thanks for playing JUGU JUGU LIFE! 🏆");
+    
+    // Ultimate celebration
+    for(let i = 0; i < 50; i++) {
       setTimeout(() => {
-        const fw = document.createElement('div');
-        fw.className = 'firework';
-        fw.style.left = Math.random() * window.innerWidth + 'px';
-        fw.style.top = Math.random() * window.innerHeight + 'px';
-        fw.style.background = `hsl(${Math.random()*360}, 100%, 60%)`;
-        document.body.appendChild(fw);
-        setTimeout(() => fw.remove(), 1000);
-      }, i*70);
+        const firework = document.createElement("div");
+        firework.className = "firework";
+        firework.style.left = Math.random() * window.innerWidth + "px";
+        firework.style.top = Math.random() * window.innerHeight + "px";
+        firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+      }, i * 60);
     }
-    setTimeout(() => { if(confirm("Play again? Reset all missions?")) resetGame(); }, 2500);
+    
+    // Reset game after celebration
+    setTimeout(() => {
+      if(confirm("Play again? Reset all missions?")) {
+        resetGame();
+      }
+    }, 2000);
     return;
   }
+  
+  // Move to next mission
   currentMission++;
   currentActionCount = 0;
   document.getElementById('nextMissionBtn').style.display = 'none';
   updateUI();
-  showSpeech(`🚀 MISSION ${currentMission} STARTED! Dodge obstacles & complete actions! 🚀`, true);
+  showSpeechBubble(`🚀 MISSION ${currentMission} STARTED! Let's go! 🚀`);
 }
 
 function resetGame() {
   currentMission = 1;
   currentActionCount = 0;
-  dodgeSuccessCount = 0;
   document.getElementById('nextMissionBtn').style.display = 'none';
   updateUI();
-  showSpeech("🔄 Game Reset! Time for a fresh adventure! DAMSEN HUUU! 🔄", true);
+  showSpeechBubble("🔄 Game Reset! Time for a new adventure! 🔄");
 }
 
-function toggleGameFullscreen() {
-  const modal = document.getElementById('gameModal');
-  if(!document.fullscreenElement) {
-    modal.requestFullscreen().catch(e => console.log("Fullscreen not available"));
-  } else {
-    document.exitFullscreen();
-  }
-}
-
-// ========== YOUR ORIGINAL DATABASE CODE (unchanged) ==========
+// ========== INDEXEDDB DATABASE SETUP (shortened for brevity - same as before) ==========
 let db;
 const DB_NAME = "S3AGraduationDB";
 const DB_VERSION = 1;
