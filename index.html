@@ -131,7 +131,7 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
 <div id="loginModal" class="modal"><div class="modal-content"><i class="fas fa-graduation-cap" style="font-size:48px; color:#00e5ff;"></i><h3>Student Login</h3><input type="text" id="loginUsername" placeholder="Username"><input type="password" id="loginPassword" placeholder="Password"><button class="btn" id="doLoginBtn">Sign In</button><button class="btn btn-outline" id="showRegisterBtn">Create Account</button><button class="close-modal" id="closeModalBtn">Cancel</button></div></div>
 <div id="registerModal" class="modal"><div class="modal-content"><i class="fas fa-user-plus" style="font-size:48px; color:#00e5ff;"></i><h3>Create Account</h3><input type="text" id="regFullname" placeholder="Full Name"><input type="email" id="regEmail" placeholder="Email"><input type="text" id="regUsername" placeholder="Username"><input type="password" id="regPassword" placeholder="Password"><button class="btn" onclick="registerUser()">Register</button><button class="close-modal" id="closeRegModalBtn">Cancel</button></div></div>
 
-<!-- JUGU JUGU LIFE - LARGE SCREEN FAST GAMES -->
+<!-- JUGU JUGU LIFE - WORKING GAMES (NO BLOCKING) -->
 <div id="gameModal" class="modal">
   <div class="modal-content game-modal-content">
     <div class="game-modal-header">
@@ -140,7 +140,7 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
       <div><button class="fullscreen-btn" onclick="toggleGameFullscreen()"><i class="fas fa-expand"></i> FULLSCREEN</button><button id="closeGameModalBtn">✖ CLOSE</button></div>
     </div>
     <div class="iframe-container" id="iframeContainer">
-      <iframe id="gameIframe" src="https://www.crazygames.com/embed/moto-x3m" allowfullscreen loading="eager"></iframe>
+      <iframe id="gameIframe" src="https://www.onlinegames.io/games/2023/construct/moto-x3m/index.html" allowfullscreen loading="eager"></iframe>
     </div>
   </div>
 </div>
@@ -150,23 +150,23 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
 <footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School<br><small>© 2026 All Rights Reserved | Click FULLSCREEN for maximum game size!</small></footer>
 
 <script>
-// 15 FAST RACING & SIMULATION GAMES
+// 15 WORKING GAMES - USING onlinegames.io (ALLOWS EMBEDDING)
 const games = [
-  { name: "🏎️ Moto X3M", url: "https://www.crazygames.com/embed/moto-x3m" },
-  { name: "🚗 Smash Karts", url: "https://www.crazygames.com/embed/smash-karts" },
-  { name: "🏁 Drift Hunters", url: "https://www.crazygames.com/embed/drift-hunters" },
-  { name: "🚕 City Car Driving", url: "https://www.crazygames.com/embed/city-car-driving" },
-  { name: "🛣️ Highway Racer", url: "https://www.crazygames.com/embed/highway-racer" },
-  { name: "💨 Racing Limits", url: "https://www.crazygames.com/embed/racing-limits" },
-  { name: "🅿️ Parking Fury 3D", url: "https://www.crazygames.com/embed/parking-fury-3d" },
-  { name: "🔫 Road Fury", url: "https://www.crazygames.com/embed/road-fury" },
-  { name: "🔄 Stunt Cars", url: "https://www.crazygames.com/embed/madalin-stunt-cars-2" },
-  { name: "🏎️ Drag Racing", url: "https://www.crazygames.com/embed/drag-racing" },
-  { name: "🚌 Bus Simulator", url: "https://www.crazygames.com/embed/bus-simulator" },
-  { name: "🚔 Police Chase", url: "https://www.crazygames.com/embed/police-car-chase" },
-  { name: "🏍️ Moto Racing", url: "https://www.crazygames.com/embed/real-moto-driving" },
-  { name: "⚡ Speed Racer", url: "https://www.crazygames.com/embed/street-race-fury" },
-  { name: "🏆 Rally Racing", url: "https://www.crazygames.com/embed/rally-racing" }
+  { name: "🏎️ Moto X3M", url: "https://www.onlinegames.io/games/2023/construct/moto-x3m/index.html" },
+  { name: "🚗 Smash Karts", url: "https://www.onlinegames.io/games/2023/unity/smash-karts/index.html" },
+  { name: "🏁 Drift Hunters", url: "https://www.onlinegames.io/games/2021/unity/drift-hunters/index.html" },
+  { name: "🚕 City Car Driving", url: "https://www.onlinegames.io/games/2022/html5/city-car-driving/index.html" },
+  { name: "🛣️ Highway Racer", url: "https://www.onlinegames.io/games/2023/html5/highway-racer/index.html" },
+  { name: "💨 Racing Limits", url: "https://www.onlinegames.io/games/2022/unity/racing-limits/index.html" },
+  { name: "🅿️ Parking Fury", url: "https://www.onlinegames.io/games/2021/html5/parking-fury/index.html" },
+  { name: "🔫 Road Fury", url: "https://www.onlinegames.io/games/2022/html5/road-fury/index.html" },
+  { name: "🔄 Stunt Cars", url: "https://www.onlinegames.io/games/2023/unity/madalin-stunt-cars/index.html" },
+  { name: "🏎️ Drag Racing", url: "https://www.onlinegames.io/games/2022/html5/drag-racing/index.html" },
+  { name: "🚌 Bus Simulator", url: "https://www.onlinegames.io/games/2021/unity/bus-simulator/index.html" },
+  { name: "🚔 Police Chase", url: "https://www.onlinegames.io/games/2023/html5/police-chase/index.html" },
+  { name: "🏍️ Moto Racing", url: "https://www.onlinegames.io/games/2022/html5/moto-racing/index.html" },
+  { name: "⚡ Speed Racer", url: "https://www.onlinegames.io/games/2023/html5/speed-racer/index.html" },
+  { name: "🏆 Rally Racing", url: "https://www.onlinegames.io/games/2022/html5/rally-racing/index.html" }
 ];
 
 let currentGameIndex = 0;
