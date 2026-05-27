@@ -53,13 +53,21 @@ h2{font-size:2.6rem;font-weight:700;margin-bottom:2rem;text-align:center;backgro
 .modal-content input,.modal-content select,.modal-content textarea{width:100%;padding:14px 18px;margin:12px 0;background:rgba(255,255,255,0.1);border:1px solid #3a4a6e;border-radius:60px;color:white;font-size:1rem;outline:none;}
 .modal-content input:focus,.modal-content select:focus{border-color:#00e5ff;}
 .close-modal{margin-top:1rem;background:none;border:none;color:#aaa;cursor:pointer;}
-.game-modal-content{max-width:95vw;width:1200px;height:85vh;padding:0;background:#000;border-radius:32px;overflow:hidden;display:flex;flex-direction:column;border:2px solid #ffd200;box-shadow:0 0 50px rgba(255,210,0,0.3);}
-.game-modal-header{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#0f0f23,#1a1a3e);padding:12px 20px;border-bottom:2px solid #ffd200;z-index:10;}
-.game-modal-header h3{color:#ffd200;margin:0;font-size:1.2rem;}
-.fullscreen-btn{background:#00e5ff;border:none;padding:5px 15px;border-radius:30px;cursor:pointer;font-weight:bold;margin-right:10px;}
+.game-modal-content{max-width:95vw;width:1300px;height:90vh;padding:0;background:linear-gradient(135deg,#0a0a2a,#1a1a4a);border-radius:32px;overflow:hidden;display:flex;flex-direction:column;border:2px solid #ffd200;box-shadow:0 0 50px rgba(255,210,0,0.3);}
+.game-modal-header{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#0f0f23,#1a1a3e);padding:12px 20px;border-bottom:2px solid #ffd200;z-index:10;flex-wrap:wrap;gap:10px;}
+.game-modal-header h3{color:#ffd200;margin:0;font-size:1rem;}
+.game-selector{display:flex;gap:10px;flex-wrap:wrap;}
+.game-selector-btn{background:rgba(0,229,255,0.2);border:1px solid #00e5ff;padding:5px 15px;border-radius:25px;cursor:pointer;color:white;font-weight:bold;transition:0.2s;}
+.game-selector-btn:hover,.game-selector-btn.active{background:#00e5ff;color:#0a0c12;}
+.fullscreen-btn{background:#00e5ff;border:none;padding:5px 15px;border-radius:30px;cursor:pointer;font-weight:bold;}
 #closeGameModalBtn{background:#ff4757;border:none;padding:5px 15px;border-radius:40px;color:white;cursor:pointer;font-weight:bold;}
 #gameCanvasContainer{flex:1;position:relative;background:#000;}
 .game-controls-hint{position:absolute;bottom:15px;left:15px;background:rgba(0,0,0,0.7);padding:8px 15px;border-radius:20px;color:#ffd200;font-size:12px;z-index:20;pointer-events:none;}
+.mission-panel{position:absolute;top:15px;right:15px;background:rgba(0,0,0,0.8);padding:10px 20px;border-radius:20px;border-left:4px solid #ffd200;z-index:20;pointer-events:none;}
+.mission-panel h4{color:#ffd200;font-size:14px;margin-bottom:5px;}
+.mission-panel p{font-size:12px;}
+.progress-bar{width:150px;height:8px;background:rgba(255,255,255,0.3);border-radius:10px;overflow:hidden;margin-top:5px;}
+.progress-fill-game{height:100%;background:linear-gradient(90deg,#ffd200,#ff8c00);width:0%;transition:width 0.3s;}
 #chatWidget{position:fixed;bottom:25px;right:25px;z-index:1100;}
 .chat-toggle{background:linear-gradient(145deg,#00e5ff,#0088aa);width:58px;height:58px;border-radius:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 20px rgba(0,229,255,0.4);}
 .chat-toggle i{font-size:28px;color:#0a0c12;}
@@ -93,7 +101,7 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
 .firework{position:fixed;width:10px;height:10px;border-radius:50%;pointer-events:none;z-index:10000;animation:explode 1s ease-out forwards;}
 @keyframes explode{0%{transform:scale(0);opacity:1;}100%{transform:scale(30);opacity:0;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-@media (max-width:700px){nav{gap:0.8rem;padding:10px 16px;}nav a{font-size:0.7rem;}h2{font-size:2rem;}.game-modal-content{width:95vw;height:70vh;}.game-controls-hint{font-size:8px;bottom:5px;left:5px;}}
+@media (max-width:700px){nav{gap:0.8rem;padding:10px 16px;}nav a{font-size:0.7rem;}h2{font-size:2rem;}.game-modal-content{width:95vw;height:80vh;}.game-controls-hint{font-size:8px;bottom:5px;left:5px;}.game-selector-btn{font-size:10px;padding:3px 10px;}}
 </style>
 </head>
 <body>
@@ -117,7 +125,7 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
     <div class="btn btn-outline" id="heroLoginBtn"><i class="fas fa-user-graduate"></i> Student Portal</div>
     <div class="btn music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i> 🎵 Play Music</div>
     <div class="btn congrats-btn" onclick="showCongratulations()"><i class="fas fa-trophy"></i> 🎉 CONGRATULATIONS! 🎓</div>
-    <div class="btn game-btn" onclick="openJuguJuguGame()"><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE 3D 🎮</div>
+    <div class="btn game-btn" onclick="openGameHub()"><i class="fas fa-gamepad"></i> 🎮 GAME HUB - 3D CHALLENGES 🎮</div>
   </div>
 </div>
 
@@ -126,198 +134,261 @@ footer{text-align:center;padding:2rem;background:#050a10;margin-top:2rem;border-
 <section id="about"><h2>📖 The Journey</h2><div class="card"><div style="text-align:center;"><img src="wisdom.jpg" alt="Wisdom High School" style="width:100%;max-width:500px;border-radius:20px;border:3px solid #00e5ff;"></div><p>We are the S3A class of Wisdom High School — a family of dreamers, leaders, and innovators. ✨</p></div><div class="countdown" id="countdown"></div><div class="card" style="text-align:center;"><i class="fas fa-calendar-alt"></i> December 1, 2026 | Wisdom High Auditorium</div></section>
 
 <section id="students"><h2><i class="fas fa-user-friends"></i> Graduating Classmates</h2><div class="grid" id="studentsGrid"></div></section>
-
 <section id="gallery"><h2><i class="fas fa-images"></i> Golden Moments</h2><div class="gallery-grid"><div class="gallery-item"><i class="fas fa-school"></i><br>School Life</div><div class="gallery-item"><i class="fas fa-music"></i><br>Talent Show</div><div class="gallery-item"><i class="fas fa-futbol"></i><br>Sports Day</div><div class="gallery-item"><i class="fas fa-laptop-code"></i><br>Tech Fair</div></div></section>
-
 <section id="videos"><h2><i class="fas fa-video"></i> Graduation Memories</h2><div class="video-container"><div class="video-box"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video><p>🎬 Class Highlights</p></div><div class="video-box"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted></video><p>🎓 Ceremony Teaser</p></div></div></section>
-
 <section id="messages"><h2><i class="fas fa-comment-dots"></i> Graduation Guestbook</h2><div class="message-board"><div class="subscription-form" style="flex-direction:column;"><input type="text" id="msgName" placeholder="Your Name"><textarea id="msgText" rows="3" placeholder="Leave congratulations..." style="border-radius:20px;background:rgba(255,255,255,0.1);border:1px solid #00e5ff;color:white;padding:12px;"></textarea><button class="btn" onclick="addGuestbookMessage()"><i class="fas fa-paper-plane"></i> Post Message</button></div><div class="messages-list" id="guestbookMessages"></div></div></section>
-
 <section id="contact"><h2>📞 Contact & Bona's Moment</h2><div class="contact-flex"><div class="contact-info"><div class="card" style="text-align:center;"><i class="fas fa-globe"></i> NZAYISENGA Bonaventure<br><i class="fas fa-envelope"></i> bonaventurenzayisenga7@gmail.com<br><i class="fab fa-whatsapp"></i> +250 788 123 456<br><div class="btn" onclick="toggleChat()"><i class="fas fa-robot"></i> AI Assistant</div></div></div><div class="bona-showcase"><div class="bona-card" onclick="celebrateImage()"><div class="bona-image"><img src="bona01.jpg" alt="Bonaventure" onerror="this.src='https://placehold.co/600x400/0a1a2a/00e5ff?text=Bonaventure'"></div><div class="bona-caption">BONAVENTURE · PRECIOUS MOMENT</div></div></div></div></section>
-
 <section id="subscribe"><div class="subscription-section"><i class="fas fa-envelope-open-text" style="font-size:3rem; color:#00e5ff;"></i><h2 style="font-size:1.8rem;">📧 Stay Updated!</h2><div class="subscription-form"><input type="email" id="subEmail" placeholder="Your email"><button class="btn subscribe-btn" onclick="subscribeUserDB()"><i class="fas fa-bell"></i> Subscribe</button></div></div></section>
 
 <div id="loginModal" class="modal"><div class="modal-content"><i class="fas fa-graduation-cap" style="font-size:48px; color:#00e5ff;"></i><h3>Student Login</h3><input type="text" id="loginUsername" placeholder="Username"><input type="password" id="loginPassword" placeholder="Password"><button class="btn" id="doLoginBtn">Sign In</button><button class="btn btn-outline" id="showRegisterBtn">Create Account</button><button class="close-modal" id="closeModalBtn">Cancel</button></div></div>
-
 <div id="registerModal" class="modal"><div class="modal-content"><i class="fas fa-user-plus" style="font-size:48px; color:#00e5ff;"></i><h3>Create Account</h3><input type="text" id="regFullname" placeholder="Full Name"><input type="email" id="regEmail" placeholder="Email"><input type="text" id="regUsername" placeholder="Username"><input type="password" id="regPassword" placeholder="Password"><button class="btn" onclick="registerUser()">Register</button><button class="close-modal" id="closeRegModalBtn">Cancel</button></div></div>
 
 <div id="gameModal" class="modal">
   <div class="modal-content game-modal-content">
     <div class="game-modal-header">
-      <h3><i class="fas fa-cube"></i> 🎮 JUGU JUGU LIFE 3D - DAMSEN'S WORLD 🎮</h3>
+      <h3><i class="fas fa-cube"></i> 🎮 3D GAME HUB - JUGU JUGU WORLD 🎮</h3>
+      <div class="game-selector">
+        <button class="game-selector-btn active" onclick="switchGame('car')">🚗 CAR RACING</button>
+        <button class="game-selector-btn" onclick="switchGame('runner')">🏃 RUNNER</button>
+        <button class="game-selector-btn" onclick="switchGame('collector')">⭐ COLLECTOR</button>
+      </div>
       <div><button class="fullscreen-btn" onclick="toggleGameFullscreen()"><i class="fas fa-expand"></i> Fullscreen</button><button id="closeGameModalBtn">✖ CLOSE</button></div>
     </div>
-    <div id="gameCanvasContainer" style="flex:1; position:relative;"><div class="game-controls-hint">🎮 WASD or Arrow Keys to move Damsen | 🖱️ Click and drag to rotate camera</div></div>
+    <div id="gameCanvasContainer" style="flex:1; position:relative;">
+      <div class="game-controls-hint" id="gameControlsHint">🎮 WASD or Arrow Keys | Collect green orbs for points!</div>
+      <div class="mission-panel" id="missionPanel">
+        <h4><i class="fas fa-trophy"></i> MISSION <span id="currentMission">1</span>/<span id="totalMissions">10</span></h4>
+        <p>Progress: <span id="missionProgress">0</span>/<span id="missionRequired">5</span> orbs</p>
+        <div class="progress-bar"><div class="progress-fill-game" id="missionProgressFill"></div></div>
+        <p id="missionStatus" style="color:#ffd200; font-size:11px;">⭐ Collect green orbs to complete missions!</p>
+      </div>
+    </div>
   </div>
 </div>
 
 <div id="chatWidget"><div class="chat-toggle" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></div><div id="chatBox"><div class="chat-header"><span><i class="fas fa-brain"></i> S3A AI Guide</span><span style="cursor:pointer;" onclick="toggleChat()">✕</span></div><div id="msgs"></div><div id="inputBox"><input id="msg" placeholder="Ask about graduation..."><button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div></div></div>
 
-<footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School<br><small>© 2026 All Rights Reserved | 3D Game Powered by Three.js</small></footer>
+<footer><i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School<br><small>© 2026 All Rights Reserved | 3D Game Hub - 10 Missions Each!</small></footer>
 
 <script type="module">
 import * as THREE from 'three';
-let scene,camera,renderer,player,trees=[];
-let keys={w:false,s:false,a:false,d:false,ArrowUp:false,ArrowDown:false,ArrowLeft:false,ArrowRight:false};
-let playerVelocity={x:0,z:0};
+
+let scene, camera, renderer, player, gameObjects = [], keys = {};
+let currentGame = 'car';
+let currentMission = 1, totalMissions = 10, missionProgress = 0, missionRequirements = {1:5,2:8,3:12,4:15,5:20,6:25,7:30,8:35,9:40,10:50};
 let mouseX=0,mouseY=0,isDragging=false;
 let cameraAngle={theta:0,phi:0.5};
+let score=0, gameActive=true;
+
+function updateMissionUI(){
+  document.getElementById('currentMission').textContent = currentMission;
+  const req = missionRequirements[currentMission];
+  document.getElementById('missionRequired').textContent = req;
+  document.getElementById('missionProgress').textContent = missionProgress;
+  const percent = (missionProgress / req) * 100;
+  document.getElementById('missionProgressFill').style.width = percent + '%';
+  if(missionProgress >= req){
+    document.getElementById('missionStatus').innerHTML = '✅ MISSION COMPLETE! Click to advance!';
+    document.getElementById('missionStatus').style.color = '#00ff00';
+  } else {
+    document.getElementById('missionStatus').innerHTML = '⭐ Collect objects to complete missions!';
+    document.getElementById('missionStatus').style.color = '#ffd200';
+  }
+}
+
+function nextMission(){
+  if(missionProgress >= missionRequirements[currentMission]){
+    if(currentMission === totalMissions){
+      alert('🎉✨ CONGRATULATIONS! You completed ALL 10 missions! You are a LEGEND! ✨🎉');
+      for(let i=0;i<50;i++) setTimeout(()=>{let f=document.createElement('div');f.className='firework';f.style.left=Math.random()*innerWidth+'px';f.style.top=Math.random()*innerHeight+'px';f.style.background=`hsl(${Math.random()*360},100%,60%)`;document.body.appendChild(f);setTimeout(()=>f.remove(),1000);},i*60);
+      resetGame();
+    } else {
+      currentMission++;
+      missionProgress = 0;
+      updateMissionUI();
+      document.getElementById('missionStatus').innerHTML = `🚀 MISSION ${currentMission} STARTED! Get ${missionRequirements[currentMission]} objects! 🚀`;
+      setTimeout(()=>{if(document.getElementById('missionStatus').innerHTML.includes('STARTED')) document.getElementById('missionStatus').innerHTML = '⭐ Collect objects to complete missions!';},2000);
+      resetGameObjects();
+    }
+  } else {
+    alert(`Complete current mission first! Need ${missionRequirements[currentMission] - missionProgress} more objects!`);
+  }
+}
+
+function resetGameObjects(){
+  gameObjects.forEach(obj => scene.remove(obj));
+  gameObjects = [];
+  spawnGameObjects();
+}
+
+function spawnGameObjects(){
+  const count = 15 + Math.floor(Math.random() * 10);
+  for(let i=0;i<count;i++){
+    let geometry, material, mesh;
+    if(currentGame === 'car'){
+      geometry = new THREE.BoxGeometry(0.6,0.3,1.2);
+      material = new THREE.MeshStandardMaterial({ color: 0xff4444 });
+      mesh = new THREE.Mesh(geometry, material);
+    } else if(currentGame === 'runner'){
+      geometry = new THREE.SphereGeometry(0.3,16,16);
+      material = new THREE.MeshStandardMaterial({ color: 0x44ff44 });
+      mesh = new THREE.Mesh(geometry, material);
+    } else {
+      geometry = new THREE.TorusGeometry(0.25,0.08,16,32);
+      material = new THREE.MeshStandardMaterial({ color: 0xffdd44, emissive: 0x442200 });
+      mesh = new THREE.Mesh(geometry, material);
+    }
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 5 + Math.random() * 8;
+    mesh.position.set(Math.cos(angle)*radius, 0.2, Math.sin(angle)*radius);
+    mesh.userData = { collected: false, value: 10 };
+    mesh.castShadow = true;
+    scene.add(mesh);
+    gameObjects.push(mesh);
+  }
+}
 
 function init3DGame(){
-  const container=document.getElementById('gameCanvasContainer');
+  const container = document.getElementById('gameCanvasContainer');
   if(!container) return;
-  while(container.firstChild) container.removeChild(container.firstChild);
-  scene=new THREE.Scene();
-  scene.background=new THREE.Color(0x87CEEB);
-  scene.fog=new THREE.Fog(0x87CEEB,30,60);
-  camera=new THREE.PerspectiveCamera(45,container.clientWidth/container.clientHeight,0.1,1000);
+  while(container.firstChild && container.lastChild !== document.querySelector('.game-controls-hint') && container.lastChild !== document.querySelector('.mission-panel')) container.removeChild(container.firstChild);
+  
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0a0a2a);
+  scene.fog = new THREE.Fog(0x0a0a2a, 20, 40);
+  camera = new THREE.PerspectiveCamera(60, container.clientWidth/container.clientHeight, 0.1, 1000);
   camera.position.set(8,6,12);
-  renderer=new THREE.WebGLRenderer({antialias:true});
-  renderer.setSize(container.clientWidth,container.clientHeight);
-  renderer.shadowMap.enabled=true;
+  renderer = new THREE.WebGLRenderer({antialias:true});
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.shadowMap.enabled = true;
   container.appendChild(renderer.domElement);
-  const ambientLight=new THREE.AmbientLight(0x404060);
+  
+  const ambientLight = new THREE.AmbientLight(0x404060);
   scene.add(ambientLight);
-  const dirLight=new THREE.DirectionalLight(0xffffff,1);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1);
   dirLight.position.set(10,20,5);
-  dirLight.castShadow=true;
-  dirLight.receiveShadow=true;
-  dirLight.shadow.mapSize.width=1024;
-  dirLight.shadow.mapSize.height=1024;
+  dirLight.castShadow = true;
   scene.add(dirLight);
-  const fillLight=new THREE.PointLight(0x4466cc,0.3);
-  fillLight.position.set(0,-5,0);
+  const fillLight = new THREE.PointLight(0x4466cc, 0.5);
+  fillLight.position.set(0,5,0);
   scene.add(fillLight);
-  const rimLight=new THREE.PointLight(0xffaa66,0.4);
-  rimLight.position.set(-5,5,-8);
-  scene.add(rimLight);
-  const groundGeo=new THREE.CircleGeometry(25,32);
-  const groundMat=new THREE.MeshStandardMaterial({color:0x4caf50,roughness:0.8});
-  const ground=new THREE.Mesh(groundGeo,groundMat);
-  ground.rotation.x=-Math.PI/2;
-  ground.position.y=-0.5;
-  ground.receiveShadow=true;
+  
+  const groundGeo = new THREE.CircleGeometry(20,32);
+  const groundMat = new THREE.MeshStandardMaterial({ color: currentGame === 'car' ? 0x2c3e50 : 0x27ae60, roughness: 0.6 });
+  const ground = new THREE.Mesh(groundGeo, groundMat);
+  ground.rotation.x = -Math.PI/2;
+  ground.position.y = -0.5;
+  ground.receiveShadow = true;
   scene.add(ground);
-  const gridHelper=new THREE.GridHelper(50,20,0x88ff88,0x44aa44);
-  gridHelper.position.y=-0.4;
+  
+  const gridHelper = new THREE.GridHelper(40,20,0xffd200,0x88aaff);
+  gridHelper.position.y = -0.4;
   scene.add(gridHelper);
-  const playerGroup=new THREE.Group();
-  const bodyGeo=new THREE.CylinderGeometry(0.6,0.6,0.8,8);
-  const bodyMat=new THREE.MeshStandardMaterial({color:0x2ECC71,roughness:0.3});
-  const body=new THREE.Mesh(bodyGeo,bodyMat);
-  body.castShadow=true;
-  body.position.y=-0.2;
-  playerGroup.add(body);
-  const headGeo=new THREE.SphereGeometry(0.7,32,32);
-  const headMat=new THREE.MeshStandardMaterial({color:0xFFB347,roughness:0.2});
-  const head=new THREE.Mesh(headGeo,headMat);
-  head.castShadow=true;
-  head.position.y=0.5;
-  playerGroup.add(head);
-  const eyeWhiteGeo=new THREE.SphereGeometry(0.18,24,24);
-  const eyeWhiteMat=new THREE.MeshStandardMaterial({color:0xffffff});
-  const leftEye=new THREE.Mesh(eyeWhiteGeo,eyeWhiteMat);
-  leftEye.position.set(-0.25,0.75,0.68);
-  const rightEye=new THREE.Mesh(eyeWhiteGeo,eyeWhiteMat);
-  rightEye.position.set(0.25,0.75,0.68);
-  const eyePupilGeo=new THREE.SphereGeometry(0.1,24,24);
-  const eyePupilMat=new THREE.MeshStandardMaterial({color:0x1a1a2e});
-  const leftPupil=new THREE.Mesh(eyePupilGeo,eyePupilMat);
-  leftPupil.position.set(-0.25,0.73,0.85);
-  const rightPupil=new THREE.Mesh(eyePupilGeo,eyePupilMat);
-  rightPupil.position.set(0.25,0.73,0.85);
-  playerGroup.add(leftEye,rightEye,leftPupil,rightPupil);
-  const noseGeo=new THREE.ConeGeometry(0.12,0.2,8);
-  const noseMat=new THREE.MeshStandardMaterial({color:0xff8866});
-  const nose=new THREE.Mesh(noseGeo,noseMat);
-  nose.position.set(0,0.58,0.72);
-  playerGroup.add(nose);
-  const hatBaseGeo=new THREE.CylinderGeometry(0.55,0.65,0.1,8);
-  const hatMat=new THREE.MeshStandardMaterial({color:0xffd200});
-  const hatBase=new THREE.Mesh(hatBaseGeo,hatMat);
-  hatBase.position.set(0,1.05,0);
-  playerGroup.add(hatBase);
-  const hatTopGeo=new THREE.CylinderGeometry(0.4,0.5,0.08,8);
-  const hatTop=new THREE.Mesh(hatTopGeo,hatMat);
-  hatTop.position.set(0,1.12,0);
-  playerGroup.add(hatTop);
-  const hatBallGeo=new THREE.SphereGeometry(0.08,8,8);
-  const hatBallMat=new THREE.MeshStandardMaterial({color:0xff6600});
-  const hatBall=new THREE.Mesh(hatBallGeo,hatBallMat);
-  hatBall.position.set(0,1.18,0);
-  playerGroup.add(hatBall);
-  playerGroup.position.set(0,0,0);
-  playerGroup.castShadow=true;
-  scene.add(playerGroup);
-  player=playerGroup;
-  function addTree(x,z){
-    const treeGroup=new THREE.Group();
-    const trunkGeo=new THREE.CylinderGeometry(0.4,0.5,1.2,6);
-    const trunkMat=new THREE.MeshStandardMaterial({color:0x8B5A2B});
-    const trunk=new THREE.Mesh(trunkGeo,trunkMat);
-    trunk.castShadow=true;
-    trunk.position.y=0;
-    treeGroup.add(trunk);
-    const foliageGeo=new THREE.ConeGeometry(0.7,1.2,8);
-    const foliageMat=new THREE.MeshStandardMaterial({color:0x3c9e3c});
-    const foliage=new THREE.Mesh(foliageGeo,foliageMat);
-    foliage.castShadow=true;
-    foliage.position.y=0.9;
-    treeGroup.add(foliage);
-    const foliageTopGeo=new THREE.ConeGeometry(0.5,0.9,8);
-    const foliageTop=new THREE.Mesh(foliageTopGeo,foliageMat);
-    foliageTop.castShadow=true;
-    foliageTop.position.y=1.5;
-    treeGroup.add(foliageTop);
-    treeGroup.position.set(x,-0.5,z);
-    scene.add(treeGroup);
-    trees.push(treeGroup);
+  
+  const playerGroup = new THREE.Group();
+  let bodyGeo, bodyMat, body;
+  if(currentGame === 'car'){
+    bodyGeo = new THREE.BoxGeometry(0.8,0.4,1.5);
+    bodyMat = new THREE.MeshStandardMaterial({ color: 0xff6600 });
+    body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.castShadow = true;
+    playerGroup.add(body);
+    const roofGeo = new THREE.BoxGeometry(0.7,0.3,1.0);
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0x333333 });
+    const roof = new THREE.Mesh(roofGeo, roofMat);
+    roof.position.y = 0.35;
+    roof.castShadow = true;
+    playerGroup.add(roof);
+  } else {
+    bodyGeo = new THREE.CylinderGeometry(0.5,0.5,0.8,8);
+    bodyMat = new THREE.MeshStandardMaterial({ color: 0x2ECC71 });
+    body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.castShadow = true;
+    playerGroup.add(body);
+    const headGeo = new THREE.SphereGeometry(0.45,32,32);
+    const headMat = new THREE.MeshStandardMaterial({ color: 0xFFB347 });
+    const head = new THREE.Mesh(headGeo, headMat);
+    head.position.y = 0.65;
+    head.castShadow = true;
+    playerGroup.add(head);
   }
-  for(let i=0;i<24;i++){const angle=(i/24)*Math.PI*2;const radius=12;addTree(Math.cos(angle)*radius,Math.sin(angle)*radius);}
-  const rockMat=new THREE.MeshStandardMaterial({color:0x888888,roughness:0.9});
-  for(let i=0;i<40;i++){const rockGeo=new THREE.DodecahedronGeometry(0.15);const rock=new THREE.Mesh(rockGeo,rockMat);const angle=Math.random()*Math.PI*2;const radius=5+Math.random()*8;rock.position.set(Math.cos(angle)*radius,-0.45,Math.sin(angle)*radius);rock.scale.set(1,Math.random()*0.5+0.3,1);rock.castShadow=true;scene.add(rock);}
+  playerGroup.position.set(0,0,0);
+  playerGroup.castShadow = true;
+  scene.add(playerGroup);
+  player = playerGroup;
+  
+  for(let i=0;i<12;i++){const angle=(i/12)*Math.PI*2;const radius=14;const pillarGeo=new THREE.CylinderGeometry(0.3,0.4,1.5,6);const pillarMat=new THREE.MeshStandardMaterial({color:0x8B5A2B});const pillar=new THREE.Mesh(pillarGeo,pillarMat);pillar.position.set(Math.cos(angle)*radius,-0.2,Math.sin(angle)*radius);pillar.castShadow=true;scene.add(pillar);}
+  
+  spawnGameObjects();
+  
   window.addEventListener('keydown',(e)=>{if(keys.hasOwnProperty(e.key)) keys[e.key]=true;});
   window.addEventListener('keyup',(e)=>{if(keys.hasOwnProperty(e.key)) keys[e.key]=false;});
+  
   const canvas=renderer.domElement;
   canvas.addEventListener('mousedown',(e)=>{if(e.button===0){isDragging=true;mouseX=e.clientX;mouseY=e.clientY;canvas.style.cursor='grabbing';}});
   window.addEventListener('mouseup',()=>{isDragging=false;canvas.style.cursor='default';});
   window.addEventListener('mousemove',(e)=>{if(isDragging){const dx=e.clientX-mouseX;const dy=e.clientY-mouseY;cameraAngle.theta+=dx*0.01;cameraAngle.phi+=dy*0.01;cameraAngle.phi=Math.max(0.2,Math.min(1.2,cameraAngle.phi));mouseX=e.clientX;mouseY=e.clientY;}});
+  
   function animate(){
     requestAnimationFrame(animate);
+    if(!gameActive) return;
     let mx=0,mz=0;
     if(keys.w||keys.ArrowUp) mz-=1;
     if(keys.s||keys.ArrowDown) mz+=1;
     if(keys.a||keys.ArrowLeft) mx-=1;
     if(keys.d||keys.ArrowRight) mx+=1;
-    if(mx!==0||mz!==0){const len=Math.hypot(mx,mz);mx/=len;mz/=len;playerVelocity.x=mx*0.12;playerVelocity.z=mz*0.12;}
-    else{playerVelocity.x*=0.95;playerVelocity.z*=0.95;}
-    let nx=player.position.x+playerVelocity.x;
-    let nz=player.position.z+playerVelocity.z;
-    const bound=11;
-    nx=Math.max(-bound,Math.min(bound,nx));
-    nz=Math.max(-bound,Math.min(bound,nz));
-    player.position.x=nx;
-    player.position.z=nz;
-    const time=Date.now()*0.008;
-    if(playerVelocity.x===0&&playerVelocity.z===0) player.position.y=Math.sin(time)*0.02;
-    else player.position.y=Math.sin(time*15)*0.03;
+    if(mx!==0||mz!==0){const len=Math.hypot(mx,mz);mx/=len;mz/=len;}
+    let speed = currentGame === 'car' ? 0.18 : 0.22;
+    let newX = player.position.x + mx * speed;
+    let newZ = player.position.z + mz * speed;
+    const bound = 14;
+    newX = Math.max(-bound, Math.min(bound, newX));
+    newZ = Math.max(-bound, Math.min(bound, newZ));
+    player.position.x = newX;
+    player.position.z = newZ;
+    
     if(mx!==0||mz!==0){const angle=Math.atan2(mx,mz);player.rotation.y=angle;}
-    const radius=14;
-    const camX=Math.sin(cameraAngle.theta)*Math.cos(cameraAngle.phi)*radius;
-    const camY=Math.sin(cameraAngle.phi)*radius+2;
-    const camZ=Math.cos(cameraAngle.theta)*Math.cos(cameraAngle.phi)*radius;
-    camera.position.set(camX,camY,camZ);
+    
+    for(let i=0;i<gameObjects.length;i++){
+      const obj = gameObjects[i];
+      if(!obj.userData.collected){
+        const dist = player.position.distanceTo(obj.position);
+        if(dist < 1.2){
+          obj.userData.collected = true;
+          scene.remove(obj);
+          missionProgress = Math.min(missionRequirements[currentMission], missionProgress + 1);
+          updateMissionUI();
+          score += obj.userData.value;
+          for(let p=0;p<15;p++){setTimeout(()=>{let f=document.createElement('div');f.className='firework';f.style.left=Math.random()*innerWidth+'px';f.style.top=Math.random()*innerHeight+'px';f.style.background=`hsl(${Math.random()*360},100%,60%)`;document.body.appendChild(f);setTimeout(()=>f.remove(),500);},p*30);}
+          if(missionProgress >= missionRequirements[currentMission]){
+            document.getElementById('missionStatus').innerHTML = '🎉 MISSION COMPLETE! Press "Next Mission" button! 🎉';
+            setTimeout(()=>{if(document.getElementById('missionStatus').innerHTML.includes('COMPLETE')) document.getElementById('missionStatus').innerHTML = '⭐ Click Next Mission to advance! ⭐';},3000);
+          }
+        }
+      }
+    }
+    
+    const radius = 12;
+    const camX = Math.sin(cameraAngle.theta) * Math.cos(cameraAngle.phi) * radius;
+    const camY = Math.sin(cameraAngle.phi) * radius + 3;
+    const camZ = Math.cos(cameraAngle.theta) * Math.cos(cameraAngle.phi) * radius;
+    camera.position.set(camX + player.position.x, camY, camZ + player.position.z);
     camera.lookAt(player.position);
     renderer.render(scene,camera);
   }
   animate();
   window.addEventListener('resize',()=>{if(container.clientWidth>0){camera.aspect=container.clientWidth/container.clientHeight;camera.updateProjectionMatrix();renderer.setSize(container.clientWidth,container.clientHeight);}});
 }
-function destroy3DGame(){const container=document.getElementById('gameCanvasContainer');if(container){while(container.firstChild)container.removeChild(container.firstChild);}}
-window.openJuguJuguGame=function(){document.getElementById("gameModal").style.display="flex";setTimeout(()=>init3DGame(),100);};
+
+function destroy3DGame(){const container=document.getElementById('gameCanvasContainer');if(container){const hints=container.querySelector('.game-controls-hint');const panel=container.querySelector('.mission-panel');container.innerHTML='';if(hints) container.appendChild(hints);if(panel) container.appendChild(panel);}}
+function resetGame(){currentMission=1;missionProgress=0;updateMissionUI();resetGameObjects();}
+function switchGame(game){currentGame=game;destroy3DGame();setTimeout(()=>init3DGame(),50);document.querySelectorAll('.game-selector-btn').forEach(btn=>btn.classList.remove('active'));event.target.classList.add('active');const hint=document.getElementById('gameControlsHint');if(game==='car')hint.innerHTML='🚗 CAR MODE: WASD to drive | Collect red orbs for points! | Realistic steering!';else if(game==='runner')hint.innerHTML='🏃 RUNNER MODE: WASD to run | Collect green spheres! | Agile movement!';else hint.innerHTML='⭐ COLLECTOR MODE: WASD to move | Collect golden rings! | Challenge mode!';}
+window.openGameHub=function(){document.getElementById("gameModal").style.display="flex";setTimeout(()=>init3DGame(),100);updateMissionUI();};
 document.getElementById("closeGameModalBtn").onclick=function(){document.getElementById("gameModal").style.display="none";destroy3DGame();};
 window.onclick=function(e){if(e.target===document.getElementById("gameModal")){document.getElementById("gameModal").style.display="none";destroy3DGame();}};
 window.toggleGameFullscreen=function(){const m=document.getElementById('gameModal');if(!document.fullscreenElement)m.requestFullscreen();else document.exitFullscreen();};
+window.nextMission = nextMission;
+window.switchGame = switchGame;
 </script>
 
 <script type="text/javascript">
