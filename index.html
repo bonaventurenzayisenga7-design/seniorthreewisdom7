@@ -14,6 +14,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+<!-- Three.js for 3D Game -->
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+    }
+  }
+</script>
+
 <style>
 * {
   margin: 0;
@@ -327,13 +336,13 @@ h2 {
   cursor: pointer;
 }
 
-/* GAME MODAL STYLES */
+/* 3D GAME MODAL STYLES */
 .game-modal-content {
   max-width: 95vw;
-  width: 1100px;
-  min-height: 700px;
+  width: 1200px;
+  height: 85vh;
   padding: 0;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  background: #000;
   border-radius: 32px;
   overflow: hidden;
   display: flex;
@@ -347,325 +356,55 @@ h2 {
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(135deg, #0f0f23, #1a1a3e);
-  padding: 15px 25px;
+  padding: 12px 20px;
   border-bottom: 2px solid #ffd200;
+  z-index: 10;
 }
 
 .game-modal-header h3 {
   color: #ffd200;
   margin: 0;
-  font-size: 1.3rem;
-  text-shadow: 0 0 5px rgba(255,210,0,0.5);
+  font-size: 1.2rem;
+}
+
+.fullscreen-btn {
+  background: #00e5ff;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 10px;
 }
 
 #closeGameModalBtn {
   background: #ff4757;
   border: none;
-  padding: 6px 18px;
+  padding: 5px 15px;
   border-radius: 40px;
   color: white;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.2s;
 }
 
-#closeGameModalBtn:hover {
-  background: #ff6b81;
-  transform: scale(1.05);
+#gameCanvasContainer {
+  flex: 1;
+  position: relative;
+  background: #000;
 }
 
-.game-container {
-  padding: 20px;
-  background: linear-gradient(135deg, #0f3460, #1a1a2e);
-  min-height: 600px;
-}
-
-/* GAME UI */
-.game-ui {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 15px;
-  background: rgba(0,0,0,0.5);
-  border-radius: 20px;
-  backdrop-filter: blur(5px);
-}
-
-.mission-counter {
-  background: linear-gradient(135deg, #ffd200, #ff8c00);
-  padding: 8px 20px;
-  border-radius: 30px;
-  color: #1a1a2e;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.quote-box {
+.game-controls-hint {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
   background: rgba(0,0,0,0.7);
-  padding: 10px 20px;
-  border-radius: 30px;
-  border-left: 4px solid #ffd200;
-  font-style: italic;
+  padding: 8px 15px;
+  border-radius: 20px;
   color: #ffd200;
-}
-
-/* CHARACTER AREA */
-.character-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-  position: relative;
-}
-
-.damsen-character {
-  position: relative;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.damsen-character:hover {
-  transform: scale(1.05);
-}
-
-.big-head {
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(circle at 30% 30%, #FFB347, #FF8C00);
-  border-radius: 50%;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  border: 3px solid #ffd200;
-}
-
-.eyes {
-  position: absolute;
-  top: 55px;
-  left: 30px;
-  right: 30px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.eye {
-  width: 35px;
-  height: 35px;
-  background: white;
-  border-radius: 50%;
-  position: relative;
-}
-
-.eye::after {
-  content: "";
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: #1a1a2e;
-  border-radius: 50%;
-  top: 8px;
-  left: 8px;
-  transition: 0.1s;
-}
-
-.mouth {
-  position: absolute;
-  bottom: 45px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 30px;
-  background: #8B0000;
-  border-radius: 0 0 30px 30px;
-  transition: 0.2s;
-}
-
-.mouth.happy {
-  border-radius: 30px 30px 0 0;
-  background: #ff4444;
-}
-
-.mouth.eating {
-  animation: chew 0.3s infinite;
-}
-
-@keyframes chew {
-  0%, 100% { width: 60px; }
-  50% { width: 40px; }
-}
-
-.short-body {
-  width: 100px;
-  height: 80px;
-  background: #2ECC71;
-  border-radius: 20px 20px 10px 10px;
-  margin: -10px auto 0;
-  position: relative;
-  border: 2px solid #27AE60;
-}
-
-.arms {
-  position: absolute;
-  top: 30px;
-  left: -30px;
-  right: -30px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.arm {
-  width: 40px;
-  height: 15px;
-  background: #FFB347;
-  border-radius: 10px;
-  transition: 0.2s;
-}
-
-.arm.waving {
-  transform: rotate(30deg);
-}
-
-.legs {
-  position: absolute;
-  bottom: -20px;
-  left: 25px;
-  right: 25px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.leg {
-  width: 20px;
-  height: 25px;
-  background: #FFB347;
-  border-radius: 10px;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin: 30px 0;
-  flex-wrap: wrap;
-}
-
-.action-btn {
-  padding: 12px 28px;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 40px;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: linear-gradient(135deg, #00e5ff, #0099cc);
-  color: #0a0c12;
-}
-
-.action-btn:hover {
-  transform: translateY(-3px);
-  filter: brightness(1.1);
-}
-
-.action-btn.eat { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
-.action-btn.sleep { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
-.action-btn.dance { background: linear-gradient(135deg, #fdcb6e, #f39c12); }
-
-.mission-area {
-  background: rgba(0,0,0,0.5);
-  border-radius: 20px;
-  padding: 20px;
-  margin-top: 20px;
-}
-
-.mission-description {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.mission-progress {
-  height: 30px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 30px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #ffd200, #ff8c00);
-  width: 0%;
-  transition: width 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #1a1a2e;
-  font-weight: bold;
-}
-
-.next-mission-btn {
-  margin-top: 15px;
-  padding: 12px 30px;
-  background: linear-gradient(135deg, #00e5ff, #0099cc);
-  border: none;
-  border-radius: 40px;
-  color: #0a0c12;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-  display: none;
-}
-
-.speech-bubble {
-  position: absolute;
-  top: -80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  color: #1a1a2e;
-  padding: 12px 20px;
-  border-radius: 20px;
-  font-weight: bold;
-  white-space: nowrap;
-  animation: fadeInOut 2s ease;
-  z-index: 10;
-  font-size: 0.9rem;
-}
-
-.speech-bubble::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 10px 10px 0;
-  border-style: solid;
-  border-color: white transparent transparent;
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-  15% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  85% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
-
-.shake {
-  animation: shake 0.3s ease-in-out;
-}
-
-.hard-mode {
-  animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-  50% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+  font-size: 12px;
+  z-index: 20;
+  pointer-events: none;
+  font-family: monospace;
 }
 
 #chatWidget {
@@ -931,10 +670,8 @@ footer {
   nav { gap: 0.8rem; padding: 10px 16px; }
   nav a { font-size: 0.7rem; }
   h2 { font-size: 2rem; }
-  .game-modal-content { width: 95vw; min-height: 600px; }
-  .action-btn { padding: 8px 16px; font-size: 0.8rem; }
-  .big-head { width: 120px; height: 120px; }
-  .mouth { bottom: 30px; width: 40px; height: 20px; }
+  .game-modal-content { width: 95vw; height: 70vh; }
+  .game-controls-hint { font-size: 8px; bottom: 5px; left: 5px; }
 }
 </style>
 </head>
@@ -959,7 +696,7 @@ footer {
     <div class="btn btn-outline" id="heroLoginBtn"><i class="fas fa-user-graduate"></i> Student Portal</div>
     <div class="btn music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i> 🎵 Play Music</div>
     <div class="btn congrats-btn" onclick="showCongratulations()"><i class="fas fa-trophy"></i> 🎉 CONGRATULATIONS! 🎓</div>
-    <div class="btn game-btn" onclick="openJuguJuguGame()"><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE 🎮</div>
+    <div class="btn game-btn" onclick="openJuguJuguGame()"><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE 3D 🎮</div>
   </div>
 </div>
 
@@ -1081,53 +818,19 @@ footer {
   </div>
 </div>
 
-<!-- JUGU JUGU LIFE GAME MODAL - CUSTOM GAME -->
+<!-- 3D GAME MODAL -->
 <div id="gameModal" class="modal">
   <div class="modal-content game-modal-content">
     <div class="game-modal-header">
-      <h3><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE - DAMSEN'S ADVENTURE 🎮</h3>
-      <button id="closeGameModalBtn">✖ CLOSE</button>
+      <h3><i class="fas fa-cube"></i> 🎮 JUGU JUGU LIFE 3D - DAMSEN'S WORLD 🎮</h3>
+      <div>
+        <button class="fullscreen-btn" onclick="toggleGameFullscreen()"><i class="fas fa-expand"></i> Fullscreen</button>
+        <button id="closeGameModalBtn">✖ CLOSE</button>
+      </div>
     </div>
-    <div class="game-container" id="gameContainer">
-      <div class="game-ui">
-        <div class="mission-counter">📋 MISSION <span id="currentMission">1</span>/<span id="totalMissions">10</span></div>
-        <div class="quote-box" id="quoteBox">💬 "I'm Damsen Jugjugu Bro!"</div>
-      </div>
-
-      <div class="character-area">
-        <div class="damsen-character" id="damsenChar">
-          <div class="big-head" id="bigHead">
-            <div class="eyes">
-              <div class="eye"></div>
-              <div class="eye"></div>
-            </div>
-            <div class="mouth" id="mouth"></div>
-          </div>
-          <div class="short-body">
-            <div class="arms">
-              <div class="arm" id="leftArm"></div>
-              <div class="arm" id="rightArm"></div>
-            </div>
-            <div class="legs">
-              <div class="leg"></div>
-              <div class="leg"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="action-buttons">
-        <button class="action-btn eat" onclick="performAction('eat')">🍔 EAT</button>
-        <button class="action-btn sleep" onclick="performAction('sleep')">😴 SLEEP</button>
-        <button class="action-btn dance" onclick="performAction('dance')">💃 ENJOY/DANCE</button>
-      </div>
-
-      <div class="mission-area">
-        <div class="mission-description" id="missionDesc">🏆 Tap EAT, SLEEP, or DANCE to complete missions!</div>
-        <div class="mission-progress">
-          <div class="progress-fill" id="progressFill">0/10</div>
-        </div>
-        <button class="next-mission-btn" id="nextMissionBtn" onclick="nextMission()">✅ COMPLETE MISSION →</button>
+    <div id="gameCanvasContainer" style="flex:1; position:relative;">
+      <div class="game-controls-hint">
+        🎮 WASD or Arrow Keys to move Damsen | 🖱️ Click and drag to rotate camera
       </div>
     </div>
   </div>
@@ -1144,211 +847,361 @@ footer {
 
 <footer>
   <i class="fas fa-crown"></i> S3A Graduation 2026 — Wisdom High School<br>
-  <small>© 2026 All Rights Reserved | Database Powered by IndexedDB</small>
+  <small>© 2026 All Rights Reserved | 3D Game Powered by Three.js</small>
 </footer>
 
-<script>
-// ========== JUGU JUGU LIFE GAME SYSTEM ==========
-let currentMission = 1;
-let totalMissions = 10;
-let missionProgress = 0;
-let missionRequirements = {
-  1: 3,   // Easy: 3 actions
-  2: 5,
-  3: 7,
-  4: 10,
-  5: 12,
-  6: 15,
-  7: 18,
-  8: 20,
-  9: 25,
-  10: 30  // Final boss mission: hardest!
-};
-let currentActionCount = 0;
+<script type="module">
+// ========== 3D GAME - UNITY STYLE WITH THREE.JS ==========
+import * as THREE from 'three';
 
-// Character animation states
-let isAnimating = false;
+let scene, camera, renderer, player, terrain, trees = [];
+let keys = { w: false, s: false, a: false, d: false, ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
+let playerVelocity = { x: 0, z: 0 };
+let mouseX = 0, mouseY = 0;
+let cameraAngle = { theta: 0, phi: 0.5 };
+let isDragging = false;
 
-function updateUI() {
-  document.getElementById('currentMission').textContent = currentMission;
-  const required = missionRequirements[currentMission];
-  const progressPercent = (currentActionCount / required) * 100;
-  document.getElementById('progressFill').style.width = progressPercent + '%';
-  document.getElementById('progressFill').textContent = `${currentActionCount}/${required}`;
+function init3DGame() {
+  const container = document.getElementById('gameCanvasContainer');
+  if (!container) return;
   
-  const missionDesc = document.getElementById('missionDesc');
-  if (currentMission === 10) {
-    missionDesc.innerHTML = '🔥🔥 FINAL BOSS MISSION! Complete 30 actions to become the LEGEND! 🔥🔥';
-    missionDesc.style.color = '#ff4444';
-  } else {
-    missionDesc.innerHTML = `🏆 MISSION ${currentMission}/10: Complete ${required} actions (Eat, Sleep, or Dance) to progress!`;
-    missionDesc.style.color = '#ffd200';
+  // Clear any existing canvas
+  while(container.firstChild) container.removeChild(container.firstChild);
+  
+  // Scene setup
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x87CEEB);
+  scene.fog = new THREE.Fog(0x87CEEB, 30, 60);
+  
+  // Camera
+  camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.set(8, 6, 12);
+  camera.lookAt(0, 0, 0);
+  
+  // Renderer
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.shadowMap.enabled = true;
+  container.appendChild(renderer.domElement);
+  
+  // Lighting
+  // Ambient light
+  const ambientLight = new THREE.AmbientLight(0x404060);
+  scene.add(ambientLight);
+  
+  // Directional light (sun)
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+  dirLight.position.set(10, 20, 5);
+  dirLight.castShadow = true;
+  dirLight.receiveShadow = true;
+  dirLight.shadow.mapSize.width = 1024;
+  dirLight.shadow.mapSize.height = 1024;
+  scene.add(dirLight);
+  
+  // Fill light from below
+  const fillLight = new THREE.PointLight(0x4466cc, 0.3);
+  fillLight.position.set(0, -5, 0);
+  scene.add(fillLight);
+  
+  // Back rim light
+  const rimLight = new THREE.PointLight(0xffaa66, 0.4);
+  rimLight.position.set(-5, 5, -8);
+  scene.add(rimLight);
+  
+  // Ground with grass texture
+  const groundGeometry = new THREE.CircleGeometry(25, 32);
+  const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x4caf50, roughness: 0.8, metalness: 0.1 });
+  const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -0.5;
+  ground.receiveShadow = true;
+  scene.add(ground);
+  
+  // Grid helper for reference
+  const gridHelper = new THREE.GridHelper(50, 20, 0x88ff88, 0x44aa44);
+  gridHelper.position.y = -0.4;
+  scene.add(gridHelper);
+  
+  // Create DAMSEN character (big head, short body - 3D!)
+  const playerGroup = new THREE.Group();
+  
+  // Body (short, chubby)
+  const bodyGeo = new THREE.CylinderGeometry(0.6, 0.6, 0.8, 8);
+  const bodyMat = new THREE.MeshStandardMaterial({ color: 0x2ECC71, roughness: 0.3 });
+  const body = new THREE.Mesh(bodyGeo, bodyMat);
+  body.castShadow = true;
+  body.receiveShadow = true;
+  body.position.y = -0.2;
+  playerGroup.add(body);
+  
+  // Big head
+  const headGeo = new THREE.SphereGeometry(0.7, 32, 32);
+  const headMat = new THREE.MeshStandardMaterial({ color: 0xFFB347, roughness: 0.2 });
+  const head = new THREE.Mesh(headGeo, headMat);
+  head.castShadow = true;
+  head.position.y = 0.5;
+  playerGroup.add(head);
+  
+  // Eyes
+  const eyeWhiteGeo = new THREE.SphereGeometry(0.18, 24, 24);
+  const eyeWhiteMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const leftEye = new THREE.Mesh(eyeWhiteGeo, eyeWhiteMat);
+  leftEye.position.set(-0.25, 0.75, 0.68);
+  leftEye.castShadow = true;
+  const rightEye = new THREE.Mesh(eyeWhiteGeo, eyeWhiteMat);
+  rightEye.position.set(0.25, 0.75, 0.68);
+  rightEye.castShadow = true;
+  
+  const eyePupilGeo = new THREE.SphereGeometry(0.1, 24, 24);
+  const eyePupilMat = new THREE.MeshStandardMaterial({ color: 0x1a1a2e });
+  const leftPupil = new THREE.Mesh(eyePupilGeo, eyePupilMat);
+  leftPupil.position.set(-0.25, 0.73, 0.85);
+  const rightPupil = new THREE.Mesh(eyePupilGeo, eyePupilMat);
+  rightPupil.position.set(0.25, 0.73, 0.85);
+  
+  playerGroup.add(leftEye, rightEye, leftPupil, rightPupil);
+  
+  // Nose
+  const noseGeo = new THREE.ConeGeometry(0.12, 0.2, 8);
+  const noseMat = new THREE.MeshStandardMaterial({ color: 0xff8866 });
+  const nose = new THREE.Mesh(noseGeo, noseMat);
+  nose.position.set(0, 0.58, 0.72);
+  playerGroup.add(nose);
+  
+  // Hat (graduation cap style)
+  const hatBaseGeo = new THREE.CylinderGeometry(0.55, 0.65, 0.1, 8);
+  const hatMat = new THREE.MeshStandardMaterial({ color: 0xffd200 });
+  const hatBase = new THREE.Mesh(hatBaseGeo, hatMat);
+  hatBase.position.set(0, 1.05, 0);
+  playerGroup.add(hatBase);
+  
+  const hatTopGeo = new THREE.CylinderGeometry(0.4, 0.5, 0.08, 8);
+  const hatTop = new THREE.Mesh(hatTopGeo, hatMat);
+  hatTop.position.set(0, 1.12, 0);
+  playerGroup.add(hatTop);
+  
+  const hatBallGeo = new THREE.SphereGeometry(0.08, 8, 8);
+  const hatBallMat = new THREE.MeshStandardMaterial({ color: 0xff6600 });
+  const hatBall = new THREE.Mesh(hatBallGeo, hatBallMat);
+  hatBall.position.set(0, 1.18, 0);
+  playerGroup.add(hatBall);
+  
+  playerGroup.position.set(0, 0, 0);
+  playerGroup.castShadow = true;
+  playerGroup.receiveShadow = true;
+  scene.add(playerGroup);
+  player = playerGroup;
+  
+  // Add some trees
+  function addTree(x, z) {
+    const treeGroup = new THREE.Group();
+    const trunkGeo = new THREE.CylinderGeometry(0.4, 0.5, 1.2, 6);
+    const trunkMat = new THREE.MeshStandardMaterial({ color: 0x8B5A2B });
+    const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+    trunk.castShadow = true;
+    trunk.position.y = 0;
+    treeGroup.add(trunk);
+    
+    const foliageGeo = new THREE.ConeGeometry(0.7, 1.2, 8);
+    const foliageMat = new THREE.MeshStandardMaterial({ color: 0x3c9e3c });
+    const foliage = new THREE.Mesh(foliageGeo, foliageMat);
+    foliage.castShadow = true;
+    foliage.position.y = 0.9;
+    treeGroup.add(foliage);
+    
+    const foliageTopGeo = new THREE.ConeGeometry(0.5, 0.9, 8);
+    const foliageTop = new THREE.Mesh(foliageTopGeo, foliageMat);
+    foliageTop.castShadow = true;
+    foliageTop.position.y = 1.5;
+    treeGroup.add(foliageTop);
+    
+    treeGroup.position.set(x, -0.5, z);
+    scene.add(treeGroup);
+    trees.push(treeGroup);
   }
   
-  // Add hard mode visual for later missions
-  const gameContainer = document.getElementById('gameContainer');
-  if (currentMission >= 7) {
-    gameContainer.style.boxShadow = 'inset 0 0 30px rgba(255,0,0,0.3)';
-  } else {
-    gameContainer.style.boxShadow = 'none';
+  // Create a circle of trees
+  for(let i = 0; i < 24; i++) {
+    const angle = (i / 24) * Math.PI * 2;
+    const radius = 12;
+    const x = Math.cos(angle) * radius;
+    const z = Math.sin(angle) * radius;
+    addTree(x, z);
+  }
+  
+  // Add random rocks
+  const rockMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.9 });
+  for(let i = 0; i < 40; i++) {
+    const rockGeo = new THREE.DodecahedronGeometry(0.15);
+    const rock = new THREE.Mesh(rockGeo, rockMat);
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 5 + Math.random() * 8;
+    rock.position.set(Math.cos(angle) * radius, -0.45, Math.sin(angle) * radius);
+    rock.scale.set(1, Math.random() * 0.5 + 0.3, 1);
+    rock.castShadow = true;
+    scene.add(rock);
+  }
+  
+  // Add floating particles (atmosphere)
+  const particleCount = 200;
+  const particleGeo = new THREE.BufferGeometry();
+  const particlePositions = new Float32Array(particleCount * 3);
+  for(let i = 0; i < particleCount; i++) {
+    particlePositions[i*3] = (Math.random() - 0.5) * 30;
+    particlePositions[i*3+1] = Math.random() * 8;
+    particlePositions[i*3+2] = (Math.random() - 0.5) * 30;
+  }
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+  const particleMat = new THREE.PointsMaterial({ color: 0xffdd88, size: 0.05, transparent: true, opacity: 0.6 });
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+  
+  // Controls
+  window.addEventListener('keydown', (e) => {
+    if(keys.hasOwnProperty(e.key)) keys[e.key] = true;
+  });
+  window.addEventListener('keyup', (e) => {
+    if(keys.hasOwnProperty(e.key)) keys[e.key] = false;
+  });
+  
+  // Mouse controls for camera rotation
+  const canvas = renderer.domElement;
+  canvas.addEventListener('mousedown', (e) => {
+    if(e.button === 0) {
+      isDragging = true;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      canvas.style.cursor = 'grabbing';
+    }
+  });
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    canvas.style.cursor = 'default';
+  });
+  window.addEventListener('mousemove', (e) => {
+    if(isDragging) {
+      const deltaX = e.clientX - mouseX;
+      const deltaY = e.clientY - mouseY;
+      cameraAngle.theta += deltaX * 0.01;
+      cameraAngle.phi += deltaY * 0.01;
+      cameraAngle.phi = Math.max(0.2, Math.min(1.2, cameraAngle.phi));
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }
+  });
+  
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+    
+    // Player movement
+    let moveX = 0, moveZ = 0;
+    if(keys.w || keys.ArrowUp) moveZ -= 1;
+    if(keys.s || keys.ArrowDown) moveZ += 1;
+    if(keys.a || keys.ArrowLeft) moveX -= 1;
+    if(keys.d || keys.ArrowRight) moveX += 1;
+    
+    if(moveX !== 0 || moveZ !== 0) {
+      const len = Math.hypot(moveX, moveZ);
+      moveX /= len;
+      moveZ /= len;
+      playerVelocity.x = moveX * 0.12;
+      playerVelocity.z = moveZ * 0.12;
+    } else {
+      playerVelocity.x *= 0.95;
+      playerVelocity.z *= 0.95;
+    }
+    
+    let newX = player.position.x + playerVelocity.x;
+    let newZ = player.position.z + playerVelocity.z;
+    // Boundary
+    const bound = 11;
+    newX = Math.max(-bound, Math.min(bound, newX));
+    newZ = Math.max(-bound, Math.min(bound, newZ));
+    player.position.x = newX;
+    player.position.z = newZ;
+    
+    // Simple idle animation - head bobbing
+    const time = Date.now() * 0.008;
+    if(playerVelocity.x === 0 && playerVelocity.z === 0) {
+      player.position.y = Math.sin(time) * 0.02;
+    } else {
+      player.position.y = Math.sin(time * 15) * 0.03;
+    }
+    
+    // Rotate player to face movement direction
+    if(moveX !== 0 || moveZ !== 0) {
+      const angle = Math.atan2(moveX, moveZ);
+      player.rotation.y = angle;
+    }
+    
+    // Animate floating particles
+    particles.rotation.y += 0.002;
+    
+    // Update camera position based on mouse drag
+    const radius = 14;
+    const camX = Math.sin(cameraAngle.theta) * Math.cos(cameraAngle.phi) * radius;
+    const camY = Math.sin(cameraAngle.phi) * radius + 2;
+    const camZ = Math.cos(cameraAngle.theta) * Math.cos(cameraAngle.phi) * radius;
+    camera.position.set(camX, camY, camZ);
+    camera.lookAt(player.position);
+    
+    renderer.render(scene, camera);
+  }
+  
+  animate();
+  
+  // Handle resize
+  window.addEventListener('resize', () => {
+    if(container.clientWidth > 0) {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+  });
+}
+
+function destroy3DGame() {
+  const container = document.getElementById('gameCanvasContainer');
+  if(container) {
+    while(container.firstChild) container.removeChild(container.firstChild);
+  }
+  if(renderer) {
+    renderer.dispose();
   }
 }
 
-function showSpeechBubble(text) {
-  const charArea = document.querySelector('.character-area');
-  const existingBubble = document.querySelector('.speech-bubble');
-  if (existingBubble) existingBubble.remove();
-  
-  const bubble = document.createElement('div');
-  bubble.className = 'speech-bubble';
-  bubble.textContent = text;
-  charArea.appendChild(bubble);
-  
+window.openJuguJuguGame = function() {
+  const gameModal = document.getElementById("gameModal");
+  gameModal.style.display = "flex";
   setTimeout(() => {
-    if (bubble) bubble.remove();
-  }, 2000);
-}
+    init3DGame();
+  }, 100);
+};
 
-function animateMouth(type) {
-  const mouth = document.getElementById('mouth');
-  mouth.classList.remove('happy', 'eating');
-  if (type === 'eat') {
-    mouth.classList.add('eating');
-    setTimeout(() => mouth.classList.remove('eating'), 500);
-  } else if (type === 'dance') {
-    mouth.classList.add('happy');
-    setTimeout(() => mouth.classList.remove('happy'), 500);
+document.getElementById("closeGameModalBtn").onclick = function() {
+  document.getElementById("gameModal").style.display = "none";
+  destroy3DGame();
+};
+
+window.onclick = function(event) {
+  const gameModal = document.getElementById("gameModal");
+  if (event.target == gameModal) {
+    gameModal.style.display = "none";
+    destroy3DGame();
+  }
+};
+
+window.toggleGameFullscreen = function() {
+  const modal = document.getElementById('gameModal');
+  if(!document.fullscreenElement) {
+    modal.requestFullscreen().catch(e => console.log("Fullscreen mode available"));
   } else {
-    mouth.style.borderRadius = '30px 30px 0 0';
-    setTimeout(() => mouth.style.borderRadius = '0 0 30px 30px', 500);
+    document.exitFullscreen();
   }
-}
+};
 
-function animateArms(type) {
-  const leftArm = document.getElementById('leftArm');
-  const rightArm = document.getElementById('rightArm');
-  if (type === 'dance') {
-    leftArm.style.transform = 'rotate(-30deg)';
-    rightArm.style.transform = 'rotate(30deg)';
-    setTimeout(() => {
-      leftArm.style.transform = 'rotate(0deg)';
-      rightArm.style.transform = 'rotate(0deg)';
-    }, 500);
-  } else if (type === 'eat') {
-    leftArm.style.transform = 'rotate(-45deg)';
-    setTimeout(() => leftArm.style.transform = 'rotate(0deg)', 500);
-  }
-}
-
-function animateCharacter(type) {
-  const char = document.getElementById('damsenChar');
-  char.classList.add('shake');
-  setTimeout(() => char.classList.remove('shake'), 300);
-  animateMouth(type);
-  animateArms(type);
-}
-
-function performAction(action) {
-  if (currentMission > totalMissions) {
-    showSpeechBubble("🎉 I've already completed all missions! Reset to play again! 🎉");
-    return;
-  }
-  
-  const required = missionRequirements[currentMission];
-  if (currentActionCount >= required) {
-    showSpeechBubble("✅ Mission ready to complete! Click the button below!");
-    return;
-  }
-  
-  currentActionCount++;
-  animateCharacter(action);
-  
-  // Show different messages based on action
-  const messages = {
-    eat: ["🍔 Yummy! Delicious!", "🍕 Nom nom nom!", "🍜 So tasty!", "🥗 Healthy choice!"],
-    sleep: ["😴 Zzz... so peaceful!", "💤 Sweet dreams!", "🛌 Resting well!", "🌙 Night night!"],
-    dance: ["💃 Dancing all night!", "🕺 Groovy moves!", "🎵 Feel the rhythm!", "✨ Enjoying life!"]
-  };
-  
-  const randomMsg = messages[action][Math.floor(Math.random() * messages[action].length)];
-  showSpeechBubble(randomMsg);
-  
-  updateUI();
-  
-  // Auto-complete if reached requirement
-  if (currentActionCount >= required) {
-    completeMission();
-  }
-}
-
-function completeMission() {
-  const required = missionRequirements[currentMission];
-  if (currentActionCount >= required) {
-    // Show the catchphrase!
-    showSpeechBubble("🗣️ I'M DAMSEN JUGJUGU BRO! 🎉");
-    
-    // Fireworks effect
-    for(let i = 0; i < 20; i++) {
-      setTimeout(() => {
-        const firework = document.createElement("div");
-        firework.className = "firework";
-        firework.style.left = Math.random() * window.innerWidth + "px";
-        firework.style.top = Math.random() * window.innerHeight + "px";
-        firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        document.body.appendChild(firework);
-        setTimeout(() => firework.remove(), 1000);
-      }, i * 50);
-    }
-    
-    document.getElementById('nextMissionBtn').style.display = 'block';
-  }
-}
-
-function nextMission() {
-  if (currentMission === totalMissions) {
-    // Game complete!
-    showSpeechBubble("🏆🎉 I AM THE LEGEND! JUGU JUGU LIFE MASTER! 🎉🏆");
-    alert("🎉✨ CONGRATULATIONS! ✨🎉\n\nYou completed all 10 missions!\nDAMSEN JUGJUGU BRO is now a LEGEND!\n\n🏆 Thanks for playing JUGU JUGU LIFE! 🏆");
-    
-    // Ultimate celebration
-    for(let i = 0; i < 50; i++) {
-      setTimeout(() => {
-        const firework = document.createElement("div");
-        firework.className = "firework";
-        firework.style.left = Math.random() * window.innerWidth + "px";
-        firework.style.top = Math.random() * window.innerHeight + "px";
-        firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
-        document.body.appendChild(firework);
-        setTimeout(() => firework.remove(), 1000);
-      }, i * 60);
-    }
-    
-    // Reset game after celebration
-    setTimeout(() => {
-      if(confirm("Play again? Reset all missions?")) {
-        resetGame();
-      }
-    }, 2000);
-    return;
-  }
-  
-  // Move to next mission
-  currentMission++;
-  currentActionCount = 0;
-  document.getElementById('nextMissionBtn').style.display = 'none';
-  updateUI();
-  showSpeechBubble(`🚀 MISSION ${currentMission} STARTED! Let's go! 🚀`);
-}
-
-function resetGame() {
-  currentMission = 1;
-  currentActionCount = 0;
-  document.getElementById('nextMissionBtn').style.display = 'none';
-  updateUI();
-  showSpeechBubble("🔄 Game Reset! Time for a new adventure! 🔄");
-}
-
-// ========== INDEXEDDB DATABASE SETUP (shortened for brevity - same as before) ==========
+// ========== ORIGINAL SITE FUNCTIONS (unchanged) ==========
 let db;
 const DB_NAME = "S3AGraduationDB";
 const DB_VERSION = 1;
@@ -1515,21 +1368,6 @@ window.showCongratulations = function() {
 
 window.celebrateImage = function() { alert("🎉✨ BONAVENTURE! A precious moment captured forever! ✨🎉"); };
 
-window.openJuguJuguGame = function() {
-  const gameModal = document.getElementById("gameModal");
-  gameModal.style.display = "flex";
-  updateUI();
-};
-
-document.getElementById("closeGameModalBtn").onclick = function() {
-  document.getElementById("gameModal").style.display = "none";
-};
-
-window.onclick = function(event) {
-  const gameModal = document.getElementById("gameModal");
-  if (event.target == gameModal) gameModal.style.display = "none";
-};
-
 const scrollObserver = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); }); });
 document.querySelectorAll(".card, .student-card, .video-box, .gallery-item, .bona-card, .subscription-section, .message-board").forEach(el => { el.classList.add("hidden"); scrollObserver.observe(el); });
 
@@ -1599,7 +1437,6 @@ window.sendMessage = function() {
 window.addEventListener("load", () => {
   initializeDatabase();
   loadGuestbookMessages();
-  updateUI();
 });
 </script>
 </body>
