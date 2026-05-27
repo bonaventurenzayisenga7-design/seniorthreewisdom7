@@ -328,6 +328,55 @@ h2 {
   cursor: pointer;
 }
 
+/* Game Modal Special Style */
+.game-modal-content {
+  max-width: 90vw;
+  width: 1000px;
+  height: 80vh;
+  padding: 0;
+  background: #0a0c12;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #0a0c12;
+}
+
+.game-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0a111c;
+  padding: 12px 20px;
+  border-bottom: 1px solid #ffd200;
+}
+
+.game-modal-header h3 {
+  color: #ffd200;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+#closeGameModalBtn {
+  background: #ff4757;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 40px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#closeGameModalBtn:hover {
+  background: #ff6b81;
+}
+
 #chatWidget {
   position: fixed;
   bottom: 25px;
@@ -591,40 +640,7 @@ footer {
   nav { gap: 0.8rem; padding: 10px 16px; }
   nav a { font-size: 0.7rem; }
   h2 { font-size: 2rem; }
-}
-
-/* Game Modal Special Style */
-.game-modal-content {
-  max-width: 90vw;
-  width: 1000px;
-  height: 80vh;
-  padding: 0;
-  background: #000;
-  border-radius: 28px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.game-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: #0a0c12;
-}
-
-.game-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #0a111c;
-  padding: 12px 20px;
-  border-bottom: 1px solid #00e5ff;
-}
-
-.game-modal-header h3 {
-  color: #ffd200;
-  margin: 0;
+  .game-modal-content { width: 95vw; height: 70vh; }
 }
 </style>
 </head>
@@ -649,7 +665,7 @@ footer {
     <div class="btn btn-outline" id="heroLoginBtn"><i class="fas fa-user-graduate"></i> Student Portal</div>
     <div class="btn music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i> 🎵 Play Music</div>
     <div class="btn congrats-btn" onclick="showCongratulations()"><i class="fas fa-trophy"></i> 🎉 CONGRATULATIONS! 🎓</div>
-    <!-- ========== ADDED GAME BUTTON: Jugu Jugu Life ========== -->
+    <!-- GAME BUTTON - JUGU JUGU LIFE -->
     <div class="btn game-btn" onclick="openJuguJuguGame()"><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE 🎮</div>
   </div>
 </div>
@@ -661,7 +677,6 @@ footer {
 <section id="about">
   <h2>📖 The Journey</h2>
   
-  <!-- Card with wisdom.jpg image -->
   <div class="card">
     <div style="text-align: center; margin-bottom: 20px;">
       <img src="wisdom.jpg" alt="Wisdom High School" style="width: 100%; max-width: 500px; border-radius: 20px; border: 3px solid #00e5ff; box-shadow: 0 10px 25px rgba(0,229,255,0.3);">
@@ -700,7 +715,6 @@ footer {
   </div>
 </section>
 
-<!-- GUESTBOOK MESSAGE SECTION WITH DATABASE -->
 <section id="messages">
   <h2><i class="fas fa-comment-dots"></i> Graduation Guestbook</h2>
   <div class="message-board">
@@ -735,7 +749,6 @@ footer {
   </div>
 </section>
 
-<!-- SUBSCRIPTION SECTION -->
 <section id="subscribe">
   <div class="subscription-section">
     <i class="fas fa-envelope-open-text" style="font-size: 3rem; color: #00e5ff;"></i>
@@ -779,12 +792,12 @@ footer {
   </div>
 </div>
 
-<!-- GAME MODAL: Jugu Jugu Life (embedded game) -->
+<!-- GAME MODAL - JUGU JUGU LIFE -->
 <div id="gameModal" class="modal">
   <div class="modal-content game-modal-content">
     <div class="game-modal-header">
-      <h3><i class="fas fa-gamepad"></i> JUGU JUGU LIFE - PLAY NOW!</h3>
-      <button class="close-modal" id="closeGameModalBtn" style="background: red; padding: 5px 12px; border-radius: 40px; color:white;">✖ CLOSE</button>
+      <h3><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE - PLAY NOW! 🎮</h3>
+      <button id="closeGameModalBtn">✖ CLOSE</button>
     </div>
     <iframe id="gameIframe" class="game-iframe" src="https://www.onlinegames.io/games/2023/construct/jugu-jugu-life/index.html" allowfullscreen></iframe>
   </div>
@@ -810,97 +823,52 @@ let db;
 const DB_NAME = "S3AGraduationDB";
 const DB_VERSION = 1;
 
-// Open Database
 function openDatabase() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
-    
     request.onerror = () => reject(request.error);
-    request.onsuccess = () => {
-      db = request.result;
-      resolve(db);
-    };
-    
+    request.onsuccess = () => { db = request.result; resolve(db); };
     request.onupgradeneeded = (event) => {
       const database = event.target.result;
-      
-      // Students Store
       if (!database.objectStoreNames.contains("students")) {
-        const studentStore = database.createObjectStore("students", { keyPath: "id", autoIncrement: true });
-        studentStore.createIndex("name", "name", { unique: false });
+        database.createObjectStore("students", { keyPath: "id", autoIncrement: true });
       }
-      
-      // Users Store
       if (!database.objectStoreNames.contains("users")) {
-        const userStore = database.createObjectStore("users", { keyPath: "username" });
-        userStore.createIndex("email", "email", { unique: false });
+        database.createObjectStore("users", { keyPath: "username" });
       }
-      
-      // Messages Store (Guestbook)
       if (!database.objectStoreNames.contains("messages")) {
-        const messageStore = database.createObjectStore("messages", { keyPath: "id", autoIncrement: true });
-        messageStore.createIndex("date", "date", { unique: false });
+        database.createObjectStore("messages", { keyPath: "id", autoIncrement: true });
       }
-      
-      // Subscribers Store
       if (!database.objectStoreNames.contains("subscribers")) {
-        const subStore = database.createObjectStore("subscribers", { keyPath: "email" });
-        subStore.createIndex("date", "date", { unique: false });
+        database.createObjectStore("subscribers", { keyPath: "email" });
       }
-      
-      // RSVP Store
       if (!database.objectStoreNames.contains("rsvp")) {
         database.createObjectStore("rsvp", { keyPath: "id", autoIncrement: true });
       }
-      
-      console.log("✅ Database created/upgraded");
     };
   });
 }
 
-// ========== INITIALIZE DATABASE WITH STUDENTS ==========
 async function initializeDatabase() {
   await openDatabase();
-  
-  // Check if students already exist
   const transaction = db.transaction(["students"], "readonly");
   const store = transaction.objectStore("students");
   const countRequest = store.count();
-  
   countRequest.onsuccess = () => {
     if (countRequest.result === 0) {
-      // Add students
-      const studentsArray = [
-        "IRAFASHA Jean", "Kiara IRIZA Simone", "NZAYISENGA Bonaventure", "NYIRINKWAYA Kibamba Irene",
-        "IRAKOZE GAKURU Joseline", "NIWE Blessing", "UMWIZERWA Frank", "Belyse Umutoniwase",
-        "UMURERWA Clenia", "Furaha Sumaya", "AGASARO Keza Ornella", "MUHIMPUNDU Honneur",
-        "NDATSIKIRA MANZI Davin", "Ineza MUGISHA Kenny", "KABATESI BUTERA Kethia", "MUGABEKAZI Cynthia",
-        "NSANGA IRUMVA Alonzo"
-      ];
-      
+      const studentsArray = ["IRAFASHA Jean", "Kiara IRIZA Simone", "NZAYISENGA Bonaventure", "NYIRINKWAYA Kibamba Irene", "IRAKOZE GAKURU Joseline", "NIWE Blessing", "UMWIZERWA Frank", "Belyse Umutoniwase", "UMURERWA Clenia", "Furaha Sumaya", "AGASARO Keza Ornella", "MUHIMPUNDU Honneur", "NDATSIKIRA MANZI Davin", "Ineza MUGISHA Kenny", "KABATESI BUTERA Kethia", "MUGABEKAZI Cynthia", "NSANGA IRUMVA Alonzo"];
       const addTransaction = db.transaction(["students"], "readwrite");
       const addStore = addTransaction.objectStore("students");
-      
-      studentsArray.forEach(name => {
-        addStore.add({ name: name, addedDate: new Date().toISOString() });
-      });
-      
-      addTransaction.oncomplete = () => {
-        console.log("✅ Students added to database");
-        renderStudentsFromDB();
-      };
-    } else {
-      renderStudentsFromDB();
-    }
+      studentsArray.forEach(name => addStore.add({ name: name, addedDate: new Date().toISOString() }));
+      addTransaction.oncomplete = () => renderStudentsFromDB();
+    } else { renderStudentsFromDB(); }
   };
 }
 
-// Render Students from Database
 function renderStudentsFromDB() {
   const transaction = db.transaction(["students"], "readonly");
   const store = transaction.objectStore("students");
   const request = store.getAll();
-  
   request.onsuccess = () => {
     const grid = document.getElementById("studentsGrid");
     grid.innerHTML = "";
@@ -914,29 +882,22 @@ function renderStudentsFromDB() {
   };
 }
 
-// ========== GUESTBOOK MESSAGES (DATABASE) ==========
 async function loadGuestbookMessages() {
   if (!db) await openDatabase();
   const transaction = db.transaction(["messages"], "readonly");
   const store = transaction.objectStore("messages");
   const request = store.getAll();
-  
   request.onsuccess = () => {
     const messagesDiv = document.getElementById("guestbookMessages");
     messagesDiv.innerHTML = "";
     const messages = request.result.reverse();
-    
     if (messages.length === 0) {
       messagesDiv.innerHTML = '<div class="message-item"><div class="message-name">🎓 S3A Family</div><div class="message-text">Welcome to the guestbook! Leave your congratulations!</div><div class="message-date">First to leave a message!</div></div>';
     } else {
       messages.forEach(msg => {
         const div = document.createElement("div");
         div.className = "message-item";
-        div.innerHTML = `
-          <div class="message-name"><i class="fas fa-user"></i> ${escapeHtml(msg.name)}</div>
-          <div class="message-text">${escapeHtml(msg.message)}</div>
-          <div class="message-date"><i class="far fa-clock"></i> ${new Date(msg.date).toLocaleString()}</div>
-        `;
+        div.innerHTML = `<div class="message-name"><i class="fas fa-user"></i> ${escapeHtml(msg.name)}</div><div class="message-text">${escapeHtml(msg.message)}</div><div class="message-date"><i class="far fa-clock"></i> ${new Date(msg.date).toLocaleString()}</div>`;
         messagesDiv.appendChild(div);
       });
     }
@@ -946,21 +907,22 @@ async function loadGuestbookMessages() {
 function addGuestbookMessage() {
   const name = document.getElementById("msgName").value.trim();
   const message = document.getElementById("msgText").value.trim();
-  
-  if (!name || !message) {
-    alert("❌ Please enter both name and message!");
-    return;
-  }
-  
+  if (!name || !message) { alert("❌ Please enter both name and message!"); return; }
   const transaction = db.transaction(["messages"], "readwrite");
   const store = transaction.objectStore("messages");
-  store.add({
-    name: name,
-    message: message,
-    date: new Date().toISOString()
-  });
-  
-  transaction.oncomplete = () => {
-    alert("✅ Message posted to guestbook!");
-    document.getElementById("msgName").value = "";
-    document.getElementById("msgText").value =
+  store.add({ name: name, message: message, date: new Date().toISOString() });
+  transaction.oncomplete = () => { alert("✅ Message posted!"); document.getElementById("msgName").value = ""; document.getElementById("msgText").value = ""; loadGuestbookMessages(); };
+}
+
+async function registerUser() {
+  const fullname = document.getElementById("regFullname").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+  const username = document.getElementById("regUsername").value.trim();
+  const password = document.getElementById("regPassword").value.trim();
+  if (!fullname || !email || !username || !password) { alert("❌ Please fill all fields!"); return; }
+  const transaction = db.transaction(["users"], "readwrite");
+  const store = transaction.objectStore("users");
+  const checkRequest = store.get(username);
+  checkRequest.onsuccess = () => {
+    if (checkRequest.result) { alert("❌ Username exists!"); return; }
+    store.add({
