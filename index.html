@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<!-- LOGO FAVICON - school1.jpg appears as browser tab icon -->
+<!-- LOGO FAVICON -->
 <link rel="icon" type="image/jpeg" href="school1.jpg">
 <link rel="shortcut icon" href="school1.jpg">
 
@@ -30,7 +30,6 @@ body {
   overflow-x: hidden;
 }
 
-/* BACKGROUND IMAGE */
 body::before {
   content: "";
   position: fixed;
@@ -287,7 +286,7 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(10px);
   z-index: 2000;
   justify-content: center;
@@ -328,53 +327,345 @@ h2 {
   cursor: pointer;
 }
 
-/* Game Modal Special Style */
+/* GAME MODAL STYLES */
 .game-modal-content {
-  max-width: 90vw;
-  width: 1000px;
-  height: 80vh;
+  max-width: 95vw;
+  width: 1100px;
+  min-height: 700px;
   padding: 0;
-  background: #0a0c12;
-  border-radius: 28px;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-radius: 32px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-.game-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: #0a0c12;
+  border: 2px solid #ffd200;
+  box-shadow: 0 0 50px rgba(255, 210, 0, 0.3);
 }
 
 .game-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0a111c;
-  padding: 12px 20px;
-  border-bottom: 1px solid #ffd200;
+  background: linear-gradient(135deg, #0f0f23, #1a1a3e);
+  padding: 15px 25px;
+  border-bottom: 2px solid #ffd200;
 }
 
 .game-modal-header h3 {
   color: #ffd200;
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  text-shadow: 0 0 5px rgba(255,210,0,0.5);
 }
 
 #closeGameModalBtn {
   background: #ff4757;
   border: none;
-  padding: 5px 15px;
+  padding: 6px 18px;
   border-radius: 40px;
   color: white;
   cursor: pointer;
   font-weight: bold;
+  transition: 0.2s;
 }
 
 #closeGameModalBtn:hover {
   background: #ff6b81;
+  transform: scale(1.05);
+}
+
+.game-container {
+  padding: 20px;
+  background: linear-gradient(135deg, #0f3460, #1a1a2e);
+  min-height: 600px;
+}
+
+/* GAME UI */
+.game-ui {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.mission-counter {
+  background: linear-gradient(135deg, #ffd200, #ff8c00);
+  padding: 8px 20px;
+  border-radius: 30px;
+  color: #1a1a2e;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.quote-box {
+  background: rgba(0,0,0,0.7);
+  padding: 10px 20px;
+  border-radius: 30px;
+  border-left: 4px solid #ffd200;
+  font-style: italic;
+  color: #ffd200;
+}
+
+/* CHARACTER AREA */
+.character-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.damsen-character {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.damsen-character:hover {
+  transform: scale(1.05);
+}
+
+.big-head {
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle at 30% 30%, #FFB347, #FF8C00);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 3px solid #ffd200;
+}
+
+.eyes {
+  position: absolute;
+  top: 55px;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.eye {
+  width: 35px;
+  height: 35px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+}
+
+.eye::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #1a1a2e;
+  border-radius: 50%;
+  top: 8px;
+  left: 8px;
+  transition: 0.1s;
+}
+
+.mouth {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 30px;
+  background: #8B0000;
+  border-radius: 0 0 30px 30px;
+  transition: 0.2s;
+}
+
+.mouth.happy {
+  border-radius: 30px 30px 0 0;
+  background: #ff4444;
+}
+
+.mouth.eating {
+  animation: chew 0.3s infinite;
+}
+
+@keyframes chew {
+  0%, 100% { width: 60px; }
+  50% { width: 40px; }
+}
+
+.short-body {
+  width: 100px;
+  height: 80px;
+  background: #2ECC71;
+  border-radius: 20px 20px 10px 10px;
+  margin: -10px auto 0;
+  position: relative;
+  border: 2px solid #27AE60;
+}
+
+.arms {
+  position: absolute;
+  top: 30px;
+  left: -30px;
+  right: -30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.arm {
+  width: 40px;
+  height: 15px;
+  background: #FFB347;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.arm.waving {
+  transform: rotate(30deg);
+}
+
+.legs {
+  position: absolute;
+  bottom: -20px;
+  left: 25px;
+  right: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leg {
+  width: 20px;
+  height: 25px;
+  background: #FFB347;
+  border-radius: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: linear-gradient(135deg, #00e5ff, #0099cc);
+  color: #0a0c12;
+}
+
+.action-btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+}
+
+.action-btn.eat { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+.action-btn.sleep { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+.action-btn.dance { background: linear-gradient(135deg, #fdcb6e, #f39c12); }
+
+.mission-area {
+  background: rgba(0,0,0,0.5);
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.mission-description {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.mission-progress {
+  height: 30px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd200, #ff8c00);
+  width: 0%;
+  transition: width 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a2e;
+  font-weight: bold;
+}
+
+.next-mission-btn {
+  margin-top: 15px;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #00e5ff, #0099cc);
+  border: none;
+  border-radius: 40px;
+  color: #0a0c12;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  display: none;
+}
+
+.speech-bubble {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: #1a1a2e;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+  animation: fadeInOut 2s ease;
+  z-index: 10;
+  font-size: 0.9rem;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: white transparent transparent;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+.hard-mode {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+  50% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
 }
 
 #chatWidget {
@@ -640,7 +931,10 @@ footer {
   nav { gap: 0.8rem; padding: 10px 16px; }
   nav a { font-size: 0.7rem; }
   h2 { font-size: 2rem; }
-  .game-modal-content { width: 95vw; height: 70vh; }
+  .game-modal-content { width: 95vw; min-height: 600px; }
+  .action-btn { padding: 8px 16px; font-size: 0.8rem; }
+  .big-head { width: 120px; height: 120px; }
+  .mouth { bottom: 30px; width: 40px; height: 20px; }
 }
 </style>
 </head>
@@ -665,7 +959,6 @@ footer {
     <div class="btn btn-outline" id="heroLoginBtn"><i class="fas fa-user-graduate"></i> Student Portal</div>
     <div class="btn music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i> 🎵 Play Music</div>
     <div class="btn congrats-btn" onclick="showCongratulations()"><i class="fas fa-trophy"></i> 🎉 CONGRATULATIONS! 🎓</div>
-    <!-- GAME BUTTON - JUGU JUGU LIFE -->
     <div class="btn game-btn" onclick="openJuguJuguGame()"><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE 🎮</div>
   </div>
 </div>
@@ -676,7 +969,6 @@ footer {
 
 <section id="about">
   <h2>📖 The Journey</h2>
-  
   <div class="card">
     <div style="text-align: center; margin-bottom: 20px;">
       <img src="wisdom.jpg" alt="Wisdom High School" style="width: 100%; max-width: 500px; border-radius: 20px; border: 3px solid #00e5ff; box-shadow: 0 10px 25px rgba(0,229,255,0.3);">
@@ -684,9 +976,7 @@ footer {
     <i class="fas fa-chalkboard-user" style="font-size:2rem; color:#00e5ff; margin-bottom:12px; display:inline-block;"></i>
     <p style="font-size:1.1rem;">We are the S3A class of Wisdom High School — a family of dreamers, leaders, and innovators. After years of determination, we celebrate our graduation in 2026. This website represents our legacy, our memories, and the bright future ahead. ✨</p>
   </div>
-  
   <div class="countdown" id="countdown"></div>
-  
   <div class="card" style="text-align:center;">
     <i class="fas fa-calendar-alt"></i>  December 1, 2026  |  Wisdom High Auditorium
   </div>
@@ -778,7 +1068,6 @@ footer {
   </div>
 </div>
 
-<!-- REGISTER MODAL -->
 <div id="registerModal" class="modal">
   <div class="modal-content">
     <i class="fas fa-user-plus" style="font-size: 48px; color:#00e5ff;"></i>
@@ -792,14 +1081,55 @@ footer {
   </div>
 </div>
 
-<!-- GAME MODAL - JUGU JUGU LIFE -->
+<!-- JUGU JUGU LIFE GAME MODAL - CUSTOM GAME -->
 <div id="gameModal" class="modal">
   <div class="modal-content game-modal-content">
     <div class="game-modal-header">
-      <h3><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE - PLAY NOW! 🎮</h3>
+      <h3><i class="fas fa-gamepad"></i> 🎮 JUGU JUGU LIFE - DAMSEN'S ADVENTURE 🎮</h3>
       <button id="closeGameModalBtn">✖ CLOSE</button>
     </div>
-    <iframe id="gameIframe" class="game-iframe" src="https://www.onlinegames.io/games/2023/construct/jugu-jugu-life/index.html" allowfullscreen></iframe>
+    <div class="game-container" id="gameContainer">
+      <div class="game-ui">
+        <div class="mission-counter">📋 MISSION <span id="currentMission">1</span>/<span id="totalMissions">10</span></div>
+        <div class="quote-box" id="quoteBox">💬 "I'm Damsen Jugjugu Bro!"</div>
+      </div>
+
+      <div class="character-area">
+        <div class="damsen-character" id="damsenChar">
+          <div class="big-head" id="bigHead">
+            <div class="eyes">
+              <div class="eye"></div>
+              <div class="eye"></div>
+            </div>
+            <div class="mouth" id="mouth"></div>
+          </div>
+          <div class="short-body">
+            <div class="arms">
+              <div class="arm" id="leftArm"></div>
+              <div class="arm" id="rightArm"></div>
+            </div>
+            <div class="legs">
+              <div class="leg"></div>
+              <div class="leg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="action-btn eat" onclick="performAction('eat')">🍔 EAT</button>
+        <button class="action-btn sleep" onclick="performAction('sleep')">😴 SLEEP</button>
+        <button class="action-btn dance" onclick="performAction('dance')">💃 ENJOY/DANCE</button>
+      </div>
+
+      <div class="mission-area">
+        <div class="mission-description" id="missionDesc">🏆 Tap EAT, SLEEP, or DANCE to complete missions!</div>
+        <div class="mission-progress">
+          <div class="progress-fill" id="progressFill">0/10</div>
+        </div>
+        <button class="next-mission-btn" id="nextMissionBtn" onclick="nextMission()">✅ COMPLETE MISSION →</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -818,7 +1148,207 @@ footer {
 </footer>
 
 <script>
-// ========== INDEXEDDB DATABASE SETUP ==========
+// ========== JUGU JUGU LIFE GAME SYSTEM ==========
+let currentMission = 1;
+let totalMissions = 10;
+let missionProgress = 0;
+let missionRequirements = {
+  1: 3,   // Easy: 3 actions
+  2: 5,
+  3: 7,
+  4: 10,
+  5: 12,
+  6: 15,
+  7: 18,
+  8: 20,
+  9: 25,
+  10: 30  // Final boss mission: hardest!
+};
+let currentActionCount = 0;
+
+// Character animation states
+let isAnimating = false;
+
+function updateUI() {
+  document.getElementById('currentMission').textContent = currentMission;
+  const required = missionRequirements[currentMission];
+  const progressPercent = (currentActionCount / required) * 100;
+  document.getElementById('progressFill').style.width = progressPercent + '%';
+  document.getElementById('progressFill').textContent = `${currentActionCount}/${required}`;
+  
+  const missionDesc = document.getElementById('missionDesc');
+  if (currentMission === 10) {
+    missionDesc.innerHTML = '🔥🔥 FINAL BOSS MISSION! Complete 30 actions to become the LEGEND! 🔥🔥';
+    missionDesc.style.color = '#ff4444';
+  } else {
+    missionDesc.innerHTML = `🏆 MISSION ${currentMission}/10: Complete ${required} actions (Eat, Sleep, or Dance) to progress!`;
+    missionDesc.style.color = '#ffd200';
+  }
+  
+  // Add hard mode visual for later missions
+  const gameContainer = document.getElementById('gameContainer');
+  if (currentMission >= 7) {
+    gameContainer.style.boxShadow = 'inset 0 0 30px rgba(255,0,0,0.3)';
+  } else {
+    gameContainer.style.boxShadow = 'none';
+  }
+}
+
+function showSpeechBubble(text) {
+  const charArea = document.querySelector('.character-area');
+  const existingBubble = document.querySelector('.speech-bubble');
+  if (existingBubble) existingBubble.remove();
+  
+  const bubble = document.createElement('div');
+  bubble.className = 'speech-bubble';
+  bubble.textContent = text;
+  charArea.appendChild(bubble);
+  
+  setTimeout(() => {
+    if (bubble) bubble.remove();
+  }, 2000);
+}
+
+function animateMouth(type) {
+  const mouth = document.getElementById('mouth');
+  mouth.classList.remove('happy', 'eating');
+  if (type === 'eat') {
+    mouth.classList.add('eating');
+    setTimeout(() => mouth.classList.remove('eating'), 500);
+  } else if (type === 'dance') {
+    mouth.classList.add('happy');
+    setTimeout(() => mouth.classList.remove('happy'), 500);
+  } else {
+    mouth.style.borderRadius = '30px 30px 0 0';
+    setTimeout(() => mouth.style.borderRadius = '0 0 30px 30px', 500);
+  }
+}
+
+function animateArms(type) {
+  const leftArm = document.getElementById('leftArm');
+  const rightArm = document.getElementById('rightArm');
+  if (type === 'dance') {
+    leftArm.style.transform = 'rotate(-30deg)';
+    rightArm.style.transform = 'rotate(30deg)';
+    setTimeout(() => {
+      leftArm.style.transform = 'rotate(0deg)';
+      rightArm.style.transform = 'rotate(0deg)';
+    }, 500);
+  } else if (type === 'eat') {
+    leftArm.style.transform = 'rotate(-45deg)';
+    setTimeout(() => leftArm.style.transform = 'rotate(0deg)', 500);
+  }
+}
+
+function animateCharacter(type) {
+  const char = document.getElementById('damsenChar');
+  char.classList.add('shake');
+  setTimeout(() => char.classList.remove('shake'), 300);
+  animateMouth(type);
+  animateArms(type);
+}
+
+function performAction(action) {
+  if (currentMission > totalMissions) {
+    showSpeechBubble("🎉 I've already completed all missions! Reset to play again! 🎉");
+    return;
+  }
+  
+  const required = missionRequirements[currentMission];
+  if (currentActionCount >= required) {
+    showSpeechBubble("✅ Mission ready to complete! Click the button below!");
+    return;
+  }
+  
+  currentActionCount++;
+  animateCharacter(action);
+  
+  // Show different messages based on action
+  const messages = {
+    eat: ["🍔 Yummy! Delicious!", "🍕 Nom nom nom!", "🍜 So tasty!", "🥗 Healthy choice!"],
+    sleep: ["😴 Zzz... so peaceful!", "💤 Sweet dreams!", "🛌 Resting well!", "🌙 Night night!"],
+    dance: ["💃 Dancing all night!", "🕺 Groovy moves!", "🎵 Feel the rhythm!", "✨ Enjoying life!"]
+  };
+  
+  const randomMsg = messages[action][Math.floor(Math.random() * messages[action].length)];
+  showSpeechBubble(randomMsg);
+  
+  updateUI();
+  
+  // Auto-complete if reached requirement
+  if (currentActionCount >= required) {
+    completeMission();
+  }
+}
+
+function completeMission() {
+  const required = missionRequirements[currentMission];
+  if (currentActionCount >= required) {
+    // Show the catchphrase!
+    showSpeechBubble("🗣️ I'M DAMSEN JUGJUGU BRO! 🎉");
+    
+    // Fireworks effect
+    for(let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        const firework = document.createElement("div");
+        firework.className = "firework";
+        firework.style.left = Math.random() * window.innerWidth + "px";
+        firework.style.top = Math.random() * window.innerHeight + "px";
+        firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+      }, i * 50);
+    }
+    
+    document.getElementById('nextMissionBtn').style.display = 'block';
+  }
+}
+
+function nextMission() {
+  if (currentMission === totalMissions) {
+    // Game complete!
+    showSpeechBubble("🏆🎉 I AM THE LEGEND! JUGU JUGU LIFE MASTER! 🎉🏆");
+    alert("🎉✨ CONGRATULATIONS! ✨🎉\n\nYou completed all 10 missions!\nDAMSEN JUGJUGU BRO is now a LEGEND!\n\n🏆 Thanks for playing JUGU JUGU LIFE! 🏆");
+    
+    // Ultimate celebration
+    for(let i = 0; i < 50; i++) {
+      setTimeout(() => {
+        const firework = document.createElement("div");
+        firework.className = "firework";
+        firework.style.left = Math.random() * window.innerWidth + "px";
+        firework.style.top = Math.random() * window.innerHeight + "px";
+        firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+      }, i * 60);
+    }
+    
+    // Reset game after celebration
+    setTimeout(() => {
+      if(confirm("Play again? Reset all missions?")) {
+        resetGame();
+      }
+    }, 2000);
+    return;
+  }
+  
+  // Move to next mission
+  currentMission++;
+  currentActionCount = 0;
+  document.getElementById('nextMissionBtn').style.display = 'none';
+  updateUI();
+  showSpeechBubble(`🚀 MISSION ${currentMission} STARTED! Let's go! 🚀`);
+}
+
+function resetGame() {
+  currentMission = 1;
+  currentActionCount = 0;
+  document.getElementById('nextMissionBtn').style.display = 'none';
+  updateUI();
+  showSpeechBubble("🔄 Game Reset! Time for a new adventure! 🔄");
+}
+
+// ========== INDEXEDDB DATABASE SETUP (shortened for brevity - same as before) ==========
 let db;
 const DB_NAME = "S3AGraduationDB";
 const DB_VERSION = 1;
@@ -830,21 +1360,10 @@ function openDatabase() {
     request.onsuccess = () => { db = request.result; resolve(db); };
     request.onupgradeneeded = (event) => {
       const database = event.target.result;
-      if (!database.objectStoreNames.contains("students")) {
-        database.createObjectStore("students", { keyPath: "id", autoIncrement: true });
-      }
-      if (!database.objectStoreNames.contains("users")) {
-        database.createObjectStore("users", { keyPath: "username" });
-      }
-      if (!database.objectStoreNames.contains("messages")) {
-        database.createObjectStore("messages", { keyPath: "id", autoIncrement: true });
-      }
-      if (!database.objectStoreNames.contains("subscribers")) {
-        database.createObjectStore("subscribers", { keyPath: "email" });
-      }
-      if (!database.objectStoreNames.contains("rsvp")) {
-        database.createObjectStore("rsvp", { keyPath: "id", autoIncrement: true });
-      }
+      if (!database.objectStoreNames.contains("students")) database.createObjectStore("students", { keyPath: "id", autoIncrement: true });
+      if (!database.objectStoreNames.contains("users")) database.createObjectStore("users", { keyPath: "username" });
+      if (!database.objectStoreNames.contains("messages")) database.createObjectStore("messages", { keyPath: "id", autoIncrement: true });
+      if (!database.objectStoreNames.contains("subscribers")) database.createObjectStore("subscribers", { keyPath: "email" });
     };
   });
 }
@@ -860,8 +1379,8 @@ async function initializeDatabase() {
       const addTransaction = db.transaction(["students"], "readwrite");
       const addStore = addTransaction.objectStore("students");
       studentsArray.forEach(name => addStore.add({ name: name, addedDate: new Date().toISOString() }));
-      addTransaction.oncomplete = () => renderStudentsFromDB();
-    } else { renderStudentsFromDB(); }
+    }
+    renderStudentsFromDB();
   };
 }
 
@@ -892,12 +1411,12 @@ async function loadGuestbookMessages() {
     messagesDiv.innerHTML = "";
     const messages = request.result.reverse();
     if (messages.length === 0) {
-      messagesDiv.innerHTML = '<div class="message-item"><div class="message-name">🎓 S3A Family</div><div class="message-text">Welcome to the guestbook! Leave your congratulations!</div><div class="message-date">First to leave a message!</div></div>';
+      messagesDiv.innerHTML = '<div class="message-item"><div class="message-name">🎓 S3A Family</div><div class="message-text">Welcome to the guestbook! Leave your congratulations!</div></div>';
     } else {
       messages.forEach(msg => {
         const div = document.createElement("div");
         div.className = "message-item";
-        div.innerHTML = `<div class="message-name"><i class="fas fa-user"></i> ${escapeHtml(msg.name)}</div><div class="message-text">${escapeHtml(msg.message)}</div><div class="message-date"><i class="far fa-clock"></i> ${new Date(msg.date).toLocaleString()}</div>`;
+        div.innerHTML = `<div class="message-name"><i class="fas fa-user"></i> ${escapeHtml(msg.name)}</div><div class="message-text">${escapeHtml(msg.message)}</div><div class="message-date">${new Date(msg.date).toLocaleString()}</div>`;
         messagesDiv.appendChild(div);
       });
     }
@@ -996,23 +1515,19 @@ window.showCongratulations = function() {
 
 window.celebrateImage = function() { alert("🎉✨ BONAVENTURE! A precious moment captured forever! ✨🎉"); };
 
-// GAME FUNCTION - JUGU JUGU LIFE
 window.openJuguJuguGame = function() {
   const gameModal = document.getElementById("gameModal");
   gameModal.style.display = "flex";
+  updateUI();
 };
 
-// Close game modal
 document.getElementById("closeGameModalBtn").onclick = function() {
   document.getElementById("gameModal").style.display = "none";
 };
 
-// Click outside to close game modal
 window.onclick = function(event) {
   const gameModal = document.getElementById("gameModal");
-  if (event.target == gameModal) {
-    gameModal.style.display = "none";
-  }
+  if (event.target == gameModal) gameModal.style.display = "none";
 };
 
 const scrollObserver = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); }); });
@@ -1084,6 +1599,7 @@ window.sendMessage = function() {
 window.addEventListener("load", () => {
   initializeDatabase();
   loadGuestbookMessages();
+  updateUI();
 });
 </script>
 </body>
